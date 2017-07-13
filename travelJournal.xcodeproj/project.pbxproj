@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7AFF61F16A60C007351EE /* AppDelegate.swift */; };
-		7CD7AFF91F16A60C007351EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7AFF81F16A60C007351EE /* ViewController.swift */; };
 		7CD7AFFC1F16A60C007351EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFA1F16A60C007351EE /* Main.storyboard */; };
 		7CD7AFFE1F16A60C007351EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFD1F16A60C007351EE /* Assets.xcassets */; };
 		7CD7B0011F16A60C007351EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFF1F16A60C007351EE /* LaunchScreen.storyboard */; };
+		7CD7B00E1F18181E007351EE /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7B00D1F18181E007351EE /* Entry.swift */; };
 		D7203C351F1802FE00DD6DF4 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C341F1802FE00DD6DF4 /* apiKeys.swift */; };
 		D7203C371F18121C00DD6DF4 /* MyEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C361F18121B00DD6DF4 /* MyEntriesTableViewController.swift */; };
 		D7203C391F18123800DD6DF4 /* AllEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C381F18123800DD6DF4 /* AllEntriesTableViewController.swift */; };
@@ -26,11 +26,11 @@
 /* Begin PBXFileReference section */
 		7CD7AFF31F16A60C007351EE /* travelJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travelJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD7AFF61F16A60C007351EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7CD7AFF81F16A60C007351EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7CD7AFFB1F16A60C007351EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CD7AFFD1F16A60C007351EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CD7B0001F16A60C007351EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CD7B0021F16A60C007351EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CD7B00D1F18181E007351EE /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		D7203C341F1802FE00DD6DF4 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
 		D7203C361F18121B00DD6DF4 /* MyEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEntriesTableViewController.swift; sourceTree = "<group>"; };
 		D7203C381F18123800DD6DF4 /* AllEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewController.swift; sourceTree = "<group>"; };
@@ -74,15 +74,15 @@
 			children = (
 				7CD7AFF61F16A60C007351EE /* AppDelegate.swift */,
 				D7203C341F1802FE00DD6DF4 /* apiKeys.swift */,
-				7CD7AFF81F16A60C007351EE /* ViewController.swift */,
-				D7203C381F18123800DD6DF4 /* AllEntriesTableViewController.swift */,
+				7CD7B00D1F18181E007351EE /* Entry.swift */,
 				D7203C3A1F18125200DD6DF4 /* LoginViewController.swift */,
 				D7203C3C1F18125D00DD6DF4 /* MapViewController.swift */,
 				D7203C361F18121B00DD6DF4 /* MyEntriesTableViewController.swift */,
-				D7203C401F18129A00DD6DF4 /* EntryDetailsViewController.swift */,
-				D7203C3E1F18128200DD6DF4 /* AddEntryViewController.swift */,
 				D7203C421F18155100DD6DF4 /* MyEntriesTableViewCell.swift */,
+				D7203C381F18123800DD6DF4 /* AllEntriesTableViewController.swift */,
 				D7203C441F18155D00DD6DF4 /* AllEntriesTableViewCell.swift */,
+				D7203C3E1F18128200DD6DF4 /* AddEntryViewController.swift */,
+				D7203C401F18129A00DD6DF4 /* EntryDetailsViewController.swift */,
 				7CD7AFFA1F16A60C007351EE /* Main.storyboard */,
 				7CD7AFFD1F16A60C007351EE /* Assets.xcassets */,
 				7CD7AFFF1F16A60C007351EE /* LaunchScreen.storyboard */,
@@ -164,11 +164,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CD7B00E1F18181E007351EE /* Entry.swift in Sources */,
 				D7203C451F18155D00DD6DF4 /* AllEntriesTableViewCell.swift in Sources */,
 				D7203C3B1F18125200DD6DF4 /* LoginViewController.swift in Sources */,
 				D7203C3F1F18128200DD6DF4 /* AddEntryViewController.swift in Sources */,
 				D7203C391F18123800DD6DF4 /* AllEntriesTableViewController.swift in Sources */,
-				7CD7AFF91F16A60C007351EE /* ViewController.swift in Sources */,
 				D7203C431F18155100DD6DF4 /* MyEntriesTableViewCell.swift in Sources */,
 				D7203C351F1802FE00DD6DF4 /* apiKeys.swift in Sources */,
 				D7203C371F18121C00DD6DF4 /* MyEntriesTableViewController.swift in Sources */,
