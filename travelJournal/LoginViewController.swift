@@ -10,6 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +23,10 @@ class LoginViewController: UIViewController {
 //        self.navigationController?.isNavigationBarHidden = true
     }
     
+    @IBAction func loginButtonTapped(_ sender: Any) {
+    }
+    @IBAction func signupButtonTapped(_ sender: Any) {
+    }
     override func viewWillDisappear(_ animated: Bool) {
 //        self.navigationController?.isNavigationBarHidden = false
     }

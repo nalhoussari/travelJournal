@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bcE-PB-kVu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bcE-PB-kVu">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -27,37 +27,58 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0v7-b9-ZaS" id="t1P-ce-jkf"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Gu-h2-idp">
                                 <rect key="frame" x="66" y="309" width="243" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0v7-b9-ZaS" id="Srg-kX-Eeh"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRA-7q-Mkn">
                                 <rect key="frame" x="66" y="369" width="243" height="30"/>
                                 <state key="normal" title="login"/>
                                 <connections>
+                                    <action selector="loginButtonTapped:" destination="0v7-b9-ZaS" eventType="touchUpInside" id="fhC-cT-FiL"/>
                                     <segue destination="ofY-vq-S7l" kind="show" id="qBK-hu-TGN">
                                         <nil key="action"/>
                                     </segue>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZC-PF-ZGF">
+                                <rect key="frame" x="66" y="407" width="243" height="30"/>
+                                <state key="normal" title="signup"/>
+                                <connections>
+                                    <action selector="signupButtonTapped:" destination="0v7-b9-ZaS" eventType="touchUpInside" id="qvu-gH-ePe"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="aRA-7q-Mkn" firstAttribute="leading" secondItem="lUJ-r3-lXb" secondAttribute="leadingMargin" constant="50" id="7tm-7K-UCZ"/>
+                            <constraint firstItem="JZC-PF-ZGF" firstAttribute="leading" secondItem="lUJ-r3-lXb" secondAttribute="leadingMargin" constant="50" id="HhK-oS-USK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="X84-ov-tjG" secondAttribute="trailing" constant="50" id="JY6-xo-Cwz"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5Gu-h2-idp" secondAttribute="trailing" constant="50" id="K31-Uc-VCJ"/>
                             <constraint firstItem="X84-ov-tjG" firstAttribute="leading" secondItem="lUJ-r3-lXb" secondAttribute="leadingMargin" constant="50" id="N4k-VT-6WQ"/>
                             <constraint firstItem="5Gu-h2-idp" firstAttribute="leading" secondItem="lUJ-r3-lXb" secondAttribute="leadingMargin" constant="50" id="Nqa-DE-xoa"/>
                             <constraint firstItem="5Gu-h2-idp" firstAttribute="top" secondItem="X84-ov-tjG" secondAttribute="bottom" constant="15" id="Ps3-ib-eiL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aRA-7q-Mkn" secondAttribute="trailing" constant="50" id="aJA-Sh-Dco"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JZC-PF-ZGF" secondAttribute="trailing" constant="50" id="ady-MA-O7F"/>
                             <constraint firstItem="aRA-7q-Mkn" firstAttribute="top" secondItem="5Gu-h2-idp" secondAttribute="bottom" constant="30" id="dZD-yU-jAj"/>
+                            <constraint firstItem="JZC-PF-ZGF" firstAttribute="top" secondItem="aRA-7q-Mkn" secondAttribute="bottom" constant="8" id="pdb-S1-VTo"/>
                             <constraint firstItem="X84-ov-tjG" firstAttribute="top" secondItem="fMz-PC-v4P" secondAttribute="bottom" constant="200" id="x04-Ld-V3b"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8az-90-tT1"/>
+                    <connections>
+                        <outlet property="passwordTextField" destination="5Gu-h2-idp" id="zd7-pi-fbd"/>
+                        <outlet property="usernameTextField" destination="X84-ov-tjG" id="R4f-ie-gHw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ytK-e4-9oT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
