@@ -54,7 +54,8 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         let entry = entries[indexPath.row]
         
-        cell.backgroundColor = UIColor.red
+        cell.backgroundColor = UIColor.orange
+        
         
         cell.myEntriesLabelTitle.text = entry.title
         

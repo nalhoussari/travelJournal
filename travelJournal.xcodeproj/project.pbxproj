@@ -9,27 +9,27 @@
 /* Begin PBXBuildFile section */
 		2B261CFDD1D6184F04472E81 /* Pods_travelJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */; };
 		73E2A4161F183DAE00FA15F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */; };
-		73E2A41A1F18429000FA15F9 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2A4191F18429000FA15F9 /* apiKeys.swift */; };
 		7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7AFF61F16A60C007351EE /* AppDelegate.swift */; };
 		7CD7AFFC1F16A60C007351EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFA1F16A60C007351EE /* Main.storyboard */; };
 		7CD7AFFE1F16A60C007351EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFD1F16A60C007351EE /* Assets.xcassets */; };
 		7CD7B0011F16A60C007351EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFF1F16A60C007351EE /* LaunchScreen.storyboard */; };
-		7CD7B00E1F18181E007351EE /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7B00D1F18181E007351EE /* Entry.swift */; };
-		D7203C351F1802FE00DD6DF4 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C341F1802FE00DD6DF4 /* apiKeys.swift */; };
-		D7203C371F18121C00DD6DF4 /* MyEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C361F18121B00DD6DF4 /* MyEntriesTableViewController.swift */; };
-		D7203C391F18123800DD6DF4 /* AllEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C381F18123800DD6DF4 /* AllEntriesTableViewController.swift */; };
-		D7203C3B1F18125200DD6DF4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C3A1F18125200DD6DF4 /* LoginViewController.swift */; };
-		D7203C3D1F18125D00DD6DF4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C3C1F18125D00DD6DF4 /* MapViewController.swift */; };
-		D7203C3F1F18128200DD6DF4 /* AddEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C3E1F18128200DD6DF4 /* AddEntryViewController.swift */; };
-		D7203C411F18129A00DD6DF4 /* EntryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C401F18129A00DD6DF4 /* EntryDetailsViewController.swift */; };
-		D7203C431F18155100DD6DF4 /* MyEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C421F18155100DD6DF4 /* MyEntriesTableViewCell.swift */; };
-		D7203C451F18155D00DD6DF4 /* AllEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7203C441F18155D00DD6DF4 /* AllEntriesTableViewCell.swift */; };
+		D7203C3D1F18125D00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		D7203C411F18129A00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		D78DF2501F1853AA00683421 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF24F1F1853AA00683421 /* apiKeys.swift */; };
+		D78DF2521F1853E600683421 /* AddEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2511F1853E600683421 /* AddEntryViewController.swift */; };
+		D78DF2541F1853EC00683421 /* AllEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */; };
+		D78DF2561F1853F000683421 /* AllEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2551F1853F000683421 /* AllEntriesTableViewController.swift */; };
+		D78DF2581F1853F900683421 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2571F1853F900683421 /* Entry.swift */; };
+		D78DF25A1F1853FE00683421 /* EntryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2591F1853FE00683421 /* EntryDetailsViewController.swift */; };
+		D78DF25C1F18540300683421 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF25B1F18540300683421 /* LoginViewController.swift */; };
+		D78DF25E1F18540700683421 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF25D1F18540700683421 /* MapViewController.swift */; };
+		D78DF2601F18540B00683421 /* MyEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */; };
+		D78DF2621F18540E00683421 /* MyEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2611F18540E00683421 /* MyEntriesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_travelJournal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
-		73E2A4191F18429000FA15F9 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
 		7CD7AFF31F16A60C007351EE /* travelJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travelJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD7AFF61F16A60C007351EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD7AFFB1F16A60C007351EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -38,6 +38,16 @@
 		7CD7B0021F16A60C007351EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A673A75DA28A7ECA19F67437 /* Pods-travelJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		D39053E9CDA29D30D381B2F3 /* Pods-travelJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.release.xcconfig"; sourceTree = "<group>"; };
+		D78DF24F1F1853AA00683421 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
+		D78DF2511F1853E600683421 /* AddEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEntryViewController.swift; sourceTree = "<group>"; };
+		D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewCell.swift; sourceTree = "<group>"; };
+		D78DF2551F1853F000683421 /* AllEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewController.swift; sourceTree = "<group>"; };
+		D78DF2571F1853F900683421 /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		D78DF2591F1853FE00683421 /* EntryDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryDetailsViewController.swift; sourceTree = "<group>"; };
+		D78DF25B1F18540300683421 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D78DF25D1F18540700683421 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEntriesTableViewCell.swift; sourceTree = "<group>"; };
+		D78DF2611F18540E00683421 /* MyEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEntriesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +92,18 @@
 			isa = PBXGroup;
 			children = (
 				73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */,
+				D78DF2511F1853E600683421 /* AddEntryViewController.swift */,
+				D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */,
+				D78DF2551F1853F000683421 /* AllEntriesTableViewController.swift */,
 				7CD7AFF61F16A60C007351EE /* AppDelegate.swift */,
-				73E2A4191F18429000FA15F9 /* apiKeys.swift */,
-				7CD7AFF81F16A60C007351EE /* ViewController.swift */,
+				D78DF24F1F1853AA00683421 /* apiKeys.swift */,
+				D78DF2571F1853F900683421 /* Entry.swift */,
+				D78DF2591F1853FE00683421 /* EntryDetailsViewController.swift */,
+				D78DF25B1F18540300683421 /* LoginViewController.swift */,
 				7CD7AFFA1F16A60C007351EE /* Main.storyboard */,
+				D78DF25D1F18540700683421 /* MapViewController.swift */,
+				D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */,
+				D78DF2611F18540E00683421 /* MyEntriesTableViewController.swift */,
 				7CD7AFFD1F16A60C007351EE /* Assets.xcassets */,
 				7CD7AFFF1F16A60C007351EE /* LaunchScreen.storyboard */,
 				7CD7B0021F16A60C007351EE /* Info.plist */,
@@ -226,11 +244,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CD7AFF91F16A60C007351EE /* ViewController.swift in Sources */,
-				73E2A41A1F18429000FA15F9 /* apiKeys.swift in Sources */,
+				D78DF25E1F18540700683421 /* MapViewController.swift in Sources */,
+				D78DF2581F1853F900683421 /* Entry.swift in Sources */,
+				D78DF2561F1853F000683421 /* AllEntriesTableViewController.swift in Sources */,
+				D78DF2621F18540E00683421 /* MyEntriesTableViewController.swift in Sources */,
 				7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */,
-				D7203C411F18129A00DD6DF4 /* EntryDetailsViewController.swift in Sources */,
-				D7203C3D1F18125D00DD6DF4 /* MapViewController.swift in Sources */,
+				D7203C411F18129A00DD6DF4 /* (null) in Sources */,
+				D78DF2501F1853AA00683421 /* apiKeys.swift in Sources */,
+				D78DF2601F18540B00683421 /* MyEntriesTableViewCell.swift in Sources */,
+				D78DF2521F1853E600683421 /* AddEntryViewController.swift in Sources */,
+				D78DF2541F1853EC00683421 /* AllEntriesTableViewCell.swift in Sources */,
+				D78DF25A1F1853FE00683421 /* EntryDetailsViewController.swift in Sources */,
+				D78DF25C1F18540300683421 /* LoginViewController.swift in Sources */,
+				D7203C3D1F18125D00DD6DF4 /* (null) in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
