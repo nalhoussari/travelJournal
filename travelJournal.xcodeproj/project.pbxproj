@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B261CFDD1D6184F04472E81 /* Pods_travelJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */; };
+		73E2A4161F183DAE00FA15F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */; };
+		73E2A41A1F18429000FA15F9 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2A4191F18429000FA15F9 /* apiKeys.swift */; };
 		7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7AFF61F16A60C007351EE /* AppDelegate.swift */; };
 		7CD7AFF91F16A60C007351EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7AFF81F16A60C007351EE /* ViewController.swift */; };
 		7CD7AFFC1F16A60C007351EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFA1F16A60C007351EE /* Main.storyboard */; };
 		7CD7AFFE1F16A60C007351EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFD1F16A60C007351EE /* Assets.xcassets */; };
 		7CD7B0011F16A60C007351EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFF1F16A60C007351EE /* LaunchScreen.storyboard */; };
-		7CD7B00B1F16A767007351EE /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7B00A1F16A767007351EE /* apiKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_travelJournal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		73E2A4191F18429000FA15F9 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
 		7CD7AFF31F16A60C007351EE /* travelJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travelJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD7AFF61F16A60C007351EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD7AFF81F16A60C007351EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,7 +28,8 @@
 		7CD7AFFD1F16A60C007351EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CD7B0001F16A60C007351EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CD7B0021F16A60C007351EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7CD7B00A1F16A767007351EE /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
+		A673A75DA28A7ECA19F67437 /* Pods-travelJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.debug.xcconfig"; sourceTree = "<group>"; };
+		D39053E9CDA29D30D381B2F3 /* Pods-travelJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B261CFDD1D6184F04472E81 /* Pods_travelJournal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73C0A4BAAB966D78896BADE8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7CD7AFEA1F16A60C007351EE = {
 			isa = PBXGroup;
 			children = (
 				7CD7AFF51F16A60C007351EE /* travelJournal */,
 				7CD7AFF41F16A60C007351EE /* Products */,
+				B085ED8CE3AE2637BAA727D0 /* Pods */,
+				73C0A4BAAB966D78896BADE8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,8 +73,9 @@
 		7CD7AFF51F16A60C007351EE /* travelJournal */ = {
 			isa = PBXGroup;
 			children = (
+				73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */,
 				7CD7AFF61F16A60C007351EE /* AppDelegate.swift */,
-				7CD7B00A1F16A767007351EE /* apiKeys.swift */,
+				73E2A4191F18429000FA15F9 /* apiKeys.swift */,
 				7CD7AFF81F16A60C007351EE /* ViewController.swift */,
 				7CD7AFFA1F16A60C007351EE /* Main.storyboard */,
 				7CD7AFFD1F16A60C007351EE /* Assets.xcassets */,
@@ -67,6 +85,15 @@
 			path = travelJournal;
 			sourceTree = "<group>";
 		};
+		B085ED8CE3AE2637BAA727D0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A673A75DA28A7ECA19F67437 /* Pods-travelJournal.debug.xcconfig */,
+				D39053E9CDA29D30D381B2F3 /* Pods-travelJournal.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CD7B0051F16A60C007351EE /* Build configuration list for PBXNativeTarget "travelJournal" */;
 			buildPhases = (
+				6A505D77E47A9F79A78765BD /* [CP] Check Pods Manifest.lock */,
 				7CD7AFEF1F16A60C007351EE /* Sources */,
 				7CD7AFF01F16A60C007351EE /* Frameworks */,
 				7CD7AFF11F16A60C007351EE /* Resources */,
+				E5300C302EC5EF82360D9646 /* [CP] Embed Pods Frameworks */,
+				CE1CFE09179D32BF90C786D2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -99,8 +129,7 @@
 				TargetAttributes = {
 					7CD7AFF21F16A60C007351EE = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = ZDL96S575W;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -128,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CD7B0011F16A60C007351EE /* LaunchScreen.storyboard in Resources */,
+				73E2A4161F183DAE00FA15F9 /* GoogleService-Info.plist in Resources */,
 				7CD7AFFE1F16A60C007351EE /* Assets.xcassets in Resources */,
 				7CD7AFFC1F16A60C007351EE /* Main.storyboard in Resources */,
 			);
@@ -135,13 +165,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6A505D77E47A9F79A78765BD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CE1CFE09179D32BF90C786D2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5300C302EC5EF82360D9646 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7CD7AFEF1F16A60C007351EE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7CD7AFF91F16A60C007351EE /* ViewController.swift in Sources */,
-				7CD7B00B1F16A767007351EE /* apiKeys.swift in Sources */,
+				73E2A41A1F18429000FA15F9 /* apiKeys.swift in Sources */,
 				7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,26 +343,30 @@
 		};
 		7CD7B0061F16A60C007351EE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A673A75DA28A7ECA19F67437 /* Pods-travelJournal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ZDL96S575W;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = travelJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alhoussari.travelJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		7CD7B0071F16A60C007351EE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D39053E9CDA29D30D381B2F3 /* Pods-travelJournal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ZDL96S575W;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = travelJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alhoussari.travelJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -308,6 +390,7 @@
 				7CD7B0071F16A60C007351EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

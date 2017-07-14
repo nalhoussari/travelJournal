@@ -67,5 +67,4 @@ fastlane/screenshots
 fastlane/test_output
 
 apiKeys.swift
-   
-
+GoogleService-Info.plist
