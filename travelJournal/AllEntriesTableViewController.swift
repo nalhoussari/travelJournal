@@ -32,16 +32,16 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         //        let addBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItemStyle.plain, target: self, action:#selector(AllEntriesTableViewController.addEntry))
         
         //        self.navigationItem.rightBarButtonItem = addBarButton
-        let rightBarButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AllEntriesTableViewController.myRightSideBarButtonItemTapped(_:)))
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        
+//        let rightBarButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AllEntriesTableViewController.myRightSideBarButtonItemTapped(_:)))
+//        self.navigationItem.rightBarButtonItem = rightBarButton
+//        
+//        
     }
-    
-    func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!)
-    {
-        print("myRightSideBarButtonItemTapped")
-    }
+//    
+//    func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!)
+//    {
+//        print("myRightSideBarButtonItemTapped")
+//    }
     //MARK: - Database
     
     func numberOfSections(in tableView: UITableView) -> Int {
