@@ -17,10 +17,10 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         
         let entry1 = Entry(title: "Trip!")
-        let entry2 = Entry(title: "Trimp 2 Yaaay!")
-        let entry3 = Entry(title: "Trimp 3 Yaaay!")
-        let entry4 = Entry(title: "Trimp 4 Yaaay!")
-        let entry5 = Entry(title: "Trimp 5 Yaaay!")
+        let entry2 = Entry(title: "Trip 2 Yaaay!")
+        let entry3 = Entry(title: "Trip 3 Yaaay!")
+        let entry4 = Entry(title: "Trip 4 Yaaay!")
+        let entry5 = Entry(title: "Trip 5 Yaaay!")
         
         self.entries.append(entry1)
         self.entries.append(entry2)

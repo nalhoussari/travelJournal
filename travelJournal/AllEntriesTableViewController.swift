@@ -13,24 +13,35 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     var entries = [Entry]()
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let entry1 = Entry(title: "Trip!")
-        let entry2 = Entry(title: "Trimp 2 Yaaay!")
-        let entry3 = Entry(title: "Trimp 3 Yaaay!")
-        let entry4 = Entry(title: "Trimp 4 Yaaay!")
-        let entry5 = Entry(title: "Trimp 5 Yaaay!")
+        let entry2 = Entry(title: "Trip 2 Yaaay!")
+        let entry3 = Entry(title: "Trip 3 Yaaay!")
+        let entry4 = Entry(title: "Trip 4 Yaaay!")
+        let entry5 = Entry(title: "Trip 5 Yaaay!")
         
         self.entries.append(entry1)
         self.entries.append(entry2)
         self.entries.append(entry3)
         self.entries.append(entry4)
         self.entries.append(entry5)
-    
+        //
+        //        let addBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItemStyle.plain, target: self, action:#selector(AllEntriesTableViewController.addEntry))
+        
+        //        self.navigationItem.rightBarButtonItem = addBarButton
+        let rightBarButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AllEntriesTableViewController.myRightSideBarButtonItemTapped(_:)))
+        self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        
     }
-
+    
+    func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!)
+    {
+        print("myRightSideBarButtonItemTapped")
+    }
     //MARK: - Database
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,6 +73,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         super.didReceiveMemoryWarning()
     }
     
-
-
+    
+    
 }
