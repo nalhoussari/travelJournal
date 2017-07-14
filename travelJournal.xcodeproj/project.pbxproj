@@ -13,6 +13,8 @@
 		7CD7AFFC1F16A60C007351EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFA1F16A60C007351EE /* Main.storyboard */; };
 		7CD7AFFE1F16A60C007351EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFD1F16A60C007351EE /* Assets.xcassets */; };
 		7CD7B0011F16A60C007351EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFF1F16A60C007351EE /* LaunchScreen.storyboard */; };
+		7CDB9D841F194FDF002ED703 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB9D831F194FDF002ED703 /* TabBarController.swift */; };
+		7CDB9D861F1951AE002ED703 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CDB9D851F1951AE002ED703 /* AdSupport.framework */; };
 		D7203C3D1F18125D00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D7203C411F18129A00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D78DF2501F1853AA00683421 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF24F1F1853AA00683421 /* apiKeys.swift */; };
@@ -36,6 +38,8 @@
 		7CD7AFFD1F16A60C007351EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CD7B0001F16A60C007351EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CD7B0021F16A60C007351EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CDB9D831F194FDF002ED703 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		7CDB9D851F1951AE002ED703 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A673A75DA28A7ECA19F67437 /* Pods-travelJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		D39053E9CDA29D30D381B2F3 /* Pods-travelJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.release.xcconfig"; sourceTree = "<group>"; };
 		D78DF24F1F1853AA00683421 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
@@ -55,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CDB9D861F1951AE002ED703 /* AdSupport.framework in Frameworks */,
 				2B261CFDD1D6184F04472E81 /* Pods_travelJournal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +70,7 @@
 		73C0A4BAAB966D78896BADE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7CDB9D851F1951AE002ED703 /* AdSupport.framework */,
 				458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */,
 			);
 			name = Frameworks;
@@ -92,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */,
+				7CDB9D831F194FDF002ED703 /* TabBarController.swift */,
 				D78DF2511F1853E600683421 /* AddEntryViewController.swift */,
 				D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */,
 				D78DF2551F1853F000683421 /* AllEntriesTableViewController.swift */,
@@ -255,6 +262,7 @@
 				D78DF2521F1853E600683421 /* AddEntryViewController.swift in Sources */,
 				D78DF2541F1853EC00683421 /* AllEntriesTableViewCell.swift in Sources */,
 				D78DF25A1F1853FE00683421 /* EntryDetailsViewController.swift in Sources */,
+				7CDB9D841F194FDF002ED703 /* TabBarController.swift in Sources */,
 				D78DF25C1F18540300683421 /* LoginViewController.swift in Sources */,
 				D7203C3D1F18125D00DD6DF4 /* (null) in Sources */,
 			);
