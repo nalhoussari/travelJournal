@@ -28,12 +28,22 @@ class LoginViewController: UIViewController {
         
         let todaysDate = NSDate()
     
-        let journalModel = JournalModel(id: 123, title: "New title here", tripDescription: "Lorem ipsum dolor sit amet, ludus dicant lobortis et eos", date: todaysDate, location: "123 somewhere street", latitude: 23.3333, longitude: -123.12333)
+        let journalModel = JournalModel(id: 123, title: "FIRST RECORD", tripDescription: "Lorem ipsum dolor sit amet, ludus dicant lobortis et eos", date: todaysDate, location: "123 somewhere street", latitude: 23.3333, longitude: -123.12333)
         
         
         //FBDatabase.SaveJournalToDatabase(journalModel:journalModel, images:images)
         
-  
+        
+        var images2: Array<UIImage> = []
+        images2.append(UIImage(named: "sim1.png")!)
+        images2.append(UIImage(named: "sim2.png")!)
+        images2.append(UIImage(named: "sim3.png")!)
+        images2.append(UIImage(named: "sim4.png")!)
+        
+        let jm = JournalModel(id: 456, title: "SECOND RECORD", tripDescription: "GOONEY FUCKING GOO GOO GOONEY FUCKING GOO GOO GOONEY FUCKING GOO GOO ", date: todaysDate, location: "456 elsewhere avenue", latitude: 18.4333, longitude: -118.83333)
+        
+        //FBDatabase.SaveJournalToDatabase(journalModel:jm, images:images2)
+        
         //let journalDictionary = FBDatabase.GetJournalFromDatabase()
         
         FBDatabase.GetJournalFromDatabase { (dictionary) in
@@ -43,6 +53,8 @@ class LoginViewController: UIViewController {
                 let jm = key as JournalModel
                 let imageArray = value
                 
+                print("***********************************")
+                print(imageArray.count)
                 print(jm.date)
                 print(jm.id)
                 print(jm.imageLocations)
@@ -52,92 +64,18 @@ class LoginViewController: UIViewController {
                 print(jm.tripDescription)
                 print(jm.date)
                 
+                print(imageArray.count)
+                print("***********************************")
+                
+                print("items in ARRAY for FL: \(imageArray.count)")
                 for image in imageArray{
+                    print("FUCKY LARGE")
                     print(image)
                 }
                 
             }
         
         }
-        
-//        let fuck = FBDatabase.GetJournalFromDatabase { () -> (Dictionary<JournalModel, Array<UIImage>>) in
-//            
-//            return
-//        }
-        
-//        let journalDictionary = FBDatabase.GetJournalFromDatabase(closure:  { () -> (Dictionary<JournalModel, Array<UIImage>>) in
-//            
-//            return
-//        })
-//        
-        
-        //print(journalDictionary)
-        
-//        var ref: DatabaseReference!
-//        ref = Database.database().reference()
-//        
-//        //storage
-//        var storeageRef: StorageReference!
-//        storeageRef = Storage.storage().reference()
-//
-//        
-//        var images: Array<UIImage> = []
-//        images.append(UIImage(named: "filledStar.png")!)
-//        images.append(UIImage(named: "meal1.png")!)
-//        images.append(UIImage(named: "meal2.png")!)
-//        images.append(UIImage(named: "meal3.png")!)
-//        
-//        
-// 
-////        var imageNames: Array<String> = []
-////        imageNames.append("meal1.png")
-////        imageNames.append("meal2.png")
-////        imageNames.append("meal3.png")
-////        imageNames.append("filledStar.png")
-//        
-//        
-//        var imageReferences: Array<String> = []
-//        
-//        var imageDict = [String:UIImage]()
-//        
-//        //for imageName in imageNames {
-//        for image in images {
-//            
-//            let uuid = UUID()
-//            let newImageName = uuid.uuidString
-//            
-//            //imageDict[newImageName] = image
-//            
-//            let data = UIImagePNGRepresentation(image)
-//        
-//            
-//            //let imageRef = storeageRef.child("images/\(uuid.uuidString)")
-//            let imageRef = storeageRef.child("images/\(newImageName)")
-//            
-////            let data = UIImagePNGRepresentation(UIImage(named: imageName)!)
-////            //let imageRef = storeageRef.child("images/\(uuid.uuidString)")
-////            let imageRef = storeageRef.child("images/\(uuid.uuidString)")
-//            imageReferences.append(imageRef.fullPath)
-//            
-//            let uploadTask = imageRef.putData(data!, metadata: nil, completion: { (metadata, error) in
-//                if let error = error{
-//                    print("error is \(error)")
-//                }
-//                else {
-//                    print("inside else")
-//                    let downloadURL = metadata!.downloadURL()
-//                }
-// 
-//            })
-//            
-//        }
-//   
-//        let todaysDate = NSDate()
-//        
-//        let journalModel = JournalModel(id:123, title:"New title here", tripDescription:"Lorem ipsum dolor sit amet, ludus dicant lobortis et eos", date:todaysDate, imageLocations: imageReferences, location:"123 somewhere street")
-//
-//    
-//        ref.child("journal").setValue(journalModel.journalDictionary)
         
     }
     

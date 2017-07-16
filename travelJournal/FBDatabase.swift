@@ -18,7 +18,7 @@ import FirebaseAuth
 class FBDatabase {
     
 
-    //class func GetJournalFromDatabase() -> (journalModel:JournalModel, images:Array<UIImage>) {
+
     //class func GetJournalFromDatabase() -> (Dictionary<JournalModel, Array<UIImage>>) {
 
     class func GetJournalFromDatabase(closure: @escaping (_ diction:Dictionary<JournalModel, Array<UIImage>>) -> ()) {
@@ -28,7 +28,7 @@ class FBDatabase {
     
         
         var journalDictionary = Dictionary<JournalModel, Array<UIImage>>()
-        var journalModel = JournalModel()
+        let journalModel = JournalModel()
         var imagesArray = [UIImage]()
         
         //will need to use userID to fetch own records
@@ -36,47 +36,74 @@ class FBDatabase {
         //ref.child("journal").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
         
         
-        ref.child("journal").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("journals").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
-            let journalRecord = snapshot.value as? NSDictionary
+            //let journalRecords = snapshot.value as? NSDictionary
             
-            //let username = journalRecord?["username"] as? String ?? ""
+            //NSEnumerator *enumerator = [snapshot children];
+            let enumerator = snapshot.children
+            //var child = DataSnapshot()
+            //while(child = enumerator.nextObject() as! DataSnapshot){
+            while let child = enumerator.nextObject() as? DataSnapshot{
             
-            //let date = NSDate(timeIntervalSince1970: journalRecord?["date"] as! TimeInterval)
-            journalModel.id = journalRecord?["id"] as? Int ?? 0
-            journalModel.date = journalRecord?["date"] as! NSNumber
-            //journalModel.imageLocations = journalRecord?["imageLocations"] as? Array ?? []
-            
-            journalModel.location = journalRecord?["location"] as? String ?? ""
-            let imageLocations = journalRecord?["imageLocations"] as? Array ?? []
-            journalModel.title = journalRecord?["title"] as? String ?? ""
-            journalModel.tripDescription = journalRecord?["tripDescription"] as? String ?? ""
-            journalModel.latitude = journalRecord?["latitude"] as? NSNumber ?? 0
-            journalModel.longitude = journalRecord?["latitude"] as? NSNumber ?? 0
-            
-            
-            //let journalImages = GetJournalImages(<#T##FBDatabase#>)
-//            OperationQueue.main.addOperation {
-                for image in imageLocations{
-                    
-                    
-                    let journalImages = self.GetJournalImages(imageLocation: image as! String)
-                    //self.GetJournalImages(imageLocation: image as! String, closure: { (image) in
-                        //imagesArray.append(image)
-                    //})
-                    //let journalImages = self.GetJournalImages(imageLocations: imageLocations as! Array<String>)
-                    imagesArray.append(journalImages)
+                //let username = journalRecord?["username"] as? String ?? ""
+                
+                let journal = child.value! as! [String:Any]
+                print(journal)
+                //let date = NSDate(timeIntervalSince1970: journalRecord?["date"] as! TimeInterval)
+                journalModel.id = journal["id"] as? Int ?? 0 // ["id"] as? Int ?? 0
+                journalModel.date = journal["date"] as?  NSNumber ?? 0
+                //journalModel.imageLocations = journalRecord?["imageLocations"] as? Array ?? []
+                var imageLocations = Array<String>()
+                journalModel.location = journal["location"] as? String ?? ""
+                imageLocations = journal["imageLocations"] as? Array<String> ?? []
+                journalModel.title = journal["title"] as? String ?? ""
+                journalModel.tripDescription = journal["tripDescription"] as? String ?? ""
+                journalModel.latitude = journal["latitude"] as? NSNumber ?? 0
+                journalModel.longitude = journal["latitude"] as? NSNumber ?? 0
+                
+                
+                //let journalImages = GetJournalImages(<#T##FBDatabase#>)
+                //var count:Int = 0
+                
+           
+                
+                OperationQueue.main.addOperation {
+                    for image in imageLocations{
+      
+                        
+                        let journalImages = self.GetJournalImages(imageLocation: image)
+                        
+//                        self.GetJournalImages(imageLocation: image, closure: { (image) in
+//                              imagesArray.append(image)
+//                            print("IN FOR CLosurE BLOCK items in imagesArray... \(imagesArray.count)")
+//                        })
+                        
+                        //self.GetJournalImages(imageLocation: image as! String, closure: { (image) in
+                            //imagesArray.append(image)
+                        //})
+                        //let journalImages = self.GetJournalImages(imageLocations: imageLocations as! Array<String>)
+                        imagesArray.append(journalImages)
+                        
+                        //print("IN FOR LOOP items in imagesArray...")
+                        print("IN FOR LOOP items in imagesArray... \(imagesArray.count)")
+                    }
+                    journalDictionary.updateValue(imagesArray, forKey: journalModel)
+                    imagesArray.removeAll()
+                    closure(journalDictionary)
+                 
                 }
-    
-//            }
-            print("items in imagesArray...")
-            print(imagesArray.count)
+                
+                //print("OUT OF  FOR LOOP items in imagesArray...")
+                print("OUT OF  FOR LOOP items in imagesArray...\(imagesArray.count)")
+                
+                print(journalModel)
+                
+//                journalDictionary.updateValue(imagesArray, forKey: journalModel)
+//                
+//                closure(journalDictionary)
             
-            print(journalModel)
-            
-            journalDictionary.updateValue(imagesArray, forKey: journalModel)
-            
-            closure(journalDictionary)
+         } //while loop
             
         }) { (error) in
             print(error.localizedDescription)
@@ -89,6 +116,7 @@ class FBDatabase {
 
     //class func GetJournalImages(imageLocations:Array<String>) -> Array<UIImage> {
     //class func GetJournalImages(imageLocation:String) -> UIImage {
+    
     //class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage) -> ()) {
     class func GetJournalImages(imageLocation:String) -> UIImage {
         //storage
@@ -112,7 +140,6 @@ class FBDatabase {
         
         //for image in imageLocations{
         
-            
          
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
@@ -124,7 +151,7 @@ class FBDatabase {
         
         //create "images" directory under documents
         do {
-            try FileManager.default.createDirectory(atPath: createPath, withIntermediateDirectories: false, attributes: nil)
+            try FileManager.default.createDirectory(atPath: createPath, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
             print(error.localizedDescription);
         }
@@ -145,7 +172,8 @@ class FBDatabase {
     
         
         let dbRef = storeageRef.child(imageLocation)
-        
+      
+//OperationQueue.main.addOperation {
          //OperationQueue.main.addOperation {
            dbRef.write(toFile: localURL) { (url, error) in
             if let error = error{
@@ -163,7 +191,7 @@ class FBDatabase {
                     //print(imageArray.count)
                 }
             } 
-        //}
+//}
             //dbRef.dataWithMaxSize(1 * 1024 * 1024) { (data, error) -> Void in
 //            if error == nil{
 //                // Create a UIImage, add it to the array
@@ -174,6 +202,8 @@ class FBDatabase {
 //            }
         
         //}
+        print("This IMAGE IS.......")
+        print(image)
         return image
         
     }
@@ -182,43 +212,14 @@ class FBDatabase {
     
    class func SaveJournalToDatabase(journalModel:JournalModel, images:Array<UIImage>){
     
-        //@property (strong, nonatomic) FIRDatabaseReference *FirDBRef;
-        //@property (strong, nonatomic) NSDictionary *retrievedData;
-        // let FirDBRef:DatabaseReference
-        
+    
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
         //storage
         var storeageRef: StorageReference!
         storeageRef = Storage.storage().reference()
-        
-        
-        //
-        
-        // let uuid = UUID()
-        //        let newImageName = uuid.uuidString
-        
-//        var images: Array<UIImage> = []
-//        images.append(UIImage(named: "filledStar.png")!)
-//        images.append(UIImage(named: "meal1.png")!)
-//        images.append(UIImage(named: "meal2.png")!)
-//        images.append(UIImage(named: "meal3.png")!)
-        
-        //        for image in images {
-        //            //change name
-        //            var img = image as UIImage
-        //            print(img)
-        //        }
-        
-        
-        
-        //        var imageNames: Array<String> = []
-        //        imageNames.append("meal1.png")
-        //        imageNames.append("meal2.png")
-        //        imageNames.append("meal3.png")
-        //        imageNames.append("filledStar.png")
-        
+    
         
         var imageReferences: Array<String> = []
         
@@ -243,7 +244,7 @@ class FBDatabase {
             //            let imageRef = storeageRef.child("images/\(uuid.uuidString)")
             imageReferences.append(imageRef.fullPath)
             
-            let uploadTask = imageRef.putData(data!, metadata: nil, completion: { (metadata, error) in
+            _ = imageRef.putData(data!, metadata: nil, completion: { (metadata, error) in
                 if let error = error{
                     print("error is \(error)")
                 }
@@ -257,16 +258,18 @@ class FBDatabase {
             
         }
         
-//        let todaysDate = NSDate()
-//        
-//        let journalModel = JournalModel(id:123, title:"New title here", tripDescription:"Lorem ipsum dolor sit amet, ludus dicant lobortis et eos", date:todaysDate, imageLocations: imageReferences, location:"123 somewhere street")
-        
+    
         journalModel.imageLocations = imageReferences
-        
-        ref.child("journal").setValue(journalModel.journalDictionary)
-
-        
-        
+    
+    
+        //[[[self.FirDBRef child:@"users"] childByAutoId] setValue:userDict];
+    //let quoteString = ["base64": base64String]
+        let refPhotos = ref.child(byAppendingPath: "journals")
+        let refBase54 = refPhotos.childByAutoId()
+        refBase54.setValue(journalModel.journalDictionary)
+    
+    //    ref.child("journal").setValue(journalModel.journalDictionary)
+    
     } //function end
     
 }
