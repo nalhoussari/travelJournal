@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2B261CFDD1D6184F04472E81 /* Pods_travelJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */; };
 		73E2A4161F183DAE00FA15F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */; };
+		73FEFF7E1F1942D80029F198 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FEFF7D1F1942D80029F198 /* JournalModel.swift */; };
+		73FEFF801F1AA58E0029F198 /* FBDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FEFF7F1F1AA58E0029F198 /* FBDatabase.swift */; };
 		7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7AFF61F16A60C007351EE /* AppDelegate.swift */; };
 		7CD7AFFC1F16A60C007351EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFA1F16A60C007351EE /* Main.storyboard */; };
 		7CD7AFFE1F16A60C007351EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFD1F16A60C007351EE /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		458DC73E0FC8D381D5FA4D58 /* Pods_travelJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_travelJournal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		73FEFF7D1F1942D80029F198 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
+		73FEFF7F1F1AA58E0029F198 /* FBDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDatabase.swift; sourceTree = "<group>"; };
 		7CD7AFF31F16A60C007351EE /* travelJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travelJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD7AFF61F16A60C007351EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD7AFFB1F16A60C007351EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				D78DF2571F1853F900683421 /* Entry.swift */,
 				D78DF2591F1853FE00683421 /* EntryDetailsViewController.swift */,
 				D78DF25B1F18540300683421 /* LoginViewController.swift */,
+				73FEFF7F1F1AA58E0029F198 /* FBDatabase.swift */,
+				73FEFF7D1F1942D80029F198 /* JournalModel.swift */,
 				7CD7AFFA1F16A60C007351EE /* Main.storyboard */,
 				D78DF25D1F18540700683421 /* MapViewController.swift */,
 				D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */,
@@ -251,10 +257,12 @@
 				7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */,
 				D7203C411F18129A00DD6DF4 /* (null) in Sources */,
 				D78DF2501F1853AA00683421 /* apiKeys.swift in Sources */,
+				73FEFF801F1AA58E0029F198 /* FBDatabase.swift in Sources */,
 				D78DF2601F18540B00683421 /* MyEntriesTableViewCell.swift in Sources */,
 				D78DF2521F1853E600683421 /* AddEntryViewController.swift in Sources */,
 				D78DF2541F1853EC00683421 /* AllEntriesTableViewCell.swift in Sources */,
 				D78DF25A1F1853FE00683421 /* EntryDetailsViewController.swift in Sources */,
+				73FEFF7E1F1942D80029F198 /* JournalModel.swift in Sources */,
 				D78DF25C1F18540300683421 /* LoginViewController.swift in Sources */,
 				D7203C3D1F18125D00DD6DF4 /* (null) in Sources */,
 			);
