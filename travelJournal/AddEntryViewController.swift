@@ -15,7 +15,7 @@ protocol AddingEntryDelegate {
     func newEntryDetails(_ entry: JournalModel)
 }
 
-class AddEntryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddEntryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     var delegate: AddingEntryDelegate?
     var entry : JournalModel?
@@ -31,11 +31,20 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.newEntryTitle.delegate = self
+        self.newEntryTextView.delegate = self as? UITextViewDelegate
 
         let rightBarButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AllEntriesTableViewController.myRightSideBarButtonItemTapped(_:)))
         self.navigationItem.rightBarButtonItem = rightBarButton
     
     }
+    
+    //MARK: textFiled to dismiss keyboard with a return button
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
+    }
+    
     
     //MARK: UIImagePickerControllerDelegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -59,8 +68,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: - Action
     //select photo
-    
-
     @IBAction func selectImageFromPhotoLibrary(_ sender: UIButton) {
         let imagePickerController = UIImagePickerController()
         
@@ -71,6 +78,8 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         imagePickerController.delegate = self.view as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
         
         present(imagePickerController, animated: true, completion: nil)
+        
+        //getting the image URL
     }
     
 
