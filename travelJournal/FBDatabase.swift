@@ -24,7 +24,6 @@ class FBDatabase {
         
         //delete record from database
         ref.child("journals").child(journalModel.fireBaseKey).removeValue { (error, ref) in
-            //ref.child("journals").child(key).removeValue { (error, ref) in
             if error != nil{
                 print("error \(error ?? "" as! Error)")
             }
@@ -77,7 +76,6 @@ class FBDatabase {
         
         var journalDictionary = Dictionary<JournalModel, Array<UIImage>>()
         
-        //var imagesArray = [UIImage]()
         var journalArray = [JournalModel]()
         
         //will need to use userID to fetch own records
@@ -86,18 +84,13 @@ class FBDatabase {
         
         
         ref.child("journals").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            //            let journalRecords = snapshot.value as? NSDictionary
             
             let enumerator = snapshot.children
             while let child = enumerator.nextObject() as? DataSnapshot{
                 let journalModel = JournalModel()
                 
                 
-                //let username = journalRecord?["username"] as? String ?? ""
-                
                 let journal = child.value! as! [String:Any]
-                //print(journal)
                 //let date = NSDate(timeIntervalSince1970: journalRecord?["date"] as! TimeInterval)
                 journalModel.fireBaseKey = child.key
                 journalModel.id = journal["id"] as? Int ?? 0
