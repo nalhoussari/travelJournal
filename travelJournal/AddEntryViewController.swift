@@ -35,8 +35,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         let rightBarButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AllEntriesTableViewController.myRightSideBarButtonItemTapped(_:)))
         self.navigationItem.rightBarButtonItem = rightBarButton
     
-        let userID = Auth.auth().currentUser?.email
-        print(userID!)
     }
     
     //MARK: UIImagePickerControllerDelegate
