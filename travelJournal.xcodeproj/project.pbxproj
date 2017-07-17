@@ -21,6 +21,7 @@
 		D71659BE1F1954EA005275E0 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71659BD1F1954EA005275E0 /* apiKeys.swift */; };
 		D7203C3D1F18125D00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D7203C411F18129A00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		D744E6021F1D44AC004ABA3F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E6011F1D44AC004ABA3F /* User.swift */; };
 		D78DF2521F1853E600683421 /* AddEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2511F1853E600683421 /* AddEntryViewController.swift */; };
 		D78DF2541F1853EC00683421 /* AllEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */; };
 		D78DF2561F1853F000683421 /* AllEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2551F1853F000683421 /* AllEntriesTableViewController.swift */; };
@@ -49,6 +50,7 @@
 		A673A75DA28A7ECA19F67437 /* Pods-travelJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		D39053E9CDA29D30D381B2F3 /* Pods-travelJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.release.xcconfig"; sourceTree = "<group>"; };
 		D71659BD1F1954EA005275E0 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
+		D744E6011F1D44AC004ABA3F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D78DF2511F1853E600683421 /* AddEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEntryViewController.swift; sourceTree = "<group>"; };
 		D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewCell.swift; sourceTree = "<group>"; };
 		D78DF2551F1853F000683421 /* AllEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				D78DF2551F1853F000683421 /* AllEntriesTableViewController.swift */,
 				7CD7AFF61F16A60C007351EE /* AppDelegate.swift */,
 				D78DF2571F1853F900683421 /* Entry.swift */,
+				D744E6011F1D44AC004ABA3F /* User.swift */,
 				D78DF2591F1853FE00683421 /* EntryDetailsViewController.swift */,
 				D78DF25B1F18540300683421 /* LoginViewController.swift */,
 				73FEFF7F1F1AA58E0029F198 /* FBDatabase.swift */,
@@ -273,19 +276,14 @@
 				D78DF2621F18540E00683421 /* MyEntriesTableViewController.swift in Sources */,
 				7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */,
 				D7203C411F18129A00DD6DF4 /* (null) in Sources */,
-
-				D78DF2501F1853AA00683421 /* apiKeys.swift in Sources */,
+				D744E6021F1D44AC004ABA3F /* User.swift in Sources */,
 				73FEFF801F1AA58E0029F198 /* FBDatabase.swift in Sources */,
-
 				D78DF2601F18540B00683421 /* MyEntriesTableViewCell.swift in Sources */,
 				D78DF2521F1853E600683421 /* AddEntryViewController.swift in Sources */,
 				D78DF2541F1853EC00683421 /* AllEntriesTableViewCell.swift in Sources */,
 				D78DF25A1F1853FE00683421 /* EntryDetailsViewController.swift in Sources */,
-
 				7CDB9D841F194FDF002ED703 /* TabBarController.swift in Sources */,
-
 				73FEFF7E1F1942D80029F198 /* JournalModel.swift in Sources */,
-
 				D78DF25C1F18540300683421 /* LoginViewController.swift in Sources */,
 				D7203C3D1F18125D00DD6DF4 /* (null) in Sources */,
 			);
