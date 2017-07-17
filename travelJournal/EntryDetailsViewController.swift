@@ -16,8 +16,38 @@ class EntryDetailsViewController: UIViewController {
     @IBOutlet weak var detailDateLabel: UILabel!
     @IBOutlet weak var detailTextView: UITextView!
     
+//    var imageArray = [UIImage] ()
     var entry : JournalModel?
     
+    var imageCounter : Int = 0
+    
+    
+    @IBAction func leftButtonTapped(_ sender: UIButton){
+        imageCounter -= 1
+        detailImageView.image = entry?.images[imageCounter]
+        
+        
+    }
+    @IBAction func rightButtonTapped(_ sender: UIButton) {
+        imageCounter += 1
+        detailImageView.image = entry?.images[imageCounter]
+    }
+    
+    func imagesCounter()->Int{
+        
+        if(imageCounter == entry?.images.count)
+        {
+            imageCounter = 0
+            
+        }
+        
+        else if (imageCounter < 0)
+        {
+            imageCounter = (entry?.images.count)!-1
+        }
+        
+        return imageCounter
+    }
     func configureView(){
         
         //converting date to string
@@ -29,7 +59,8 @@ class EntryDetailsViewController: UIViewController {
         detailLocationLabel.text = entry?.location
         detailDateLabel.text = dateStr
         detailTextView.text = entry?.description
-//        detailImageView = entry?.photosUIImageArray
+        detailImageView.image = entry?.images[imageCounter]
+        
         
     }
     
