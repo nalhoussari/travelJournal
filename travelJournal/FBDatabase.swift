@@ -22,6 +22,7 @@ class FBDatabase {
         var ref: DatabaseReference!
         ref = Database.database().reference()
       
+        //delete record from database
         ref.child("journals").child(journalModel.fireBaseKey).removeValue { (error, ref) in
         //ref.child("journals").child(key).removeValue { (error, ref) in
             if error != nil{
@@ -30,7 +31,7 @@ class FBDatabase {
         }
         
         
-        //storage
+        //delete images from database storage
         var storeageRef: StorageReference!
         storeageRef = Storage.storage().reference()
         
@@ -48,11 +49,8 @@ class FBDatabase {
             }
         } //for loop
         
-       
-        //let imageDir = documentsDirectory.appending("/images")
-        
+        //delete from phone local directory
         for image in journalModel.imageLocations{
-         // for image in array{
             
             let fileMngr = FileManager.default
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -71,7 +69,7 @@ class FBDatabase {
     }
 
 //MARK - get ALL journals from database
-    class func GetJournalsFromDatabase(closure: @escaping (_ diction:Dictionary<JournalModel, Array<UIImage>>) -> ()) {
+    class func GetJournalsFromDatabase(closure: @escaping (_ journalArray:Array<JournalModel>) -> ()) {
         
         var ref: DatabaseReference!
         ref = Database.database().reference()
@@ -79,7 +77,8 @@ class FBDatabase {
         
         var journalDictionary = Dictionary<JournalModel, Array<UIImage>>()
 
-        var imagesArray = [UIImage]()
+        //var imagesArray = [UIImage]()
+        var journalArray = [JournalModel]()
         
         //will need to use userID to fetch own records
         //let userID = Auth.auth().currentUser?.uid
@@ -118,15 +117,14 @@ class FBDatabase {
                     for image in imageLocations{
       
                         let journalImages = self.GetJournalImages(imageLocation: image)
-                        imagesArray.append(journalImages)
+                        journalModel.images.append(journalImages)
                         
                     }
                     
-                    journalDictionary.updateValue(imagesArray, forKey: journalModel)
-                    closure(journalDictionary)
-                    
-                    //clean containers for next record's data
-                    imagesArray.removeAll()
+                    journalArray.append(journalModel)
+                    closure(journalArray)
+   
+                    journalArray.removeAll()
                     journalDictionary.removeAll()
 
                 }
@@ -181,8 +179,7 @@ class FBDatabase {
 
     
 //MARK - Save journal to database
-   class func SaveJournalToDatabase(journalModel:JournalModel, images:Array<UIImage>){
-    
+    class func SaveJournalToDatabase(journalModel:JournalModel){
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
@@ -192,7 +189,7 @@ class FBDatabase {
     
         var imageReferences: Array<String> = []
     
-        for image in images {
+        for image in journalModel.images{
             
             let uuid = UUID()
             let newImageName = uuid.uuidString
