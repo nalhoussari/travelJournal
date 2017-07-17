@@ -21,18 +21,8 @@ class JournalModel : NSObject {
     var location:String
     var latitude:NSNumber
     var longitude:NSNumber
+    var fireBaseKey = String()
     
-    //init(id:Int, title:String, tripDescription:String, images:[UIImage], date:NSDate, location:String){
-//    init(id:Int, title:String, tripDescription:String, date:NSDate, imageLocations:[String], location:String){
-//        self.id = id
-//        self.title = title
-//        self.tripDescription = tripDescription
-//        //self.images = images
-//        self.imageLocations = imageLocations
-//        self.date = NSNumber.init(value: date.timeIntervalSince1970)
-//        self.location = location
-//    }
-
     
     init(id:Int, title:String, tripDescription:String, date:NSDate, location:String, latitude:NSNumber, longitude:NSNumber) {
         self.id = id
