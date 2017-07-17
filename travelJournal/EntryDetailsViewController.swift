@@ -9,27 +9,34 @@
 import UIKit
 
 class EntryDetailsViewController: UIViewController {
-
+   
+    @IBOutlet weak var detailTitleLabel: UILabel!
+    @IBOutlet weak var detailLocationLabel: UILabel!
+    @IBOutlet weak var detailImageView: UIImageView!
+    @IBOutlet weak var detailDateLabel: UILabel!
+    @IBOutlet weak var detailTextView: UITextView!
+    
+    var entry : Entry?
+    
+    func configureView(){
+        detailTitleLabel.text = entry?.title
+        detailLocationLabel.text = entry?.location
+//        detailDateLabel.text = entry?.date
+        detailTextView.text = entry?.description
+//        detailImageView = entry?.photosUIImageArray
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.configureView()
+        self.detailTextView.isEditable = false
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

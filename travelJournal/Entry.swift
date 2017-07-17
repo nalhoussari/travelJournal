@@ -11,25 +11,24 @@ import UIKit
 
 class Entry {
     var title : String = ""
-//    var location : String = ""
-//    var date : Date
-//    var description : String = ""
-////    var photo : UIImage
-//    var photosArray : NSMutableArray = []
+    var location : String = ""
+    var date : Date
+    var description : String = ""
+    var photosArray = [UIImage]()
     
-    init (title: String){
-        self.title = title
-    }
-    
-//    init(title: String, location: String, date: Date, description: String, photosArray: NSMutableArray){
-//        
+//    init (title: String){
 //        self.title = title
-//        self.location = location
-//        self.date = date
-//        self.description = description
-//        self.photosArray = photosArray
-    
 //    }
+    
+    init(title: String, location: String, date: Date, description: String, photosArray: NSMutableArray){
+        
+        self.title = title
+        self.location = location
+        self.date = date
+        self.description = description
+        self.photosArray = photosArray as! [UIImage]
+    
+    }
 
     
     
