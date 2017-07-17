@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
     
     var entries = [Entry]()
     @IBOutlet weak var allEntriesTableViewController: UITableView!
@@ -17,17 +17,17 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let entry1 = Entry(title: "Trip!")
-        let entry2 = Entry(title: "Trip 2 Yaaay!")
-        let entry3 = Entry(title: "Trip 3 Yaaay!")
-        let entry4 = Entry(title: "Trip 4 Yaaay!")
-        let entry5 = Entry(title: "Trip 5 Yaaay!")
-        
-        self.entries.append(entry1)
-        self.entries.append(entry2)
-        self.entries.append(entry3)
-        self.entries.append(entry4)
-        self.entries.append(entry5)
+//        let entry1 = Entry(title: "Trip!")
+//        let entry2 = Entry(title: "Trip 2 Yaaay!")
+//        let entry3 = Entry(title: "Trip 3 Yaaay!")
+//        let entry4 = Entry(title: "Trip 4 Yaaay!")
+//        let entry5 = Entry(title: "Trip 5 Yaaay!")
+//        
+//        self.entries.append(entry1)
+//        self.entries.append(entry2)
+//        self.entries.append(entry3)
+//        self.entries.append(entry4)
+//        self.entries.append(entry5)
         //
         //        let addBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItemStyle.plain, target: self, action:#selector(AllEntriesTableViewController.addEntry))
         
@@ -42,6 +42,13 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     {
         print("myRightSideBarButtonItemTapped")
     }
+    
+    //AddingNewEntry Delegation function
+    func newEntryDetails(_ entry: Entry){
+        self.entries.append(entry)
+        self.allEntriesTableViewController.reloadData()
+    }
+    
     //MARK: - Database
     
     func numberOfSections(in tableView: UITableView) -> Int {

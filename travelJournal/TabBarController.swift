@@ -20,8 +20,8 @@ class TabBarController: UITabBarController {
     }
     
     func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!) {
-        print("myRightSideBarButtonItemTapped")
         
+        performSegue(withIdentifier: "newEntry", sender: sender)
     }
     
     override func didReceiveMemoryWarning() {
