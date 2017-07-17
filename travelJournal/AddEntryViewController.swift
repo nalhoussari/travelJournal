@@ -17,6 +17,7 @@ protocol AddingEntryDelegate {
 
 class AddEntryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
+    let imagePickerController = UIImagePickerController()
     var delegate: AddingEntryDelegate?
     var entry : JournalModel?
 
@@ -51,8 +52,23 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dismiss the picker if the user canceled.
         dismiss(animated: true, completion: nil)
     }
+
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
+//   
+            print(imageURL)
+//            let result =
+//            let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
+//            let asset = result.firstObject
+//            let imageName = asset?.value(forKey: "filename")
+        }else {
+            print("!!!!")
+        }
+//        let imageName = imageURL.path!.lastPathComponent
+//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .userDomainMask, true).first as! String
+//        let localPath = documentDirectory.stringByAppendingPathComponent(imageName)
         
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
@@ -69,13 +85,13 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     //MARK: - Action
     //select photo
     @IBAction func selectImageFromPhotoLibrary(_ sender: UIButton) {
-        let imagePickerController = UIImagePickerController()
+        
         
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
         
         // Make sure ViewController is notified when the user picks an image.
-        imagePickerController.delegate = self.view as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        imagePickerController.delegate = self
         
         present(imagePickerController, animated: true, completion: nil)
         

@@ -12,7 +12,7 @@ import UIKit
 class Entry {
     var title : String = ""
     var location : String = ""
-    var date : Date
+    var date : Date = Date()
     var description : String = ""
     var photosArray = [UIImage]()
     

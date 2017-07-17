@@ -21,12 +21,13 @@ class EntryDetailsViewController: UIViewController {
     func configureView(){
         
         //converting date to string
-        let dateFormatter = DateFormatter()
-        let strDate = dateFormatter.string(from: (entry?.date)!)
+        
+        let dateobj = entry?.date
+        let dateStr = "\(dateobj ?? NSDate())"
         
         detailTitleLabel.text = entry?.title
         detailLocationLabel.text = entry?.location
-        detailDateLabel.text = strDate
+        detailDateLabel.text = dateStr
         detailTextView.text = entry?.description
 //        detailImageView = entry?.photosUIImageArray
         
