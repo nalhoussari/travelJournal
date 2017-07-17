@@ -10,7 +10,7 @@ import UIKit
 
 class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
     
-    var entries = [Entry]()
+    var entries = [JournalModel]()
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
     
@@ -44,7 +44,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     }
     
     //AddingNewEntry Delegation function
-    func newEntryDetails(_ entry: Entry){
+    func newEntryDetails(_ entry: JournalModel){
         self.entries.append(entry)
         self.allEntriesTableViewController.reloadData()
     }

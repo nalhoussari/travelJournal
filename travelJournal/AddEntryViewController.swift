@@ -9,13 +9,13 @@
 import UIKit
 
 protocol AddingEntryDelegate {
-    func newEntryDetails(_ entry: Entry)
+    func newEntryDetails(_ entry: JournalModel)
 }
 
 class AddEntryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var delegate: AddingEntryDelegate?
-    var entry : Entry?
+    var entry : JournalModel?
 
     @IBOutlet weak var newEntryTitle: UITextField!
     @IBOutlet weak var newEntryLocation: UILabel!

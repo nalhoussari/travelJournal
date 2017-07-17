@@ -16,7 +16,7 @@ class EntryDetailsViewController: UIViewController {
     @IBOutlet weak var detailDateLabel: UILabel!
     @IBOutlet weak var detailTextView: UITextView!
     
-    var entry : Entry?
+    var entry : JournalModel?
     
     func configureView(){
         detailTitleLabel.text = entry?.title
