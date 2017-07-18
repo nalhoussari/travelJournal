@@ -133,7 +133,11 @@ class FBDatabase {
     }
     
     //MARK - get ALL journal images from database
-    class func GetJournalImages(imageLocation:String) -> UIImage {
+    //class func GetJournalImages(imageLocation:String) -> UIImage {
+    
+    class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage) -> ()) {
+        //class func GetJournalImages(imageLocation:String) -> UIImage {
+        
         //storage
         var storeageRef: StorageReference!
         storeageRef = Storage.storage().reference()
@@ -165,11 +169,11 @@ class FBDatabase {
                 
                 let imagePath = url?.absoluteURL
                 image = UIImage(contentsOfFile: (imagePath?.path)!)!
+                closure(image)
             }
         }
         
-        return image
-        
+        //return image
     }
     
     
