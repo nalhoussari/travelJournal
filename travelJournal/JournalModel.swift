@@ -10,23 +10,23 @@ import UIKit
 
 class JournalModel : NSObject {
     
-    var id:Int
+    var id:String
     var title:String
     var tripDescription:String
     var images = [UIImage]()
     var imageLocations = [String]()
-    var date:NSNumber
+    var date:Date
     var location:String
     var latitude:NSNumber
     var longitude:NSNumber
     var fireBaseKey = String()
     
     
-    init(id:Int, title:String, tripDescription:String, date:NSDate, location:String, latitude:NSNumber, longitude:NSNumber) {
+    init(id:String, title:String, tripDescription:String, date:Date, location:String, latitude:NSNumber, longitude:NSNumber) {
         self.id = id
         self.title = title
         self.tripDescription = tripDescription
-        self.date = NSNumber.init(value: date.timeIntervalSince1970)
+        self.date = Date()
         self.location = location
         self.latitude = latitude
         self.longitude = longitude
@@ -34,10 +34,10 @@ class JournalModel : NSObject {
     
     convenience override init(){
         
-        let id = Int()
+        let id = String()
         let title = String()
         let tripDescription = String()
-        let date = NSDate()
+        let date = Date()
         let location = String()
         let latitude = NSNumber()
         let longitude = NSNumber()

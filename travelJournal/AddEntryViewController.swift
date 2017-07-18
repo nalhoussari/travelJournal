@@ -21,6 +21,8 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     var delegate: AddingEntryDelegate?
     var entry : JournalModel?
     
+    var userID : String = ""
+    
     var imagesStringArray = [String] ()
 
     @IBOutlet weak var newEntryTitle: UITextField!
@@ -32,10 +34,11 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var newEntryPhotos = [UIImage]()
     
+    var firebaseDatabase = FBDatabase()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userID = (Auth.auth().currentUser?.email)!   ///// current user
         self.newEntryTitle.delegate = self
         self.newEntryTextView.delegate = self as? UITextViewDelegate
 
@@ -109,7 +112,8 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         print("myRightSideBarButtonItemTapped")
         
         // pass the new entries in this initializer
-//        self.entry = Entry(title: "Title here")
+        let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date, location: "location", latitude: 101, longitude: 100)
+
         
         self.delegate?.newEntryDetails(self.entry!)
         

@@ -93,8 +93,8 @@ class FBDatabase {
                 let journal = child.value! as! [String:Any]
                 //let date = NSDate(timeIntervalSince1970: journalRecord?["date"] as! TimeInterval)
                 journalModel.fireBaseKey = child.key
-                journalModel.id = journal["id"] as? Int ?? 0
-                journalModel.date = journal["date"] as?  NSNumber ?? 0
+                journalModel.id = journal["id"] as? String ?? ""
+                journalModel.date = journal["date"] as! Date
                 
                 var imageLocations = Array<String>()
                 journalModel.location = journal["location"] as? String ?? ""
