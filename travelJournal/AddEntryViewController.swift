@@ -41,8 +41,15 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         userID = (Auth.auth().currentUser?.email)!   ///// current user
         self.newEntryTitle.delegate = self
         self.newEntryTextView.delegate = self as? UITextViewDelegate
+        
+        
+        //for testing tableView only
+        imagesStringArray.append("image1")
+        imagesStringArray.append("image2")
+        imagesStringArray.append("image3")
 
-        let rightBarButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AllEntriesTableViewController.myRightSideBarButtonItemTapped(_:)))
+        
+        let rightBarButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AddEntryViewController.myRightSideBarButtonItemTapped(_:)))
         self.navigationItem.rightBarButtonItem = rightBarButton
     
     }
@@ -134,9 +141,11 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? UITableViewCell else {
-            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+            fatalError("The dequeued cell is not an instance of TableViewCell.")
         }
-//        cell.textLabel?.text = imagesStringArray
+        
+        let imageString = imagesStringArray[indexPath.row]
+        cell.textLabel?.text = imageString
         cell.backgroundColor = UIColor.red
         
         return cell
@@ -154,7 +163,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            newEntryPhotos.remove(at: indexPath.row)
+            imagesStringArray.remove(at: indexPath.row)
             self.newPicturesTableView.reloadData()
         }
     }

@@ -28,19 +28,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
 //        self.entries.append(entry3)
 //        self.entries.append(entry4)
 //        self.entries.append(entry5)
-        //
-        //        let addBarButton = UIBarButtonItem(title: "Add", style: UIBarButtonItemStyle.plain, target: self, action:#selector(AllEntriesTableViewController.addEntry))
         
-        //        self.navigationItem.rightBarButtonItem = addBarButton
-        let rightBarButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AllEntriesTableViewController.myRightSideBarButtonItemTapped(_:)))
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        
-    }
-    
-    func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!)
-    {
-        print("myRightSideBarButtonItemTapped")
     }
     
     //AddingNewEntry Delegation function
