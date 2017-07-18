@@ -16,17 +16,38 @@ import FirebaseAuth
 class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
     
     var entries = [JournalModel]()
-//    var journalModel = JournalModel()
+    var filteredArray = [JournalModel]()
+    //    var journalModel = JournalModel()
+    
+    var userID : String = ""
+    
+    
     @IBOutlet weak var myEntriesTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        userID = (Auth.auth().currentUser?.uid)!   ///// current user
+        
         FBDatabase.GetJournalsFromDatabase { (journalArray) in
             self.entries = journalArray
             self.myEntriesTableView.reloadData()
+            //self.filterEntries()
+            
         }
-        
+    }
+    
+    func filterEntries()
+    {
+        for entry in self.entries
+        {
+            if entry.id == userID
+            {
+                filteredArray.append(entry)
+                
+            }
+        }
+        self.myEntriesTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +57,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     //AddingNewEntry Delegation function
     func newEntryDetails(_ entry: JournalModel){
-        self.entries.append(entry)
+        self.filteredArray.append(entry)
         self.myEntriesTableView.reloadData()
     }
     
@@ -47,7 +68,8 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return entries.count
+        print("numberofrowsInSection", filteredArray.count)
+        return filteredArray.count
     }
     
     //MARK: - Delegation
@@ -58,24 +80,24 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
         
-        let entry = entries[indexPath.row]
+        let entry = filteredArray[indexPath.row]
         
         cell.backgroundColor = UIColor.orange
         
         cell.myEntriesLabelTitle.text = entry.title
         cell.myEntriesLabelDescription.text = entry.tripDescription
-//        cell.myEntriesImageView.image = entry.images[0]
+        //        cell.myEntriesImageView.image = entry.images[0]
         
         return cell
     }
     
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-
+    
+    
 }
