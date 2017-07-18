@@ -12,7 +12,10 @@ class MyEntriesTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var myEntriesLabelTitle: UILabel!
-
+    @IBOutlet weak var myEntriesLabelDescription: UILabel!
+    @IBOutlet weak var myEntriesImageView: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

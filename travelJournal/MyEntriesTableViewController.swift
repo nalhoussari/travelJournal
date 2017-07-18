@@ -7,15 +7,31 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseAuth
+
 
 class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
     
     var entries = [JournalModel]()
+//    var journalModel = JournalModel()
     @IBOutlet weak var myEntriesTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FBDatabase.GetJournalsFromDatabase { (journalArray) in
+            self.entries = journalArray
+            self.myEntriesTableView.reloadData()
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.myEntriesTableView.reloadData()
     }
     
     //AddingNewEntry Delegation function
@@ -46,8 +62,9 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         cell.backgroundColor = UIColor.orange
         
-        
         cell.myEntriesLabelTitle.text = entry.title
+        cell.myEntriesLabelDescription.text = entry.tripDescription
+//        cell.myEntriesImageView.image = entry.images[0]
         
         return cell
     }

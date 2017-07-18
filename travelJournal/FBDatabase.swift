@@ -22,6 +22,8 @@ class FBDatabase {
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
+//        var userID : String = ""
+        
         //delete record from database
         ref.child("journals").child(journalModel.fireBaseKey).removeValue { (error, ref) in
             if error != nil{
@@ -74,18 +76,19 @@ class FBDatabase {
         ref = Database.database().reference()
         
         
-        var journalDictionary = Dictionary<JournalModel, Array<UIImage>>()
         
         var journalArray = [JournalModel]()
         
         //will need to use userID to fetch own records
-        //let userID = Auth.auth().currentUser?.uid
-        //ref.child("journal").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+//        let userID = Auth.auth().currentUser?.uid
+//        self.userID = Auth.auth().currentUser?.uid!   ///// current user
+//        ref.child("journals").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
         
         
         ref.child("journals").observeSingleEvent(of: .value, with: { (snapshot) in
-            
+        
             let enumerator = snapshot.children
+            var journalDictionary = Dictionary<JournalModel, Array<UIImage>>()
             while let child = enumerator.nextObject() as? DataSnapshot{
                 let journalModel = JournalModel()
                 
@@ -117,12 +120,11 @@ class FBDatabase {
                     journalArray.append(journalModel)
                     closure(journalArray)
                     
-                    journalArray.removeAll()
                     journalDictionary.removeAll()
-                    
                 }
                 
             } //while loop
+
             
         }) { (error) in
             print(error.localizedDescription)

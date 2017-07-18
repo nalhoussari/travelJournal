@@ -17,6 +17,11 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FBDatabase.GetJournalsFromDatabase { (journalArray) in
+            self.entries = journalArray
+            self.allEntriesTableViewController.reloadData()
+        }
+        
 //        let entry1 = Entry(title: "Trip!")
 //        let entry2 = Entry(title: "Trip 2 Yaaay!")
 //        let entry3 = Entry(title: "Trip 3 Yaaay!")
@@ -60,6 +65,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         cell.backgroundColor = UIColor.red
         
         cell.allEntriesCellLabel.text = entry.title
+        cell.allEntriesLabelDescription.text = entry.tripDescription
+//        cell.allEntriesImageView.image = entry.images[0]
         
         return cell
     }

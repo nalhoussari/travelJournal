@@ -38,15 +38,15 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userID = (Auth.auth().currentUser?.email)!   ///// current user
+        userID = (Auth.auth().currentUser?.uid)!   ///// current user
         self.newEntryTitle.delegate = self
         self.newEntryTextView.delegate = self as? UITextViewDelegate
         
         
         //for testing tableView only
-        imagesStringArray.append("image1")
-        imagesStringArray.append("image2")
-        imagesStringArray.append("image3")
+//        imagesStringArray.append("image1")
+//        imagesStringArray.append("image2")
+//        imagesStringArray.append("image3")
 
         
         let rightBarButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AddEntryViewController.myRightSideBarButtonItemTapped(_:)))
@@ -110,7 +110,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         present(imagePickerController, animated: true, completion: nil)
         
-        //getting the image URL
     }
     
 
