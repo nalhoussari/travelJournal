@@ -20,12 +20,15 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     let imagePickerController = UIImagePickerController()
     var delegate: AddingEntryDelegate?
     var entry : JournalModel?
+    
+    var imagesStringArray = [String] ()
 
     @IBOutlet weak var newEntryTitle: UITextField!
     @IBOutlet weak var newEntryLocation: UILabel!
     @IBOutlet weak var newEntryDate: UIDatePicker!
     @IBOutlet weak var newPicturesTableView: UITableView!
     @IBOutlet weak var newEntryTextView: UITextView!
+    
     
     var newEntryPhotos = [UIImage]()
     
@@ -57,7 +60,9 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
-//   
+            let urlString: String = imageURL.absoluteString!
+            imagesStringArray.append(urlString)
+            
             print(imageURL)
 //            let result =
 //            let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
@@ -118,7 +123,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newEntryPhotos.count
+        return imagesStringArray.count
     }
 
     //MARK: - Delegation of Photos TableView
@@ -127,7 +132,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? UITableViewCell else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
-        
+//        cell.textLabel?.text = imagesStringArray
         cell.backgroundColor = UIColor.red
         
         return cell

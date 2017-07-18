@@ -175,7 +175,7 @@
 				TargetAttributes = {
 					7CD7AFF21F16A60C007351EE = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = WPLN8UTBRD;
+						DevelopmentTeam = ZDL96S575W;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -413,7 +413,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WPLN8UTBRD;
+				DEVELOPMENT_TEAM = ZDL96S575W;
 				INFOPLIST_FILE = travelJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alhoussari.travelJournal;
@@ -429,7 +429,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WPLN8UTBRD;
+				DEVELOPMENT_TEAM = ZDL96S575W;
 				INFOPLIST_FILE = travelJournal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alhoussari.travelJournal;
