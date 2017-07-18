@@ -53,7 +53,7 @@ class EntryDetailsViewController: UIViewController {
         //converting date to string
         
         let dateobj = entry?.date
-        let dateStr = "\(dateobj ?? Date())"
+        let dateStr = "\(dateobj ?? NSNumber())"
         
         detailTitleLabel.text = entry?.title
         detailLocationLabel.text = entry?.location

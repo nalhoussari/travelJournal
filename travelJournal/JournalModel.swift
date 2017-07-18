@@ -15,7 +15,7 @@ class JournalModel : NSObject {
     var tripDescription:String
     var images = [UIImage]()
     var imageLocations = [String]()
-    var date:Date
+    var date:NSNumber
     var location:String
     var latitude:NSNumber
     var longitude:NSNumber
@@ -26,7 +26,7 @@ class JournalModel : NSObject {
         self.id = id
         self.title = title
         self.tripDescription = tripDescription
-        self.date = Date()
+        self.date =  NSNumber.init(value: date.timeIntervalSince1970)
         self.location = location
         self.latitude = latitude
         self.longitude = longitude

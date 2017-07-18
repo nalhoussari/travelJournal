@@ -112,9 +112,9 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         print("myRightSideBarButtonItemTapped")
         
         // pass the new entries in this initializer
-        let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date, location: "location", latitude: 101, longitude: 100)
+        let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: "location", latitude: 101, longitude: 100)
 
-        
+        FBDatabase.SaveJournalToDatabase(journalModel: newEntry)
         self.delegate?.newEntryDetails(self.entry!)
         
         navigationController?.popViewController(animated: true)
