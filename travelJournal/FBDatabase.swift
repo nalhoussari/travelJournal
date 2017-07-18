@@ -110,12 +110,12 @@ class FBDatabase {
                 
                 OperationQueue.main.addOperation {
                     
-                    for image in imageLocations{
-                        
-                        let journalImages = self.GetJournalImages(imageLocation: image)
-                        journalModel.images.append(journalImages)
-                        
-                    }
+//                    for image in imageLocations{
+//                        
+//                        let journalImages = self.GetJournalImages(imageLocation: image)
+//                        journalModel.images.append(journalImages)
+//                        
+//                    }
                     
                     journalArray.append(journalModel)
                     closure(journalArray)
@@ -138,41 +138,48 @@ class FBDatabase {
     class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage) -> ()) {
         //class func GetJournalImages(imageLocation:String) -> UIImage {
         
-        //storage
-        var storeageRef: StorageReference!
-        storeageRef = Storage.storage().reference()
         
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = paths[0]
-        let filename = "/\(imageLocation).png"
-        let filePath = "file:\(documentsDirectory)\(filename)"
-        var image = UIImage()
+        if !imageLocation.isEmpty {
         
-        let createPath = documentsDirectory.appending("/images")
-        
-        //create "images" directory under documents if it doesn't exist
-        do {
-            try FileManager.default.createDirectory(atPath: createPath, withIntermediateDirectories: true, attributes: nil)
-        } catch let error as NSError {
-            print(error.localizedDescription);
-        }
-        
-        let localURL = URL(string: filePath)!
-        
-        let dbRef = storeageRef.child(imageLocation)
-        
-        dbRef.write(toFile: localURL) { (url, error) in
-            if let error = error{
-                //uh-oh an error happened
-                print("the errors is: \(error)")
-            } else {
-                
-                let imagePath = url?.absoluteURL
-                image = UIImage(contentsOfFile: (imagePath?.path)!)!
-                closure(image)
+            //storage
+            var storeageRef: StorageReference!
+            storeageRef = Storage.storage().reference()
+            
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentsDirectory = paths[0]
+            let filename = "/\(imageLocation).png"
+            let filePath = "file:\(documentsDirectory)\(filename)"
+            var image = UIImage()
+            
+            let createPath = documentsDirectory.appending("/images")
+            
+            //create "images" directory under documents if it doesn't exist
+            do {
+                try FileManager.default.createDirectory(atPath: createPath, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError {
+                print(error.localizedDescription);
             }
-        }
+            
+            let localURL = URL(string: filePath)!
+            
+            let dbRef = storeageRef.child(imageLocation)
+            
+            dbRef.write(toFile: localURL) { (url, error) in
+                if let error = error{
+                    //uh-oh an error happened
+                    print("the errors is: \(error)")
+                } else {
+                    
+                    let imagePath = url?.absoluteURL
+                    image = UIImage(contentsOfFile: (imagePath?.path)!)!
+                    closure(image)
+                }
+            }
+        } else {
         
+            let defaultImage = UIImage(named: "default.png")
+                closure(defaultImage!)
+        }
         //return image
     }
     
