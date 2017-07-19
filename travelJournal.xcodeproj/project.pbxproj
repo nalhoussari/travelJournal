@@ -11,6 +11,7 @@
 		73E2A4161F183DAE00FA15F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */; };
 		73FEFF7E1F1942D80029F198 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FEFF7D1F1942D80029F198 /* JournalModel.swift */; };
 		73FEFF801F1AA58E0029F198 /* FBDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FEFF7F1F1AA58E0029F198 /* FBDatabase.swift */; };
+		7C7F59F11F20070700B9D735 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7F59F01F20070700B9D735 /* apiKeys.swift */; };
 		7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD7AFF61F16A60C007351EE /* AppDelegate.swift */; };
 		7CD7AFFC1F16A60C007351EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFA1F16A60C007351EE /* Main.storyboard */; };
 		7CD7AFFE1F16A60C007351EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD7AFFD1F16A60C007351EE /* Assets.xcassets */; };
@@ -30,7 +31,6 @@
 		D78DF25E1F18540700683421 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF25D1F18540700683421 /* MapViewController.swift */; };
 		D78DF2601F18540B00683421 /* MyEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */; };
 		D78DF2621F18540E00683421 /* MyEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2611F18540E00683421 /* MyEntriesTableViewController.swift */; };
-		D7B8A3561F1FE6A800429BBD /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B8A3551F1FE6A800429BBD /* apiKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +38,7 @@
 		73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		73FEFF7D1F1942D80029F198 /* JournalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
 		73FEFF7F1F1AA58E0029F198 /* FBDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDatabase.swift; sourceTree = "<group>"; };
+		7C7F59F01F20070700B9D735 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
 		7CD7AFF31F16A60C007351EE /* travelJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = travelJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CD7AFF61F16A60C007351EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CD7AFFB1F16A60C007351EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		D78DF25D1F18540700683421 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEntriesTableViewCell.swift; sourceTree = "<group>"; };
 		D78DF2611F18540E00683421 /* MyEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEntriesTableViewController.swift; sourceTree = "<group>"; };
-		D7B8A3551F1FE6A800429BBD /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,7 @@
 		7CD7AFF51F16A60C007351EE /* travelJournal */ = {
 			isa = PBXGroup;
 			children = (
-				D7B8A3551F1FE6A800429BBD /* apiKeys.swift */,
+				7C7F59F01F20070700B9D735 /* apiKeys.swift */,
 				73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */,
 				7CDB9D831F194FDF002ED703 /* TabBarController.swift */,
 				D78DF2511F1853E600683421 /* AddEntryViewController.swift */,
@@ -274,7 +274,7 @@
 				D78DF2561F1853F000683421 /* AllEntriesTableViewController.swift in Sources */,
 				D78DF2621F18540E00683421 /* MyEntriesTableViewController.swift in Sources */,
 				7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */,
-				D7B8A3561F1FE6A800429BBD /* apiKeys.swift in Sources */,
+				7C7F59F11F20070700B9D735 /* apiKeys.swift in Sources */,
 				D7203C411F18129A00DD6DF4 /* (null) in Sources */,
 				D744E6021F1D44AC004ABA3F /* User.swift in Sources */,
 				73FEFF801F1AA58E0029F198 /* FBDatabase.swift in Sources */,
