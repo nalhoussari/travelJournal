@@ -58,7 +58,7 @@ class EntryDetailsViewController: UIViewController {
         detailLocationLabel.text = entry?.location
         detailDateLabel.text = stringDate
         detailTextView.text = entry?.description
-        detailImageView.image = entry?.images[imageCounter]
+      //  detailImageView.image = entry?.images[imageCounter]
         
         
     }

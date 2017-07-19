@@ -103,8 +103,15 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let indexPath = self.myEntriesTableView.indexPathForSelectedRow{
+            let selectedRow = indexPath.row
+            let entryDetailsViewController = segue.destination as? EntryDetailsViewController
+            entryDetailsViewController?.entry = self.filteredArray[selectedRow]
+        }
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
