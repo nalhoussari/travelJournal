@@ -50,14 +50,13 @@ class EntryDetailsViewController: UIViewController {
     }
     func configureView(){
         
-        //converting date to string
-        
-        let dateobj = entry?.date
-        let dateStr = "\(dateobj ?? NSNumber())"
-        
+        //converting NSNumber to string
+        let dateObj = entry?.date
+        let stringDate = String(describing: dateObj)
+
         detailTitleLabel.text = entry?.title
         detailLocationLabel.text = entry?.location
-        detailDateLabel.text = dateStr
+        detailDateLabel.text = stringDate
         detailTextView.text = entry?.description
         detailImageView.image = entry?.images[imageCounter]
         

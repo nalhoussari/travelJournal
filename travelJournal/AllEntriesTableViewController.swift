@@ -64,11 +64,31 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         
         cell.backgroundColor = UIColor.red
         
+        print(entry.imageLocations.count)
+        if entry.imageLocations.count > 0 {
+            let imageLog = entry.imageLocations[0]
+            FBDatabase.GetJournalImages(imageLocation: imageLog) { (image) in
+                cell.allEntriesImageView.image = image
+            }
+        } else {
+            cell.imageView?.image = UIImage(named: "default.png")
+        }
+        
         cell.allEntriesCellLabel.text = entry.title
         cell.allEntriesLabelDescription.text = entry.tripDescription
 //        cell.allEntriesImageView.image = entry.images[0]
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let indexPath = self.allEntriesTableViewController.indexPathForSelectedRow{
+            let selectedRow = indexPath.row
+            let entryDetailsViewController = segue.destination as? EntryDetailsViewController
+            entryDetailsViewController?.entry = self.entries[selectedRow]
+        }
+
     }
     
     override func didReceiveMemoryWarning() {
