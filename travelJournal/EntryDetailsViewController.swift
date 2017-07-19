@@ -24,7 +24,7 @@ class EntryDetailsViewController: UIViewController {
     
     
     func gettingImages() {
-        if (entry?.localImagePath.count)! < 1 {
+        if (entry?.localImagePath.count)! <= 1 {
             if (entry?.imageLocations.count)! > 0 {
                 for imageTemp in (entry?.imageLocations)! {
                     FBDatabase.GetJournalImages(imageLocation:
@@ -89,7 +89,13 @@ class EntryDetailsViewController: UIViewController {
         detailLocationLabel.text = entry?.location
         detailDateLabel.text = stringDate
         detailTextView.text = entry?.tripDescription
-        detailImageView.image = self.imagesArray[imageCounter]
+        for imagePathTemp in (entry?.localImagePath)! {
+            let fp = imagePathTemp
+            let imageURL = URL(fileURLWithPath: fp)
+            let image = UIImage(contentsOfFile: imageURL.path)
+            self.imagesArray.append(image!)
+        }
+        detailImageView.image = self.imagesArray[0]
         
         
     }
