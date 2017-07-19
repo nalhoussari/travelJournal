@@ -85,13 +85,26 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         let entry = filteredArray[indexPath.row]
         
-        if !(entry.imageLocations.isEmpty) {
-            FBDatabase.GetJournalImages(imageLocation:
-            entry.imageLocations[0]) { (image) in
-                cell.myEntriesImageView.image = image
+        
+        if entry.localImagePath.count < 1 {
+            if entry.imageLocations.count > 0 {
+                
+                FBDatabase.GetJournalImages(imageLocation:
+                entry.imageLocations[0]) { (image, localImagePath) in
+                    cell.myEntriesImageView.image = image
+                    entry.localImagePath.append(localImagePath)
+                }
+            } else {
+                cell.myEntriesImageView.image = UIImage(named: "default.png")
             }
         } else {
-            cell.imageView?.image = UIImage(named: "default.png")
+            //fetch from drive
+            let fp = entry.localImagePath[0]
+            print("fp: \(fp)")
+            let imageURL = URL(fileURLWithPath: fp)
+            
+            let image = UIImage(contentsOfFile: imageURL.path)
+            cell.myEntriesImageView.image = image
         }
         
         cell.backgroundColor = UIColor.orange

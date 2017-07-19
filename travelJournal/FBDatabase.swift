@@ -138,22 +138,23 @@ class FBDatabase {
     //MARK - get ALL journal images from database
     //class func GetJournalImages(imageLocation:String) -> UIImage {
     
-    class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage) -> ()) {
-        //class func GetJournalImages(imageLocation:String) -> UIImage {
-        
-        
-//        if !imageLocation.isEmpty {
+    class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage, _ localImagePath:String) -> ()) {
+    
         
             //storage
             var storeageRef: StorageReference!
             storeageRef = Storage.storage().reference()
+        
             
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
             let documentsDirectory = paths[0]
             let filename = "/\(imageLocation).png"
             let filePath = "file:\(documentsDirectory)\(filename)"
             var image = UIImage()
-            
+            let localImagePath = "\(documentsDirectory)\(filename)"
+        
+        
+        
             let createPath = documentsDirectory.appending("/images")
             
             //create "images" directory under documents if it doesn't exist
@@ -164,7 +165,7 @@ class FBDatabase {
             }
             
             let localURL = URL(string: filePath)!
-            
+        
             let dbRef = storeageRef.child(imageLocation)
             
             dbRef.write(toFile: localURL) { (url, error) in
@@ -175,15 +176,10 @@ class FBDatabase {
                     
                     let imagePath = url?.absoluteURL
                     image = UIImage(contentsOfFile: (imagePath?.path)!)!
-                    closure(image)
+                    closure(image, localImagePath)
                 }
             }
-//        } else {
-//        
-//            let defaultImage = UIImage(named: "default.png")
-//                closure(defaultImage!)
-//        }
-        //return image
+
     }
     
     

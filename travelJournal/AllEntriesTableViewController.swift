@@ -64,15 +64,33 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         
         cell.backgroundColor = UIColor.red
         
-        print(entry.imageLocations.count)
-        if entry.imageLocations.count > 0 {
-            let imageLog = entry.imageLocations[0]
-            FBDatabase.GetJournalImages(imageLocation: imageLog) { (image) in
-                cell.allEntriesImageView.image = image
+        print("indexpath: \(indexPath.row)")
+        print("localpathcount: \(entry.localImagePath.count)")
+        
+        if entry.localImagePath.count < 1 {
+            
+            if entry.imageLocations.count > 0 {
+                let imageLog = entry.imageLocations[0]
+                
+                FBDatabase.GetJournalImages(imageLocation: imageLog) { (image, localImagePath) in
+                    cell.allEntriesImageView.image = image
+                    entry.localImagePath.append(localImagePath)
+                }
+            } else {
+                //cell.imageView?.image = UIImage(named: "default.png")
+                cell.allEntriesImageView.image = UIImage(named: "default.png")
             }
         } else {
-            cell.imageView?.image = UIImage(named: "default.png")
+            //fetch from drive
+            let fp = entry.localImagePath[0]
+            print("fp: \(fp)")
+            let imageURL = URL(fileURLWithPath: fp)
+            
+            let image = UIImage(contentsOfFile: imageURL.path)!
+            cell.allEntriesImageView.image = image
         }
+
+        
         
         cell.allEntriesCellLabel.text = entry.title
         cell.allEntriesLabelDescription.text = entry.tripDescription
