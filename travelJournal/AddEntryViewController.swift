@@ -104,7 +104,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
-        let compressedImage = UIImageJPEGRepresentation(selectedImage, 0.2)
+        let compressedImage = UIImageJPEGRepresentation(selectedImage, 0.1)
 
         guard let newImage = UIImage(data: compressedImage!) else {
             fatalError("unable to convert compressed image")
