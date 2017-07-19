@@ -103,8 +103,14 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-         //Add the selected image to the array of photos
-        newEntryPhotos.append(selectedImage)
+        
+        let compressedImage = UIImageJPEGRepresentation(selectedImage, 0.2)
+
+        guard let newImage = UIImage(data: compressedImage!) else {
+            fatalError("unable to convert compressed image")
+        }
+            //Add the selected image to the array of photos
+        newEntryPhotos.append(newImage)
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
