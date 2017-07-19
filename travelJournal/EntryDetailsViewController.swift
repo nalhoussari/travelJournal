@@ -52,7 +52,12 @@ class EntryDetailsViewController: UIViewController {
         
         //converting NSNumber to string
         let dateObj = entry?.date
-        let stringDate = String(describing: dateObj)
+        let date = (Date(timeIntervalSince1970: TimeInterval(dateObj!)))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        
+        let stringDate = dateFormatter.string(from: date)
 
         detailTitleLabel.text = entry?.title
         detailLocationLabel.text = entry?.location
