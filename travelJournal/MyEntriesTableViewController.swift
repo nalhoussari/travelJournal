@@ -28,13 +28,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         
         userID = (Auth.auth().currentUser?.uid)!   ///// current user
-        
-        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-            self.entries = journalArray
-            self.filterEntries()
-            self.myEntriesTableView.reloadData()
-            
-        }
+        self.getRecords()
     }
     
     func filterEntries()
@@ -53,9 +47,18 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
+    func getRecords(){
+        FBDatabase.GetJournalsFromDatabase { (journalArray) in
+            self.entries = journalArray
+            self.filterEntries()
+            self.myEntriesTableView.reloadData()
+            
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.myEntriesTableView.reloadData()
+        self.getRecords()
     }
     
     //AddingNewEntry Delegation function

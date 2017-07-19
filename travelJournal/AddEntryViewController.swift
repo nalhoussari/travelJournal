@@ -69,11 +69,26 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
+        
+//        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            
+////        let urlString: String = imageURL.absoluteString!
+////        imagesStringArray.append(urlString)
+//            
+//            newEntryPhotos.append(image)
+//            
+//        }
+        
+        
         if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
-            let urlString: String = imageURL.absoluteString!
-            imagesStringArray.append(urlString)
+            //let urlString: String = imageURL.absoluteString!
+            imagesStringArray.append(imageURL.lastPathComponent!)
             
-            print(imageURL)
+//            
+//            let test5 = imageURL.lastPathComponent
+//            print(test5 ?? "nothing")
+
+        
 //            let result =
 //            let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
 //            let asset = result.firstObject
@@ -88,11 +103,12 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
-        // Add the selected image to the array of photos
+         //Add the selected image to the array of photos
         newEntryPhotos.append(selectedImage)
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
+        self.newPicturesTableView.reloadData()
     }
 
 
@@ -108,7 +124,23 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         // Make sure ViewController is notified when the user picks an image.
         imagePickerController.delegate = self
         
-        present(imagePickerController, animated: true, completion: nil)
+        //present(imagePickerController, animated: true, completion: nil)
+//        if TARGET_OS_SIMULATOR == 1 {
+            // 3. We check if we are running on a Simulator
+            //    If so, we pick a photo from the simulator’s Photo Library
+            // We need to do this because the simulator does not have a camera
+            imagePickerController.sourceType = .photoLibrary
+//        } else {
+//            // 4. We check if we are running on an iPhone or iPad (ie: not a simulator)
+//            //    If so, we open up the pickerController's Camera (Front Camera, for selfies!)
+//            imagePickerController.sourceType = .camera
+//            imagePickerController.cameraDevice = .front
+//            imagePickerController.cameraCaptureMode = .photo
+//        }
+        
+        // Preset the pickerController on screen
+        self.present(imagePickerController, animated: true, completion: nil)
+
         
     }
     
@@ -119,6 +151,8 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // pass the new entries in this initializer
         let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: "location", latitude: 101, longitude: 100)
+        
+        newEntry.images = self.newEntryPhotos
 
         FBDatabase.SaveJournalToDatabase(journalModel: newEntry)
         self.delegate?.newEntryDetails(self.entry!)
