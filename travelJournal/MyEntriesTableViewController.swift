@@ -31,23 +31,26 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         FBDatabase.GetJournalsFromDatabase { (journalArray) in
             self.entries = journalArray
+            self.filterEntries()
             self.myEntriesTableView.reloadData()
-            //self.filterEntries()
             
         }
     }
     
     func filterEntries()
     {
+        filteredArray.removeAll()
         for entry in self.entries
         {
+            
             if entry.id == userID
             {
                 filteredArray.append(entry)
-                
             }
         }
+        
         self.myEntriesTableView.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +84,15 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         let entry = filteredArray[indexPath.row]
+        
+        if !(entry.imageLocations.isEmpty) {
+            FBDatabase.GetJournalImages(imageLocation:
+            entry.imageLocations[0]) { (image) in
+                cell.myEntriesImageView.image = image
+            }
+        } else {
+            cell.imageView?.image = UIImage(named: "default.png")
+        }
         
         cell.backgroundColor = UIColor.orange
         

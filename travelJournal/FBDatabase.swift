@@ -108,8 +108,8 @@ class FBDatabase {
                 journalModel.latitude = journal["latitude"] as? NSNumber ?? 0
                 journalModel.longitude = journal["latitude"] as? NSNumber ?? 0
                 
-                OperationQueue.main.addOperation {
-                    
+//                OperationQueue.main.addOperation {
+                
 //                    for image in imageLocations{
 //                        
 //                        let journalImages = self.GetJournalImages(imageLocation: image)
@@ -118,13 +118,16 @@ class FBDatabase {
 //                    }
                     
                     journalArray.append(journalModel)
-                    closure(journalArray)
                     
                     journalDictionary.removeAll()
-                }
+//                }
                 
             } //while loop
+            
+            OperationQueue.main.addOperation {
 
+                closure(journalArray)
+            }
             
         }) { (error) in
             print(error.localizedDescription)
@@ -139,7 +142,7 @@ class FBDatabase {
         //class func GetJournalImages(imageLocation:String) -> UIImage {
         
         
-        if !imageLocation.isEmpty {
+//        if !imageLocation.isEmpty {
         
             //storage
             var storeageRef: StorageReference!
@@ -175,11 +178,11 @@ class FBDatabase {
                     closure(image)
                 }
             }
-        } else {
-        
-            let defaultImage = UIImage(named: "default.png")
-                closure(defaultImage!)
-        }
+//        } else {
+//        
+//            let defaultImage = UIImage(named: "default.png")
+//                closure(defaultImage!)
+//        }
         //return image
     }
     
