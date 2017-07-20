@@ -7,29 +7,82 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
+
 
 class MapViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: - Properties
+    @IBOutlet weak var mapView: MKMapView!
+    let regionRadius: CLLocationDistance = 1000
+    @IBOutlet var streetTextField: UITextField!
+    let annotation = MKPointAnnotation()
+    @IBOutlet var geocodeButton: UIButton!
+    @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet var locationLabel: UILabel!
+    lazy var geocoder = CLGeocoder()
+    
+    // MARK: - Initialization
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        title = "Forward Geocoding"
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let initialLocation = CLLocation(latitude: 49.2819, longitude: -123.1083)
+        centerMapOnLocation(initialLocation)
+        mapView.mapType = MKMapType.hybrid
     }
-    */
-
+    // MARK: - Actions
+    @IBAction func geocode(_ sender: UIButton) {
+        guard let street = streetTextField.text else { return }
+        
+        // Geocode Address String
+        let address = "\(street)"
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            self.processResponse(withPlacemarks: placemarks, error: error)
+        }
+        
+        // Update View
+        geocodeButton.isHidden = true
+        activityIndicatorView.startAnimating()
+    }
+    
+    // MARK: - Helper Methods
+    private func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
+        // Update View
+        geocodeButton.isHidden = false
+        activityIndicatorView.stopAnimating()
+        
+        if let error = error {
+            print("Unable to Forward Geocode Address (\(error))")
+            locationLabel.text = "Unable to Find Location for Address"
+            
+        } else {
+            var location: CLLocation?
+            
+            if let placemarks = placemarks, placemarks.count > 0 {
+                location = placemarks.first?.location
+            }
+            
+            if let location = location {
+                let coordinate = location.coordinate
+                locationLabel.text = "\(coordinate.latitude), \(coordinate.longitude)"
+                annotation.coordinate = location.coordinate
+                mapView.addAnnotation(annotation)
+                centerMapOnLocation(CLLocation(latitude:location.coordinate.latitude, longitude:location.coordinate.longitude))
+            } else {
+                locationLabel.text = "No Matching Location Found"
+            }
+        }
+    }
+    
+    func centerMapOnLocation(_ location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+                                                                  regionRadius * 3.0, regionRadius * 3.0)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
 }
