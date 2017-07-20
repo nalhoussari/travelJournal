@@ -12,28 +12,16 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     var entries = [JournalModel]()
     @IBOutlet weak var allEntriesTableViewController: UITableView!
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         FBDatabase.GetJournalsFromDatabase { (journalArray) in
             self.entries = journalArray
+            self.entries.removeAll()
             self.allEntriesTableViewController.reloadData()
         }
-        
-//        let entry1 = Entry(title: "Trip!")
-//        let entry2 = Entry(title: "Trip 2 Yaaay!")
-//        let entry3 = Entry(title: "Trip 3 Yaaay!")
-//        let entry4 = Entry(title: "Trip 4 Yaaay!")
-//        let entry5 = Entry(title: "Trip 5 Yaaay!")
-//        
-//        self.entries.append(entry1)
-//        self.entries.append(entry2)
-//        self.entries.append(entry3)
-//        self.entries.append(entry4)
-//        self.entries.append(entry5)
-        
     }
     
     //AddingNewEntry Delegation function
@@ -98,6 +86,34 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         
         return cell
     }
+    
+    
+
+    
+     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (editingStyle == .delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            
+            FBDatabase.DeleteJournalFromDatabase(journalModel: entries[indexPath.row])
+            self.entries.remove(at: indexPath.row)
+            
+            self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
+        }
+    
+    }
+    
+
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

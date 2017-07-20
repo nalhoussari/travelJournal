@@ -66,7 +66,7 @@ class FBDatabase {
                 print("Ooops! Something went wrong: \(error)")
             }
         }
-        print("end of the line")
+        
     }
     
     //MARK - get ALL journals from database
@@ -174,9 +174,11 @@ class FBDatabase {
                     print("the errors is: \(error)")
                 } else {
                     
-                    let imagePath = url?.absoluteURL
-                    image = UIImage(contentsOfFile: (imagePath?.path)!)!
-                    closure(image, localImagePath)
+                     OperationQueue.main.addOperation {
+                        let imagePath = url?.absoluteURL
+                        image = UIImage(contentsOfFile: (imagePath?.path)!)!
+                        closure(image, localImagePath)
+                    }
                 }
             }
 

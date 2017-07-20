@@ -119,6 +119,31 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
+    
+    //MARK - Delete delegates
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (editingStyle == .delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            FBDatabase.DeleteJournalFromDatabase(journalModel: filteredArray[indexPath.row])
+            self.filteredArray.remove(at: indexPath.row)
+            self.self.myEntriesTableView.deleteRows(at: [indexPath], with: .fade)
+            //self.myEntriesTableView.reloadData()
+        }
+        
+    }
+
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let indexPath = self.myEntriesTableView.indexPathForSelectedRow{
