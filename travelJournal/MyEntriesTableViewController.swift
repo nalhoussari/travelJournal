@@ -27,7 +27,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userID = (Auth.auth().currentUser?.uid)!   ///// current user
+        userID = (Auth.auth().currentUser?.email)!   ///// current user
         self.getRecords()
     }
     

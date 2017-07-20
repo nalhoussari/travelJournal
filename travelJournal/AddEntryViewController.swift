@@ -43,7 +43,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userID = (Auth.auth().currentUser?.uid)!   ///// current user
+        userID = (Auth.auth().currentUser?.email)!   ///// current user
         self.newEntryTitle.delegate = self
         self.newEntryTextView.delegate = self as? UITextViewDelegate
         
