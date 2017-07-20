@@ -33,6 +33,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     var newEntryPhotos = [UIImage]()
+    var imageData = [Data]()
     
     var firebaseDatabase = FBDatabase()
     
@@ -104,13 +105,14 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
-        let compressedImage = UIImageJPEGRepresentation(selectedImage, 0.1)
-
-        guard let newImage = UIImage(data: compressedImage!) else {
-            fatalError("unable to convert compressed image")
-        }
-            //Add the selected image to the array of photos
-        newEntryPhotos.append(newImage)
+        let compressedImage = UIImageJPEGRepresentation(selectedImage, 0.0)
+        imageData.append(compressedImage!)
+//        guard let newImage = UIImage(data: compressedImage!) else {
+//            fatalError("unable to convert compressed image")
+//        }
+//            //Add the selected image to the array of photos
+//        newEntryPhotos.append(newImage)
+        newEntryPhotos.append(selectedImage)
         
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
@@ -158,8 +160,9 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         // pass the new entries in this initializer
         let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: "location", latitude: 101, longitude: 100)
         
-        newEntry.images = self.newEntryPhotos
-
+        //newEntry.images = self.newEntryPhotos
+        newEntry.imageData = self.imageData
+        
         FBDatabase.SaveJournalToDatabase(journalModel: newEntry)
         self.delegate?.newEntryDetails(self.entry!)
         

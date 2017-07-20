@@ -17,50 +17,12 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // DispatchQueue.global(qos: .userInitiated).async {
-        
-//            //starting the spinner
-//            self.allEntriesTableViewController.addSubview(self.spinner)
-//            self.spinner.center = self.allEntriesTableViewController.center
-//            self.spinner.color = UIColor.black
-//            self.spinner.startAnimating()
-//            self.spinner.hidesWhenStopped = true
-        
             //calling data
             FBDatabase.GetJournalsFromDatabase { (journalArray) in
                 self.entries = journalArray
                 self.allEntriesTableViewController.reloadData()
             }
-            // Bounce back to the main thread to update the UI
-//            DispatchQueue.main.async {
-////                self.spinner.stopAnimating()
-//            }
-       // }
-        
-//        //starting the spinner
-//        self.spinner.startAnimating()
-//        self.spinner.hidesWhenStopped = true
-//        
-//        //calling data
-//        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-//            self.entries = journalArray
-//            
-//            self.allEntriesTableViewController.reloadData()
-//            self.spinner.stopAnimating()
-//        }
-        
-//        let entry1 = Entry(title: "Trip!")
-//        let entry2 = Entry(title: "Trip 2 Yaaay!")
-//        let entry3 = Entry(title: "Trip 3 Yaaay!")
-//        let entry4 = Entry(title: "Trip 4 Yaaay!")
-//        let entry5 = Entry(title: "Trip 5 Yaaay!")
-//        
-//        self.entries.append(entry1)
-//        self.entries.append(entry2)
-//        self.entries.append(entry3)
-//        self.entries.append(entry4)
-//        self.entries.append(entry5)
-        
+         
     }
     
     //AddingNewEntry Delegation function
@@ -122,6 +84,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             print("fp: \(fp)")
             let imageURL = URL(fileURLWithPath: fp)
             cell.spinner.stopAnimating()
+            
+            //need guard here!!
             let image = UIImage(contentsOfFile: imageURL.path)!
 //            self.spinner.stopAnimating()
             cell.allEntriesImageView.image = image

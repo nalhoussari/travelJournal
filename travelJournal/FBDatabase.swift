@@ -192,20 +192,43 @@ class FBDatabase {
         var storeageRef: StorageReference!
         storeageRef = Storage.storage().reference()
         
+//        var imageReferences: Array<String> = []
+//        
+//        for image in journalModel.images{
+//            
+//            let uuid = UUID()
+//            let newImageName = uuid.uuidString
+//            
+//            let data = UIImagePNGRepresentation(image)
+//            
+//            let imageRef = storeageRef.child("images/\(newImageName)")
+//            
+//            imageReferences.append(imageRef.fullPath)
+//            
+//            _ = imageRef.putData(data!, metadata: nil, completion: { (metadata, error) in
+//                if let error = error{
+//                    print("error is \(error)")
+//                }
+//                else {
+//                    print("inside else - upload Successful")
+//                }
+//            })
+//        }
+        
         var imageReferences: Array<String> = []
         
-        for image in journalModel.images{
+        for imgData in journalModel.imageData{
             
             let uuid = UUID()
             let newImageName = uuid.uuidString
             
-            let data = UIImagePNGRepresentation(image)
+            //let data = UIImagePNGRepresentation(image)
             
             let imageRef = storeageRef.child("images/\(newImageName)")
             
             imageReferences.append(imageRef.fullPath)
             
-            _ = imageRef.putData(data!, metadata: nil, completion: { (metadata, error) in
+            _ = imageRef.putData(imgData, metadata: nil, completion: { (metadata, error) in
                 if let error = error{
                     print("error is \(error)")
                 }
@@ -214,6 +237,9 @@ class FBDatabase {
                 }
             })
         }
+
+        ///////////////////
+        
         
         journalModel.imageLocations = imageReferences
         

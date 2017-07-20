@@ -16,6 +16,7 @@ class JournalModel : NSObject {
     var images = [UIImage]()
     var imageLocations = [String]()
     var localImagePath = [String]()
+    var imageData = [Data]()
     var date:NSNumber
     var location:String
     var latitude:NSNumber

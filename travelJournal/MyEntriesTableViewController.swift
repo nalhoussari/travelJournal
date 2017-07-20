@@ -44,7 +44,6 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         self.myEntriesTableView.reloadData()
-        
     }
     
     func getRecords(){
@@ -154,7 +153,5 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
+
 }

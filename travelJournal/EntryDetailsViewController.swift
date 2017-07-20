@@ -96,7 +96,9 @@ class EntryDetailsViewController: UIViewController {
             let image = UIImage(contentsOfFile: imageURL.path)
             self.imagesArray.append(image!)
         }
-        detailImageView.image = self.imagesArray[0]
+        if self.imagesArray.count > 0 {
+            detailImageView.image = self.imagesArray[0]
+        }
     }
     
     override func viewDidLoad() {
