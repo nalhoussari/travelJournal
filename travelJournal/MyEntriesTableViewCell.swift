@@ -14,7 +14,7 @@ class MyEntriesTableViewCell: UITableViewCell {
     @IBOutlet weak var myEntriesLabelTitle: UILabel!
     @IBOutlet weak var myEntriesLabelDescription: UILabel!
     @IBOutlet weak var myEntriesImageView: UIImageView!
-    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -82,21 +82,31 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "myEntryCell", for: indexPath) as? MyEntriesTableViewCell else {
-            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+            fatalError("The dequeued cell is not an instance of MyEntriesTableViewCell.")
         }
         
         let entry = filteredArray[indexPath.row]
         
+        //        cell.allEntriesImageView.addSubview(cell.spinner)
+        cell.spinner.center = (cell.myEntriesImageView?.center)!
+        cell.spinner.color = UIColor.black
+        cell.spinner.startAnimating()
+        cell.spinner.hidesWhenStopped = true
         
         if entry.localImagePath.count < 1 {
             if entry.imageLocations.count > 0 {
                 
                 FBDatabase.GetJournalImages(imageLocation:
                 entry.imageLocations[0]) { (image, localImagePath) in
+                    
+                    //stopping the spinner
+                    cell.spinner.stopAnimating()
                     cell.myEntriesImageView.image = image
                     entry.localImagePath.append(localImagePath)
                 }
             } else {
+                //stopping the spinner
+                cell.spinner.stopAnimating()
                 cell.myEntriesImageView.image = UIImage(named: "default.png")
             }
         } else {
@@ -104,6 +114,9 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
             let fp = entry.localImagePath[0]
             print("fp: \(fp)")
             let imageURL = URL(fileURLWithPath: fp)
+            
+            //stopping the spinner
+            cell.spinner.stopAnimating()
             
             let image = UIImage(contentsOfFile: imageURL.path)
             cell.myEntriesImageView.image = image
