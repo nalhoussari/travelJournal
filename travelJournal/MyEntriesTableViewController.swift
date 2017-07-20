@@ -137,7 +137,6 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
             FBDatabase.DeleteJournalFromDatabase(journalModel: filteredArray[indexPath.row])
             self.filteredArray.remove(at: indexPath.row)
             self.self.myEntriesTableView.deleteRows(at: [indexPath], with: .fade)
-            //self.myEntriesTableView.reloadData()
         }
         
     }
