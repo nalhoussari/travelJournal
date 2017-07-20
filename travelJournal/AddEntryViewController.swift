@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import CoreLocation
 
 protocol AddingEntryDelegate {
     func newEntryDetails(_ entry: JournalModel)
@@ -25,12 +26,15 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var imagesStringArray = [String] ()
 
+    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var newEntryLocation: UITextField!
     @IBOutlet weak var newEntryTitle: UITextField!
-    @IBOutlet weak var newEntryLocation: UILabel!
     @IBOutlet weak var newEntryDate: UIDatePicker!
     @IBOutlet weak var newPicturesTableView: UITableView!
     @IBOutlet weak var newEntryTextView: UITextView!
     
+    var lat = NSNumber()
+    var long = NSNumber()
     
     var newEntryPhotos = [UIImage]()
     
@@ -71,12 +75,12 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
 //        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            
+//
 ////        let urlString: String = imageURL.absoluteString!
 ////        imagesStringArray.append(urlString)
-//            
+//
 //            newEntryPhotos.append(image)
-//            
+//
 //        }
         
         
@@ -84,7 +88,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
             //let urlString: String = imageURL.absoluteString!
             imagesStringArray.append(imageURL.lastPathComponent!)
             
-//            
+//
 //            let test5 = imageURL.lastPathComponent
 //            print(test5 ?? "nothing")
 
@@ -123,7 +127,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     //select photo
     @IBAction func selectImageFromPhotoLibrary(_ sender: UIButton) {
         
-        
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
         
@@ -149,14 +152,50 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
 
         
     }
-    
+    // MARK: - Geocoding
+    @IBAction func tapOutsideTextField(_ sender: Any) {
+        convertLocationToCoordinates()
+    }
+    lazy var geocoder = CLGeocoder()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    func convertLocationToCoordinates()
+    {
+        guard let userLocation = newEntryLocation.text else { return }
+        
+        // Geocode Address String
+        let address = "\(userLocation)"
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            self.processResponse(withPlacemarks: placemarks, error: error)
+        }
+        
+    }
+    private func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
+        
+        if let error = error {print("Unable to Forward Geocode Address (\(error))")}
+        else {
+            var location: CLLocation?
+            
+            if let placemarks = placemarks, placemarks.count > 0 {
+                location = placemarks.first?.location
+            }
+            
+            if let location = location {
+                let coordinate = location.coordinate
+                self.lat = coordinate.latitude as NSNumber;()
+                self.long = coordinate.longitude as NSNumber;()
+                
+            } else {}
+        }
+    }
 
     //save button
     func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!){
         print("myRightSideBarButtonItemTapped")
-        
+    
         // pass the new entries in this initializer
-        let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: "location", latitude: 101, longitude: 100)
+        let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: newEntryLocation.text!, latitude: self.lat, longitude: self.long)
         
         newEntry.images = self.newEntryPhotos
 
