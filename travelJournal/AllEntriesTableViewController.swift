@@ -10,19 +10,45 @@ import UIKit
 
 class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
         
-    var entries = [JournalModel]()
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
+    var entries = [JournalModel]()
+    var locations = [String]()
+    var users = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+<<<<<<< HEAD
             //calling data
             FBDatabase.GetJournalsFromDatabase { (journalArray) in
                 self.entries = journalArray
                 self.allEntriesTableViewController.reloadData()
             }
          
+=======
+        //calling data
+        FBDatabase.GetJournalsFromDatabase { (journalArray) in
+            self.entries = journalArray
+            self.allEntriesTableViewController.reloadData()
+        }
+        
+        //location Array
+        for entry in self.entries {
+            self.locations.append(entry.location)
+        }
+        
+        //user Array
+//        for entry in self.entries {
+//            self.users.append(entry.userName)
+//        }
+        
+        //looping through locations and deleting repeated ones
+//        var locationsSet : NSMutableSet = ()
+//        if  {
+//            
+//        }
+>>>>>>> filtering2
     }
     
     //AddingNewEntry Delegation function
@@ -32,7 +58,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     }
     
     //MARK: - Database
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -90,8 +115,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
 //            self.spinner.stopAnimating()
             cell.allEntriesImageView.image = image
         }
-
-        
         
         cell.allEntriesCellLabel.text = entry.title
         cell.allEntriesLabelDescription.text = entry.tripDescription
@@ -119,7 +142,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             self.entries.remove(at: indexPath.row)
             self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
         }
-        
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -129,7 +152,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             let entryDetailsViewController = segue.destination as? EntryDetailsViewController
             entryDetailsViewController?.entry = self.entries[selectedRow]
         }
-
     }
     
     override func didReceiveMemoryWarning() {
