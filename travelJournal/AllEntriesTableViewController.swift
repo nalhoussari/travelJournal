@@ -19,19 +19,12 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-<<<<<<< HEAD
             //calling data
             FBDatabase.GetJournalsFromDatabase { (journalArray) in
                 self.entries = journalArray
                 self.allEntriesTableViewController.reloadData()
             }
-         
-=======
-        //calling data
-        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-            self.entries = journalArray
-            self.allEntriesTableViewController.reloadData()
-        }
+        
         
         //location Array
         for entry in self.entries {
@@ -48,7 +41,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
 //        if  {
 //            
 //        }
->>>>>>> filtering2
     }
     
     //AddingNewEntry Delegation function
