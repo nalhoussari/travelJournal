@@ -10,57 +10,36 @@ import UIKit
 
 class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
         
-    var entries = [JournalModel]()
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
+    var entries = [JournalModel]()
+    var locations = [String]()
+    var users = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // DispatchQueue.global(qos: .userInitiated).async {
+        //calling data
+        FBDatabase.GetJournalsFromDatabase { (journalArray) in
+            self.entries = journalArray
+            self.allEntriesTableViewController.reloadData()
+        }
         
-//            //starting the spinner
-//            self.allEntriesTableViewController.addSubview(self.spinner)
-//            self.spinner.center = self.allEntriesTableViewController.center
-//            self.spinner.color = UIColor.black
-//            self.spinner.startAnimating()
-//            self.spinner.hidesWhenStopped = true
+        //location Array
+        for entry in self.entries {
+            self.locations.append(entry.location)
+        }
         
-            //calling data
-            FBDatabase.GetJournalsFromDatabase { (journalArray) in
-                self.entries = journalArray
-                self.allEntriesTableViewController.reloadData()
-            }
-            // Bounce back to the main thread to update the UI
-//            DispatchQueue.main.async {
-////                self.spinner.stopAnimating()
-//            }
-       // }
-        
-//        //starting the spinner
-//        self.spinner.startAnimating()
-//        self.spinner.hidesWhenStopped = true
-//        
-//        //calling data
-//        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-//            self.entries = journalArray
-//            
-//            self.allEntriesTableViewController.reloadData()
-//            self.spinner.stopAnimating()
+        //user Array
+//        for entry in self.entries {
+//            self.users.append(entry.userName)
 //        }
         
-//        let entry1 = Entry(title: "Trip!")
-//        let entry2 = Entry(title: "Trip 2 Yaaay!")
-//        let entry3 = Entry(title: "Trip 3 Yaaay!")
-//        let entry4 = Entry(title: "Trip 4 Yaaay!")
-//        let entry5 = Entry(title: "Trip 5 Yaaay!")
-//        
-//        self.entries.append(entry1)
-//        self.entries.append(entry2)
-//        self.entries.append(entry3)
-//        self.entries.append(entry4)
-//        self.entries.append(entry5)
-        
+        //looping through locations and deleting repeated ones
+//        var locationsSet : NSMutableSet = ()
+//        if  {
+//            
+//        }
     }
     
     //AddingNewEntry Delegation function
@@ -70,7 +49,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     }
     
     //MARK: - Database
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -126,8 +104,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
 //            self.spinner.stopAnimating()
             cell.allEntriesImageView.image = image
         }
-
-        
         
         cell.allEntriesCellLabel.text = entry.title
         cell.allEntriesLabelDescription.text = entry.tripDescription
@@ -155,7 +131,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             self.entries.remove(at: indexPath.row)
             self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
         }
-        
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
