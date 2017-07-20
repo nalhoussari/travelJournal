@@ -19,29 +19,21 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            //calling data
-            FBDatabase.GetJournalsFromDatabase { (journalArray) in
-                self.entries = journalArray
-                self.allEntriesTableViewController.reloadData()
-            }
-        
-        
-        //location Array
-        for entry in self.entries {
-            self.locations.append(entry.location)
-        }
-        
-        //user Array
-//        for entry in self.entries {
-//            self.users.append(entry.userName)
-//        }
-        
-        //looping through locations and deleting repeated ones
-//        var locationsSet : NSMutableSet = ()
-//        if  {
-//            
-//        }
+        self.fetchData()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.fetchData()
+    }
+    
+    func fetchData(){
+        //calling data
+        FBDatabase.GetJournalsFromDatabase { (journalArray) in
+            self.entries = journalArray
+            self.allEntriesTableViewController.reloadData()
+        }
+    }
+    
     
     //AddingNewEntry Delegation function
     func newEntryDetails(_ entry: JournalModel){
