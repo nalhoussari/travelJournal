@@ -141,7 +141,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             let entryDetailsViewController = segue.destination as? EntryDetailsViewController
             entryDetailsViewController?.entry = self.entries[selectedRow]
         }
-
     }
     
     override func didReceiveMemoryWarning() {
