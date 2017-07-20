@@ -128,7 +128,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     //MARK: - Action
     //select photo
     @IBAction func selectImageFromPhotoLibrary(_ sender: UIButton) {
-        
+    convertLocationToCoordinates()    
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
         
