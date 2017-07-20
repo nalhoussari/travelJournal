@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bcE-PB-kVu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bcE-PB-kVu">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -126,6 +126,10 @@
                                                         <constraint firstAttribute="width" constant="142" id="OaF-tg-6I0"/>
                                                     </constraints>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RQR-Rq-fTC">
+                                                    <rect key="frame" x="69" y="44" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="d8T-m6-dyy" firstAttribute="leading" secondItem="lyK-ad-6cD" secondAttribute="trailing" constant="23" id="2r6-jv-xGE"/>
@@ -142,6 +146,7 @@
                                             <outlet property="allEntriesCellLabel" destination="d8T-m6-dyy" id="WYz-cQ-V6N"/>
                                             <outlet property="allEntriesImageView" destination="lyK-ad-6cD" id="cnJ-hO-J1I"/>
                                             <outlet property="allEntriesLabelDescription" destination="Uy4-ZL-78d" id="7zb-Ha-Bh0"/>
+                                            <outlet property="spinner" destination="RQR-Rq-fTC" id="nqU-7Q-qdw"/>
                                             <segue destination="U8V-rR-HoG" kind="show" id="4Qb-9P-G7L"/>
                                         </connections>
                                     </tableViewCell>

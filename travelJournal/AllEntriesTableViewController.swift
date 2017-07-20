@@ -9,7 +9,7 @@
 import UIKit
 
 class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
-    
+        
     var entries = [JournalModel]()
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
@@ -17,10 +17,37 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-            self.entries = journalArray
-            self.allEntriesTableViewController.reloadData()
-        }
+       // DispatchQueue.global(qos: .userInitiated).async {
+        
+//            //starting the spinner
+//            self.allEntriesTableViewController.addSubview(self.spinner)
+//            self.spinner.center = self.allEntriesTableViewController.center
+//            self.spinner.color = UIColor.black
+//            self.spinner.startAnimating()
+//            self.spinner.hidesWhenStopped = true
+        
+            //calling data
+            FBDatabase.GetJournalsFromDatabase { (journalArray) in
+                self.entries = journalArray
+                self.allEntriesTableViewController.reloadData()
+            }
+            // Bounce back to the main thread to update the UI
+//            DispatchQueue.main.async {
+////                self.spinner.stopAnimating()
+//            }
+       // }
+        
+//        //starting the spinner
+//        self.spinner.startAnimating()
+//        self.spinner.hidesWhenStopped = true
+//        
+//        //calling data
+//        FBDatabase.GetJournalsFromDatabase { (journalArray) in
+//            self.entries = journalArray
+//            
+//            self.allEntriesTableViewController.reloadData()
+//            self.spinner.stopAnimating()
+//        }
         
 //        let entry1 = Entry(title: "Trip!")
 //        let entry2 = Entry(title: "Trip 2 Yaaay!")
@@ -67,17 +94,26 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         print("indexpath: \(indexPath.row)")
         print("localpathcount: \(entry.localImagePath.count)")
         
+//        cell.allEntriesImageView.addSubview(cell.spinner)
+        cell.spinner.center = (cell.allEntriesImageView?.center)!
+        cell.spinner.color = UIColor.black
+        cell.spinner.startAnimating()
+        cell.spinner.hidesWhenStopped = true
+        
         if entry.localImagePath.count < 1 {
             
             if entry.imageLocations.count > 0 {
                 let imageLog = entry.imageLocations[0]
                 
                 FBDatabase.GetJournalImages(imageLocation: imageLog) { (image, localImagePath) in
+                    //stopping the spinner
+                    cell.spinner.stopAnimating()
                     cell.allEntriesImageView.image = image
                     entry.localImagePath.append(localImagePath)
                 }
             } else {
                 //cell.imageView?.image = UIImage(named: "default.png")
+                cell.spinner.stopAnimating()
                 cell.allEntriesImageView.image = UIImage(named: "default.png")
             }
         } else {
@@ -85,8 +121,9 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             let fp = entry.localImagePath[0]
             print("fp: \(fp)")
             let imageURL = URL(fileURLWithPath: fp)
-            
+            cell.spinner.stopAnimating()
             let image = UIImage(contentsOfFile: imageURL.path)!
+//            self.spinner.stopAnimating()
             cell.allEntriesImageView.image = image
         }
 

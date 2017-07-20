@@ -74,6 +74,7 @@ class EntryDetailsViewController: UIViewController {
         }
         return imageCounter
     }
+    
     func configureView(){
         
         //converting NSNumber to string
@@ -96,8 +97,6 @@ class EntryDetailsViewController: UIViewController {
             self.imagesArray.append(image!)
         }
         detailImageView.image = self.imagesArray[0]
-        
-        
     }
     
     override func viewDidLoad() {

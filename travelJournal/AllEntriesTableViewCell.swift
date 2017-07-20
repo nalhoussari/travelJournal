@@ -14,6 +14,8 @@ class AllEntriesTableViewCell: UITableViewCell {
     @IBOutlet weak var allEntriesLabelDescription: UILabel!
     @IBOutlet weak var allEntriesImageView: UIImageView!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
