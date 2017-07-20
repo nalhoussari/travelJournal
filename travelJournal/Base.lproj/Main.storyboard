@@ -314,19 +314,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELf-RX-Lqw">
-                                                <rect key="frame" x="55" y="93" width="264" height="29"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.86659049987792969" green="0.86671549081802368" blue="0.86656308174133301" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadios">
-                                                        <integer key="value" value="35"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" maximumZoomScale="2" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="20" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rpq-4E-fKi">
                                                 <rect key="frame" x="27" y="545" width="321" height="196"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -384,11 +371,22 @@
                                                     <action selector="selectImageFromPhotoLibrary:" destination="Vd1-VT-2X0" eventType="touchUpInside" id="hFI-37-HMV"/>
                                                 </connections>
                                             </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDL-au-uLX">
+                                                <rect key="frame" x="55" y="96" width="264" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1500" id="4jc-Au-xXR"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Diq-8l-Vsj" appends="YES" id="fMP-VD-4Jp"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -412,13 +410,18 @@
                     <size key="freeformSize" width="375" height="1500"/>
                     <connections>
                         <outlet property="newEntryDate" destination="F3f-Q9-OqM" id="BSK-9f-hEa"/>
-                        <outlet property="newEntryLocation" destination="ELf-RX-Lqw" id="0ib-Q6-VLe"/>
+                        <outlet property="newEntryLocation" destination="MDL-au-uLX" id="zIH-vs-Xrd"/>
                         <outlet property="newEntryTextView" destination="iTZ-kv-kZa" id="jyW-fB-Jhn"/>
                         <outlet property="newEntryTitle" destination="FdO-H2-TTV" id="W1g-Dh-92U"/>
                         <outlet property="newPicturesTableView" destination="rpq-4E-fKi" id="gzS-bT-Ty6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83V-xp-PzR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Diq-8l-Vsj">
+                    <connections>
+                        <action selector="tapOutsideTextField:" destination="Vd1-VT-2X0" id="0ZU-CP-QJq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1624.8" y="1330.4347826086957"/>
         </scene>

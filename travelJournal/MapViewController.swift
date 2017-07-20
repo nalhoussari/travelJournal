@@ -13,10 +13,10 @@ import CoreLocation
 
 class MapViewController: UIViewController {
     //MARK: - Properties
-    @IBOutlet weak var mapView: MKMapView!
-    let regionRadius: CLLocationDistance = 1000
+//    @IBOutlet weak var mapView: MKMapView!//map
+//    let regionRadius: CLLocationDistance = 1000//map
     @IBOutlet var streetTextField: UITextField!
-    let annotation = MKPointAnnotation()
+//    let annotation = MKPointAnnotation()//map
     @IBOutlet var geocodeButton: UIButton!
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var locationLabel: UILabel!
@@ -31,9 +31,11 @@ class MapViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        let initialLocation = CLLocation(latitude: 49.2819, longitude: -123.1083)
-        centerMapOnLocation(initialLocation)
-        mapView.mapType = MKMapType.hybrid
+        
+//        let initialLocation = CLLocation(latitude: 49.2819, longitude: -123.1083)//map
+//        centerMapOnLocation(initialLocation)//map
+        
+//        mapView.mapType = MKMapType.hybrid//map
     }
     // MARK: - Actions
     @IBAction func geocode(_ sender: UIButton) {
@@ -70,19 +72,19 @@ class MapViewController: UIViewController {
             if let location = location {
                 let coordinate = location.coordinate
                 locationLabel.text = "\(coordinate.latitude), \(coordinate.longitude)"
-                annotation.coordinate = location.coordinate
-                mapView.addAnnotation(annotation)
-                centerMapOnLocation(CLLocation(latitude:location.coordinate.latitude, longitude:location.coordinate.longitude))
+//                annotation.coordinate = location.coordinate//map
+//                mapView.addAnnotation(annotation)//map
+//                centerMapOnLocation(CLLocation(latitude:location.coordinate.latitude, longitude:location.coordinate.longitude)) //map
             } else {
                 locationLabel.text = "No Matching Location Found"
             }
         }
     }
     
-    func centerMapOnLocation(_ location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius * 3.0, regionRadius * 3.0)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
+//    func centerMapOnLocation(_ location: CLLocation) {
+//        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+//                                                                  regionRadius * 3.0, regionRadius * 3.0)
+//        mapView.setRegion(coordinateRegion, animated: true)
+//    }//map
     
 }
