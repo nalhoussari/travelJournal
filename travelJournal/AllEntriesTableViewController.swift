@@ -13,13 +13,18 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
     var entries = [JournalModel]()
-    var locations = [String]()
+//    var locations = [String]()
     var users = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.fetchData()
+        
+        //getting array of user's e-mails
+        for entry in entries {
+            self.users.append(entry.id)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +48,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     //MARK: - Database
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.users.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -126,8 +131,22 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             self.entries.remove(at: indexPath.row)
             self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
         }
-
     }
+    
+    //MARK - Adding Sections
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        code
+    }
+    
+    //MARK - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
