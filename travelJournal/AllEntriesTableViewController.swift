@@ -13,8 +13,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
     var entries = [JournalModel]()
-//    var locations = [String]()
     var users = [String]()
+    var uniqueUsers = [String]()
     var dataSource = [String:[JournalModel]]()
     
     override func viewDidLoad() {
@@ -25,6 +25,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        
         self.fetchData()
     }
     
@@ -34,6 +35,11 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             
             if let journalArray = journalArray {
                 
+                self.entries = [JournalModel]()
+                self.users = [String]()
+                self.uniqueUsers = [String]()
+                self.dataSource = [String:[JournalModel]]()
+
                 self.entries = journalArray
                 
                 //getting array of user's e-mails
@@ -45,7 +51,17 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
                 print(self.entries.count)
                 print(self.users.count)
 
-                for user in self.users
+                let tempUserSet = NSSet(array: self.users)
+                for user in tempUserSet
+                {
+//                    let trimmedString = (user as AnyObject).trimmingCharacters(
+//                        NSCharacterSet.whitespacesAndNewlines
+//                    )
+                    let newString = (user as AnyObject).replacingOccurrences(of: " ", with: "")
+                    self.uniqueUsers.append(newString)
+                }
+                
+                for user in self.uniqueUsers
                 {
                     var tempEntries = [JournalModel]()
                     for tempEntry in self.entries
@@ -81,7 +97,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     //MARK: - Database
     func numberOfSections(in tableView: UITableView) -> Int {
-        return dataSource.keys.count
+        return self.uniqueUsers.count
     }
     
 //    MARK - Adding Sections
@@ -102,8 +118,13 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         }
         */
 //        let users = dataSource.keys
-        let users = Array(dataSource.keys)
-        let user = users[section]
+//        let users = Array(dataSource.keys)
+//        let user = users[section]
+//        self.usersKeys = Array(dataSource.keys)
+        
+//        var usersSet = Set(usersKeys)
+        
+        let user = self.uniqueUsers[section]
         let userEntries = dataSource[user]
         guard let entries = userEntries else { return 0 }
         return entries.count
@@ -112,9 +133,10 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.users[section]
+        return self.uniqueUsers[section]
     }
     
+    //getting index of users
 //    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 //        return self.users
 //    }
@@ -141,20 +163,17 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
 //        }
 //        let entry = sectionEntries[indexPath.row]
         
-        let users = Array(dataSource.keys)
-        let user = users[indexPath.section]
+//        let users = Array(dataSource.keys)
+//        let user = users[indexPath.section]
+        let user = self.uniqueUsers[indexPath.section]
         let userEntries = dataSource[user]
-//        guard let entriesTemp = userEntries else { return 0}
         let entry = userEntries?[indexPath.row]
-//        guard let entry = userEntries?[indexPath.row] else { return 0 }
-//        return entries.count
         
         cell.backgroundColor = UIColor.red
         
         print("indexpath: \(indexPath.row)")
 //        print("localpathcount: \(entry.localImagePath.count)")
         
-//        cell.allEntriesImageView.addSubview(cell.spinner)
         cell.spinner.center = (cell.allEntriesImageView?.center)!
         cell.spinner.color = UIColor.black
         cell.spinner.startAnimating()
@@ -185,13 +204,11 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             
             //need guard here!!
             let image = UIImage(contentsOfFile: imageURL.path)!
-//            self.spinner.stopAnimating()
             cell.allEntriesImageView.image = image
         }
         
         cell.allEntriesCellLabel.text = entry?.title
         cell.allEntriesLabelDescription.text = entry?.tripDescription
-//        cell.allEntriesImageView.image = entry.images[0]
         
         return cell
     }
