@@ -13,13 +13,15 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
     var entries = [JournalModel]()
-    var locations = [String]()
+//    var locations = [String]()
     var users = [String]()
+    var dataSource = [String:[JournalModel]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.fetchData()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +35,29 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             if let journalArray = journalArray {
                 
                 self.entries = journalArray
+                
+                //getting array of user's e-mails
+                for entry in self.entries {
+                    self.users.append(entry.id)
+                }
+                
+                print("*********")
+                print(self.entries.count)
+                print(self.users.count)
+
+                for user in self.users
+                {
+                    var tempEntries = [JournalModel]()
+                    for tempEntry in self.entries
+                    {
+                        if tempEntry.id == user
+                        {
+                            tempEntries.append(tempEntry)
+                        }
+                    }
+                    self.dataSource[user] = tempEntries
+                }
+                
                 self.allEntriesTableViewController.reloadData()
                 
             } else if let error = error {
@@ -44,7 +69,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
                 
                 self.present(alert, animated: true)
             }
-                
         }
     }
     
@@ -57,12 +81,46 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     //MARK: - Database
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return dataSource.keys.count
     }
     
+//    MARK - Adding Sections
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 40
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        /*
+        for user in self.users {
+            var numberOfRows = 0
+            for entry in self.entries{
+                if user == entry.id {
+                    numberOfRows += 1
+                }
+            }
+            return numberOfRows
+        }
+        */
+//        let users = dataSource.keys
+        let users = Array(dataSource.keys)
+        let user = users[section]
+        let userEntries = dataSource[user]
+        guard let entries = userEntries else { return 0 }
         return entries.count
+        
+//        return entries.count
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.users[section]
+    }
+    
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        return self.users
+//    }
+    
+    
+    //cell
     
     //MARK: - Delegation
     
@@ -72,12 +130,29 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             fatalError("The dequeued cell is not an instance of AllEntriesTableViewCell.")
         }
         
-        let entry = entries[indexPath.row]
+//        let entry = entries[indexPath.row]
+//        let stringUser = self.users[indexPath.section]
+//        
+//        var sectionEntries = [JournalModel]()
+//        for entryTemp in self.entries {
+//            if entryTemp.id == stringUser {
+//                sectionEntries.append(entryTemp)
+//            }
+//        }
+//        let entry = sectionEntries[indexPath.row]
+        
+        let users = Array(dataSource.keys)
+        let user = users[indexPath.section]
+        let userEntries = dataSource[user]
+//        guard let entriesTemp = userEntries else { return 0}
+        let entry = userEntries?[indexPath.row]
+//        guard let entry = userEntries?[indexPath.row] else { return 0 }
+//        return entries.count
         
         cell.backgroundColor = UIColor.red
         
         print("indexpath: \(indexPath.row)")
-        print("localpathcount: \(entry.localImagePath.count)")
+//        print("localpathcount: \(entry.localImagePath.count)")
         
 //        cell.allEntriesImageView.addSubview(cell.spinner)
         cell.spinner.center = (cell.allEntriesImageView?.center)!
@@ -85,16 +160,16 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         cell.spinner.startAnimating()
         cell.spinner.hidesWhenStopped = true
         
-        if entry.localImagePath.count < 1 {
+        if (entry?.localImagePath.count)! < 1 {
             
-            if entry.imageLocations.count > 0 {
-                let imageLog = entry.imageLocations[0]
+            if (entry?.imageLocations.count)! > 0 {
+                let imageLog = entry?.imageLocations[0]
                 
-                FBDatabase.GetJournalImages(imageLocation: imageLog) { (image, localImagePath) in
+                FBDatabase.GetJournalImages(imageLocation: imageLog!) { (image, localImagePath) in
                     //stopping the spinner
                     cell.spinner.stopAnimating()
                     cell.allEntriesImageView.image = image
-                    entry.localImagePath.append(localImagePath)
+                    entry?.localImagePath.append(localImagePath)
                 }
             } else {
                 //cell.imageView?.image = UIImage(named: "default.png")
@@ -103,9 +178,9 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             }
         } else {
             //fetch from drive
-            let fp = entry.localImagePath[0]
+            let fp = entry?.localImagePath[0]
             print("fp: \(fp)")
-            let imageURL = URL(fileURLWithPath: fp)
+            let imageURL = URL(fileURLWithPath: fp!)
             cell.spinner.stopAnimating()
             
             //need guard here!!
@@ -114,8 +189,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             cell.allEntriesImageView.image = image
         }
         
-        cell.allEntriesCellLabel.text = entry.title
-        cell.allEntriesLabelDescription.text = entry.tripDescription
+        cell.allEntriesCellLabel.text = entry?.title
+        cell.allEntriesLabelDescription.text = entry?.tripDescription
 //        cell.allEntriesImageView.image = entry.images[0]
         
         return cell
@@ -140,9 +215,11 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             self.entries.remove(at: indexPath.row)
             self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
         }
-
     }
     
+
+    
+    //MARK - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let indexPath = self.allEntriesTableViewController.indexPathForSelectedRow{
@@ -154,8 +231,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    
+    }   
     
 }
