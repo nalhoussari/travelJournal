@@ -47,9 +47,10 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func getRecords(){
+        
         FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
             
-            if let journalArray = journalArray {
+        if let journalArray = journalArray {
                 self.entries = journalArray
                 self.filterEntries()
                 self.myEntriesTableView.reloadData()

@@ -38,7 +38,8 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var newEntryPhotos = [UIImage]()
     var imageData = [Data]()
-    
+    //let spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    let spinner = UIActivityIndicatorView()
     var firebaseDatabase = FBDatabase()
     
     override func viewDidLoad() {
@@ -47,12 +48,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         self.newEntryTitle.delegate = self
         self.newEntryTextView.delegate = self as? UITextViewDelegate
         
-        
-        //for testing tableView only
-//        imagesStringArray.append("image1")
-//        imagesStringArray.append("image2")
-//        imagesStringArray.append("image3")
-
         
         let rightBarButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action: #selector(AddEntryViewController.myRightSideBarButtonItemTapped(_:)))
         self.navigationItem.rightBarButtonItem = rightBarButton
@@ -74,30 +69,12 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        
-//        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//
-////        let urlString: String = imageURL.absoluteString!
-////        imagesStringArray.append(urlString)
-//
-//            newEntryPhotos.append(image)
-//
-//        }
-        
+
         
         if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
             //let urlString: String = imageURL.absoluteString!
             imagesStringArray.append(imageURL.lastPathComponent!)
             
-//
-//            let test5 = imageURL.lastPathComponent
-//            print(test5 ?? "nothing")
-
-        
-//            let result =
-//            let result = PHAsset.fetchAssets(withALAssetURLs: [imageURL], options: nil)
-//            let asset = result.firstObject
-//            let imageName = asset?.value(forKey: "filename")
         }else {
             print("!!!!")
         }
@@ -111,11 +88,7 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let compressedImage = UIImageJPEGRepresentation(selectedImage, 0.0)
         imageData.append(compressedImage!)
-//        guard let newImage = UIImage(data: compressedImage!) else {
-//            fatalError("unable to convert compressed image")
-//        }
-//            //Add the selected image to the array of photos
-//        newEntryPhotos.append(newImage)
+
         newEntryPhotos.append(selectedImage)
         
         // Dismiss the picker.
@@ -196,17 +169,39 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!){
         print("myRightSideBarButtonItemTapped")
     
+        self.view.addSubview(self.spinner)
+        self.spinner.center = (self.view.center)
+        self.spinner.color = UIColor.black
+        self.spinner.startAnimating()
+        self.spinner.hidesWhenStopped = true
+        
         // pass the new entries in this initializer
         let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: newEntryLocation.text!, latitude: self.lat, longitude: self.long)
         
         //newEntry.images = self.newEntryPhotos
         newEntry.imageData = self.imageData
         
-        FBDatabase.SaveJournalToDatabase(journalModel: newEntry)
-        self.delegate?.newEntryDetails(self.entry!)
         
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        FBDatabase.SaveJournalToDatabase(journalModel: newEntry) { (error) in
+            if let error = error {
+                let alert = UIAlertController(title: "Error Saving", message: "\(error)", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    print("OK")
+                })
+                
+                self.present(alert, animated: true)
+            }
+  
+            self.delegate?.newEntryDetails(self.entry!)
+            
+            //update UI on mainthread. need to pop in main thread, therefor need to use OperationQueue.main.addOperation
+            OperationQueue.main.addOperation {
+                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
+            }
+            self.spinner.stopAnimating()
+        }
     }
     
     //MARK: - Database of Photos TableView

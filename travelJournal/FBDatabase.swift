@@ -22,7 +22,6 @@ class FBDatabase {
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
-//        var userID : String = ""
         
         //delete record from database
         ref.child("journals").child(journalModel.fireBaseKey).removeValue { (error, ref) in
@@ -98,12 +97,13 @@ class FBDatabase {
                 journalModel.title = journal["title"] as? String ?? ""
                 journalModel.tripDescription = journal["tripDescription"] as? String ?? ""
                 journalModel.latitude = journal["latitude"] as? NSNumber ?? 0
-                journalModel.longitude = journal["latitude"] as? NSNumber ?? 0
+                journalModel.longitude = journal["longitude"] as? NSNumber ?? 0
                 journalArray.append(journalModel)
                 journalDictionary.removeAll()
                 
             } //while loop
             
+            //needed here because closure deals with UI at the call source
             OperationQueue.main.addOperation {
 
                 closure(journalArray, nil)
@@ -117,8 +117,6 @@ class FBDatabase {
     }
     
     //MARK - get ALL journal images from database
-    //class func GetJournalImages(imageLocation:String) -> UIImage {
-    
     class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage, _ localImagePath:String) -> ()) {
     
         
@@ -148,13 +146,14 @@ class FBDatabase {
             let localURL = URL(string: filePath)!
         
             let dbRef = storeageRef.child(imageLocation)
-            
+        
+            print("dbRef: ", dbRef)
+        
             dbRef.write(toFile: localURL) { (url, error) in
                 if let error = error{
                     //uh-oh an error happened
                     print("the errors is: \(error)")
-                } else {
-                    
+                } else {  
                     let imagePath = url?.absoluteURL
                     image = UIImage(contentsOfFile: (imagePath?.path)!)!
                     closure(image, localImagePath)
@@ -165,7 +164,7 @@ class FBDatabase {
     
     
     //MARK - Save journal to database
-    class func SaveJournalToDatabase(journalModel:JournalModel){
+    class func SaveJournalToDatabase(journalModel:JournalModel, closure: @escaping (_ error: Error?) -> ()){
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
@@ -173,38 +172,13 @@ class FBDatabase {
         var storeageRef: StorageReference!
         storeageRef = Storage.storage().reference()
         
-//        var imageReferences: Array<String> = []
-//        
-//        for image in journalModel.images{
-//            
-//            let uuid = UUID()
-//            let newImageName = uuid.uuidString
-//            
-//            let data = UIImagePNGRepresentation(image)
-//            
-//            let imageRef = storeageRef.child("images/\(newImageName)")
-//            
-//            imageReferences.append(imageRef.fullPath)
-//            
-//            _ = imageRef.putData(data!, metadata: nil, completion: { (metadata, error) in
-//                if let error = error{
-//                    print("error is \(error)")
-//                }
-//                else {
-//                    print("inside else - upload Successful")
-//                }
-//            })
-//        }
-        
         var imageReferences: Array<String> = []
         
         for imgData in journalModel.imageData{
             
             let uuid = UUID()
             let newImageName = uuid.uuidString
-            
-            //let data = UIImagePNGRepresentation(image)
-            
+        
             let imageRef = storeageRef.child("images/\(newImageName)")
             
             imageReferences.append(imageRef.fullPath)
@@ -216,12 +190,13 @@ class FBDatabase {
                 else {
                     print("inside else - upload Successful")
                 }
+                
+                //trigger everytime but because its an optional if its nil it's ignored in the UI side
+                //if error alert is shown
+                closure(error)
             })
         }
 
-        ///////////////////
-        
-        
         journalModel.imageLocations = imageReferences
         
         let refPhotos = ref.child(byAppendingPath: "journals")
