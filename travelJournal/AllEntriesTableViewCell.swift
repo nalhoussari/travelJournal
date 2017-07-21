@@ -14,6 +14,7 @@ class AllEntriesTableViewCell: UITableViewCell {
     @IBOutlet weak var allEntriesLabelDescription: UILabel!
     @IBOutlet weak var allEntriesImageView: UIImageView!
     
+    @IBOutlet var heartAnimationView: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     override func awakeFromNib() {
@@ -27,4 +28,31 @@ class AllEntriesTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func tapAnimation(){
+        
+        
+        //Done: Check if the post is already liked, if it is then do not run animation code
+        //if likeButton.isSelected != true
+        //{
+        self.heartAnimationView.transform = CGAffineTransform(scaleX: 0, y: 0)
+        self.heartAnimationView.isHidden = false
+        
+        
+        //animation for 1 second, no delay
+        UIView.animate(withDuration: 1.0, delay: 0, options: [], animations: { () -> Void in
+            
+            // during our animation change heartAnimationView to be 3X what it is on storyboard
+            self.heartAnimationView.transform = CGAffineTransform(scaleX: 3, y: 3)
+            
+        }) { (success) -> Void in
+            
+            // when animation is complete set heartAnimationView to be hidden
+            self.heartAnimationView.isHidden = true
+        }
+        
+        // likeButtonClicked(likeButton)
+        //}
+        
+    }
+    
 }

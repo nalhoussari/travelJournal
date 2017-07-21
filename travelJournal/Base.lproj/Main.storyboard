@@ -126,19 +126,30 @@
                                                         <constraint firstAttribute="width" constant="142" id="OaF-tg-6I0"/>
                                                     </constraints>
                                                 </imageView>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RQR-Rq-fTC">
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RQR-Rq-fTC">
                                                     <rect key="frame" x="69" y="44" width="20" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
                                                 </activityIndicatorView>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hearts-on" translatesAutoresizingMaskIntoConstraints="NO" id="W5g-3o-wgb">
+                                                    <rect key="frame" x="68" y="43" width="23" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="23" id="Xrl-Hc-Cpl"/>
+                                                        <constraint firstAttribute="height" constant="20" id="qM3-zn-Gvt"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="d8T-m6-dyy" firstAttribute="leading" secondItem="lyK-ad-6cD" secondAttribute="trailing" constant="23" id="2r6-jv-xGE"/>
                                                 <constraint firstItem="Uy4-ZL-78d" firstAttribute="trailing" secondItem="X4Q-w0-bVN" secondAttribute="trailingMargin" id="4du-78-HOs"/>
+                                                <constraint firstItem="W5g-3o-wgb" firstAttribute="centerX" secondItem="lyK-ad-6cD" secondAttribute="centerX" id="6yE-ot-DXk"/>
+                                                <constraint firstItem="W5g-3o-wgb" firstAttribute="centerX" secondItem="RQR-Rq-fTC" secondAttribute="centerX" id="IPN-Dq-34a"/>
                                                 <constraint firstItem="lyK-ad-6cD" firstAttribute="top" secondItem="X4Q-w0-bVN" secondAttribute="top" constant="8" id="Jsa-Rw-nhi"/>
+                                                <constraint firstItem="W5g-3o-wgb" firstAttribute="centerY" secondItem="X4Q-w0-bVN" secondAttribute="centerY" id="PWv-Z7-Igz"/>
                                                 <constraint firstItem="Uy4-ZL-78d" firstAttribute="top" secondItem="d8T-m6-dyy" secondAttribute="bottom" constant="8" symbolic="YES" id="ZNv-D7-cCt"/>
                                                 <constraint firstItem="lyK-ad-6cD" firstAttribute="leading" secondItem="X4Q-w0-bVN" secondAttribute="leading" constant="8" id="ZdM-WK-biA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="d8T-m6-dyy" secondAttribute="trailing" constant="5" id="tyR-Yd-u4E"/>
                                                 <constraint firstItem="Uy4-ZL-78d" firstAttribute="leading" secondItem="d8T-m6-dyy" secondAttribute="leading" id="xdb-Wd-38P"/>
+                                                <constraint firstItem="RQR-Rq-fTC" firstAttribute="centerY" secondItem="lyK-ad-6cD" secondAttribute="centerY" id="yIS-mB-Kw3"/>
                                                 <constraint firstItem="d8T-m6-dyy" firstAttribute="top" secondItem="X4Q-w0-bVN" secondAttribute="topMargin" id="yl4-XK-oXZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -146,6 +157,7 @@
                                             <outlet property="allEntriesCellLabel" destination="d8T-m6-dyy" id="WYz-cQ-V6N"/>
                                             <outlet property="allEntriesImageView" destination="lyK-ad-6cD" id="cnJ-hO-J1I"/>
                                             <outlet property="allEntriesLabelDescription" destination="Uy4-ZL-78d" id="7zb-Ha-Bh0"/>
+                                            <outlet property="heartAnimationView" destination="W5g-3o-wgb" id="xXQ-W4-mFv"/>
                                             <outlet property="spinner" destination="RQR-Rq-fTC" id="nqU-7Q-qdw"/>
                                             <segue destination="U8V-rR-HoG" kind="show" id="4Qb-9P-G7L"/>
                                         </connections>
@@ -154,6 +166,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="OdG-qy-vZA" id="9dE-Yc-Z4n"/>
                                     <outlet property="delegate" destination="OdG-qy-vZA" id="Gff-xs-WBT"/>
+                                    <outletCollection property="gestureRecognizers" destination="tYA-XG-zCL" appends="YES" id="uAQ-L0-4Kg"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -171,6 +184,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JsG-ei-P0U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="tYA-XG-zCL">
+                    <connections>
+                        <action selector="doubleTappedSelfie:" destination="OdG-qy-vZA" id="BEl-GX-3yp"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-530.39999999999998" y="928.78560719640188"/>
         </scene>
@@ -323,7 +341,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="321" height="20"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1ir-tV-vCF" id="ns2-gC-KHi">
-                                                            <rect key="frame" x="0.0" y="0.0" width="282" height="20"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="282" height="19.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
@@ -445,7 +463,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d0k-Iz-cUd" id="8OR-S6-Fub">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="111"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kcf-8C-OPt">
@@ -592,6 +610,7 @@
     </scenes>
     <resources>
         <image name="addphoto" width="320" height="154"/>
+        <image name="hearts-on" width="42" height="37"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4Qb-9P-G7L"/>

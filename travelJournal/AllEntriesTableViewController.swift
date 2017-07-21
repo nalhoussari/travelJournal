@@ -16,6 +16,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     var locations = [String]()
     var users = [String]()
     
+    @IBOutlet var heartAnimationView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -157,5 +159,22 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     }
     
     
-    
+    @IBAction func doubleTappedSelfie(_ sender: UITapGestureRecognizer) {
+        print("double tapped selfie")
+        
+
+        // get the location (x,y) position on our tableView where we have clicked
+        let tapLocation = sender.location(in: allEntriesTableViewController)
+        
+        // based on the x, y position we can get the indexPath for where we are at
+        if let indexPathAtTapLocation = allEntriesTableViewController.indexPathForRow(at: tapLocation){
+            
+            // based on the indexPath we can get the specific cell that is being tapped
+            let cell = allEntriesTableViewController.cellForRow(at: indexPathAtTapLocation) as! AllEntriesTableViewCell
+            
+            //run a method on that cell
+            cell.tapAnimation()
+ 
+        }
+    }
 }
