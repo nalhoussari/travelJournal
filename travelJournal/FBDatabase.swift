@@ -70,21 +70,13 @@ class FBDatabase {
     }
     
     //MARK - get ALL journals from database
-    class func GetJournalsFromDatabase(closure: @escaping (_ journalArray:Array<JournalModel>) -> ()) {
+    class func GetJournalsFromDatabase(closure: @escaping (_ journalArray:Array<JournalModel>?, _ error: Error?) -> ()) {
         
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
-        
-        
         var journalArray = [JournalModel]()
-        
-        //will need to use userID to fetch own records
-//        let userID = Auth.auth().currentUser?.uid
-//        self.userID = Auth.auth().currentUser?.uid!   ///// current user
-//        ref.child("journals").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-        
-        
+
         ref.child("journals").observeSingleEvent(of: .value, with: { (snapshot) in
         
             let enumerator = snapshot.children
@@ -107,30 +99,19 @@ class FBDatabase {
                 journalModel.tripDescription = journal["tripDescription"] as? String ?? ""
                 journalModel.latitude = journal["latitude"] as? NSNumber ?? 0
                 journalModel.longitude = journal["latitude"] as? NSNumber ?? 0
-                
-//                OperationQueue.main.addOperation {
-                
-//                    for image in imageLocations{
-//                        
-//                        let journalImages = self.GetJournalImages(imageLocation: image)
-//                        journalModel.images.append(journalImages)
-//                        
-//                    }
-                    
-                    journalArray.append(journalModel)
-                    
-                    journalDictionary.removeAll()
-//                }
+                journalArray.append(journalModel)
+                journalDictionary.removeAll()
                 
             } //while loop
             
             OperationQueue.main.addOperation {
 
-                closure(journalArray)
+                closure(journalArray, nil)
             }
             
         }) { (error) in
             print(error.localizedDescription)
+            closure(nil, error)
         }
         
     }

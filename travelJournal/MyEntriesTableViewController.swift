@@ -47,14 +47,26 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func getRecords(){
-        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-            self.entries = journalArray
-            self.filterEntries()
-            self.myEntriesTableView.reloadData()
+        FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
             
+            if let journalArray = journalArray {
+                self.entries = journalArray
+                self.filterEntries()
+                self.myEntriesTableView.reloadData()
+            
+        } else if let error = error {
+                
+            let alert = UIAlertController(title: "Error Fetching", message: "\(error)", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                print("OK")
+            })
+            
+            self.present(alert, animated: true)
         }
+      }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.getRecords()
