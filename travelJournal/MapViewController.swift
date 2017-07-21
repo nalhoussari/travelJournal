@@ -34,10 +34,13 @@ class MapViewController: UIViewController {
     }
     
     func getRecords(){
-        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-            self.entries = journalArray
+        FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
+            if let error = error {print("Unable to Forward Geocode Address (\(error))")}
+        
+            self.entries = journalArray!
             self.pinEntries()
         }
+        
     }
     func pinEntries(){
         for entryTemp in (self.entries){
