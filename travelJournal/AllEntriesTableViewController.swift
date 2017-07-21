@@ -33,9 +33,23 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     func fetchData(){
         //calling data
-        FBDatabase.GetJournalsFromDatabase { (journalArray) in
-            self.entries = journalArray
-            self.allEntriesTableViewController.reloadData()
+        FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
+            
+            if let journalArray = journalArray {
+                
+                self.entries = journalArray
+                self.allEntriesTableViewController.reloadData()
+                
+            } else if let error = error {
+                let alert = UIAlertController(title: "Error Fetchin", message: "\(error)", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    print("OK")
+                })
+                
+                self.present(alert, animated: true)
+            }
+                
         }
     }
     
