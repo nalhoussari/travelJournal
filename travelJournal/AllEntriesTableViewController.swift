@@ -29,11 +29,21 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         self.fetchData()
     }
     
+    //func emptyVariables() {
+      //  self.entries = [JournalModel]()
+        //self.users = [String]()
+       // self.uniqueUsers = [String]()
+        //self.dataSource = [String:[JournalModel]]()
+    //}
+    
     func fetchData(){
         //calling data
         FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
             
             if let journalArray = journalArray {
+                
+                //emptying the variables before fetching data again to avoid duplicate tableView dublicate dataSource
+                //self.emptyVariables()
                 
                 self.entries = [JournalModel]()
                 self.users = [String]()
@@ -54,9 +64,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
                 let tempUserSet = NSSet(array: self.users)
                 for user in tempUserSet
                 {
-//                    let trimmedString = (user as AnyObject).trimmingCharacters(
-//                        NSCharacterSet.whitespacesAndNewlines
-//                    )
                     let newString = (user as AnyObject).replacingOccurrences(of: " ", with: "")
                     self.uniqueUsers.append(newString)
                 }
@@ -105,35 +112,26 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
 //        return 40
 //    }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        /*
-        for user in self.users {
-            var numberOfRows = 0
-            for entry in self.entries{
-                if user == entry.id {
-                    numberOfRows += 1
-                }
-            }
-            return numberOfRows
-        }
-        */
-//        let users = dataSource.keys
-//        let users = Array(dataSource.keys)
-//        let user = users[section]
-//        self.usersKeys = Array(dataSource.keys)
-        
-//        var usersSet = Set(usersKeys)
         
         let user = self.uniqueUsers[section]
         let userEntries = dataSource[user]
         guard let entries = userEntries else { return 0 }
         return entries.count
-        
-//        return entries.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.uniqueUsers[section]
+        
+        let emailPart = self.uniqueUsers[section]
+        
+        if emailPart.characters.contains("@"){
+            let email = emailPart.range(of: "@")?.lowerBound
+            let emailString = emailPart.substring(to: email!)
+            return emailString
+        } else {
+            return emailPart
+        }
     }
     
     //getting index of users
@@ -152,19 +150,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             fatalError("The dequeued cell is not an instance of AllEntriesTableViewCell.")
         }
         
-//        let entry = entries[indexPath.row]
-//        let stringUser = self.users[indexPath.section]
-//        
-//        var sectionEntries = [JournalModel]()
-//        for entryTemp in self.entries {
-//            if entryTemp.id == stringUser {
-//                sectionEntries.append(entryTemp)
-//            }
-//        }
-//        let entry = sectionEntries[indexPath.row]
-        
-//        let users = Array(dataSource.keys)
-//        let user = users[indexPath.section]
         let user = self.uniqueUsers[indexPath.section]
         let userEntries = dataSource[user]
         let entry = userEntries?[indexPath.row]
@@ -240,9 +225,13 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let indexPath = self.allEntriesTableViewController.indexPathForSelectedRow{
-            let selectedRow = indexPath.row
+            
+            let user = self.uniqueUsers[indexPath.section]
+            let userEntries = dataSource[user]
+            let entryToPass = userEntries?[indexPath.row]
+            
             let entryDetailsViewController = segue.destination as? EntryDetailsViewController
-            entryDetailsViewController?.entry = self.entries[selectedRow]
+            entryDetailsViewController?.entry = entryToPass
         }
     }
     
