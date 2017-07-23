@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class EntryDetailsViewController: UIViewController {
     
     @IBOutlet weak var detailTitleLabel: UILabel!
@@ -15,13 +16,47 @@ class EntryDetailsViewController: UIViewController {
     @IBOutlet weak var detailImageView: UIImageView!
     @IBOutlet weak var detailDateLabel: UILabel!
     @IBOutlet weak var detailTextView: UITextView!
+    @IBOutlet var likeButton: UIButton!
     
-    //    var imageArray = [UIImage] ()
+    @IBOutlet var heartButton: UIButton!
+    @IBOutlet var heartAnimationView: UIImageView!
+
     var entry : JournalModel?
     var imagesArray = [UIImage]()
     var imageCounter : Int = 0
     var counter = 0
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.gettingImages()
+        self.configureView()
+        self.detailTextView.isEditable = false
+        
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                 moveImageRight()
+            case UISwipeGestureRecognizerDirection.left:
+                 moveImageLeft()
+            default:
+                break
+            }
+        }
+    }
     
     func gettingImages() {
         if (entry?.localImagePath.count)! <= 1 {
@@ -49,16 +84,22 @@ class EntryDetailsViewController: UIViewController {
         }
     }
     
-    @IBAction func leftButtonTapped(_ sender: UIButton){
+    func moveImageLeft(){
         imageCounter -= 1
-        detailImageView.image = self.imagesArray[self.imagesCounter()]
-        
-        
+        self.detailImageView.image = self.imagesArray[self.imagesCounter()]
+    }
+    
+    func moveImageRight(){
+        imageCounter += 1
+
+        self.detailImageView.image = self.imagesArray[self.imagesCounter()]
+    }
+    
+    @IBAction func leftButtonTapped(_ sender: UIButton){
+        moveImageLeft()
     }
     @IBAction func rightButtonTapped(_ sender: UIButton) {
-        imageCounter += 1
-        //        self.imagesCounter()
-        detailImageView.image = self.imagesArray[self.imagesCounter()]
+        moveImageRight()
     }
     
     func imagesCounter()->Int{
@@ -90,6 +131,12 @@ class EntryDetailsViewController: UIViewController {
         detailLocationLabel.text = entry?.location
         detailDateLabel.text = stringDate
         detailTextView.text = entry?.tripDescription
+        
+        if entry?.isLiked == 1 {
+            //self.heartAnimationView.isHidden = false
+            heartButton.isSelected = true
+        }
+        
         for imagePathTemp in (entry?.localImagePath)! {
             let fp = imagePathTemp
             let imageURL = URL(fileURLWithPath: fp)
@@ -101,17 +148,65 @@ class EntryDetailsViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBAction func doubleTappedSelfie(_ sender: UITapGestureRecognizer) {
+        tapAnimation()
+    }
+    
+    
+    @IBAction func likeButtonClicked(_ sender: UIButton) {
         
-        self.gettingImages()
-        self.configureView()
-        self.detailTextView.isEditable = false
+        sender.isSelected = !sender.isSelected
+        
+
+        if sender.isSelected {
+            entry?.isLiked = 1
+            updateJournal()
+        } else {
+            entry?.isLiked = 0
+            updateJournal()
+        }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func updateJournal(){
+        
+        FBDatabase.EditJournalToDatabase(journalModel: entry!, closure: { (error) in
+    
+            if let error = error {
+                let alert = UIAlertController(title: "Error Updating", message: "\(error)", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    print("OK")
+                })
+                
+                self.present(alert, animated: true)
+            }
+            
+        })
     }
     
-    
-}
+    func tapAnimation(){
+
+       if likeButton.isSelected != true
+        {
+            self.heartAnimationView.transform = CGAffineTransform(scaleX: 0, y: 0)
+            self.heartAnimationView.isHidden = false
+            
+            
+            //animation for 1 second, no delay
+            UIView.animate(withDuration: 1.0, delay: 0, options: [], animations: { () -> Void in
+                
+                // during our animation change heartAnimationView to be 3X what it is on storyboard
+                self.heartAnimationView.transform = CGAffineTransform(scaleX: 4, y: 4)
+                
+            }) { (success) -> Void in
+                
+                // when animation is complete set heartAnimationView to be hidden
+                self.heartAnimationView.isHidden = true
+            }
+            
+            likeButtonClicked(likeButton)
+         }
+       }
+    }
+  
+

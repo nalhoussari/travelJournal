@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
         
@@ -15,6 +16,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     var entries = [JournalModel]()
     var locations = [String]()
     var users = [String]()
+    var firebaseDatabase = FBDatabase()
     
     @IBOutlet var heartAnimationView: UIImageView!
     
@@ -87,6 +89,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         cell.spinner.startAnimating()
         cell.spinner.hidesWhenStopped = true
         
+        
         if entry.localImagePath.count < 1 {
             
             if entry.imageLocations.count > 0 {
@@ -127,7 +130,15 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     //MARK - Delete delegates
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        
+        let userID = (Auth.auth().currentUser?.email)!   ///// current user
+        let currentJournal = entries[indexPath.row]
+        
+        if userID == currentJournal.id {
+            return true
+        } else {
+            return false
+        }
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -137,10 +148,12 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if (editingStyle == .delete) {
+            
             // handle delete (by removing the data from your array and updating the tableview)
             FBDatabase.DeleteJournalFromDatabase(journalModel: entries[indexPath.row])
             self.entries.remove(at: indexPath.row)
             self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
+    
         }
 
     }

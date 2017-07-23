@@ -98,6 +98,8 @@ class FBDatabase {
                 journalModel.tripDescription = journal["tripDescription"] as? String ?? ""
                 journalModel.latitude = journal["latitude"] as? NSNumber ?? 0
                 journalModel.longitude = journal["longitude"] as? NSNumber ?? 0
+                journalModel.isLiked = journal["liked"] as? NSNumber ?? 0
+                
                 journalArray.append(journalModel)
                 journalDictionary.removeAll()
                 
@@ -205,4 +207,16 @@ class FBDatabase {
         
     } //function end
     
+    //MARK - Save journal to database
+    class func EditJournalToDatabase(journalModel:JournalModel, closure: @escaping (_ error: Error?) -> ()){
+        
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        
+        let userRef = ref.child("journals").child(journalModel.fireBaseKey)
+        
+        userRef.updateChildValues(["liked": journalModel.isLiked]) { (error, dbRef) in
+            closure(error)
+        }
+    }
 }

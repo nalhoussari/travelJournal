@@ -22,6 +22,7 @@ class JournalModel : NSObject {
     var latitude:NSNumber
     var longitude:NSNumber
     var fireBaseKey = String()
+    var isLiked:NSNumber = 0
     
     
     init(id:String, title:String, tripDescription:String, date:Date, location:String, latitude:NSNumber, longitude:NSNumber) {
@@ -50,7 +51,7 @@ class JournalModel : NSObject {
     
     //lazy variable
     var journalDictionary:[String:Any] {
-        return ["id": id, "title": title, "tripDescription": tripDescription, "date": date, "imageLocations": imageLocations, "location": location, "latitude": latitude, "longitude": longitude]
+        return ["id": id, "title": title, "tripDescription": tripDescription, "date": date, "imageLocations": imageLocations, "location": location, "latitude": latitude, "longitude": longitude, "liked": isLiked]
     }
     
 }

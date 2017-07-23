@@ -38,7 +38,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var newEntryPhotos = [UIImage]()
     var imageData = [Data]()
-    //let spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
     let spinner = UIActivityIndicatorView()
     var firebaseDatabase = FBDatabase()
     
