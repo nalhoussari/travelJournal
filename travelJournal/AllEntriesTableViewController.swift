@@ -14,6 +14,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
     var entries = [JournalModel]()
+    
     var users = [String]()
 
     var firebaseDatabase = FBDatabase()
@@ -22,8 +23,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
 
     var uniqueUsers = [String]()
     var dataSource = [String:[JournalModel]]()
-
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +58,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
                 self.dataSource = [String:[JournalModel]]()
 
                 self.entries = journalArray
+          
                 
                 //getting array of user's e-mails
                 for entry in self.entries {
@@ -141,16 +142,9 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         }
     }
     
-    //getting index of users
-//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        return self.users
-//    }
-    
-    
-    //cell
     
     //MARK: - Delegation
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "allEntriesCell", for: indexPath) as? AllEntriesTableViewCell else {
@@ -171,13 +165,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         cell.spinner.startAnimating()
         cell.spinner.hidesWhenStopped = true
         
-<<<<<<< HEAD
-        
-        if entry.localImagePath.count < 1 {
-=======
+      
         if (entry?.localImagePath.count)! < 1 {
->>>>>>> master
-            
             if (entry?.imageLocations.count)! > 0 {
                 let imageLog = entry?.imageLocations[0]
                 
@@ -195,7 +184,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         } else {
             //fetch from drive
             let fp = entry?.localImagePath[0]
-            print("fp: \(fp)")
+            print("fp: \(String(describing: fp))")
             let imageURL = URL(fileURLWithPath: fp!)
             cell.spinner.stopAnimating()
             
@@ -216,9 +205,20 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         // Return false if you do not want the specified item to be editable.
         
         let userID = (Auth.auth().currentUser?.email)!   ///// current user
-        let currentJournal = entries[indexPath.row]
         
-        if userID == currentJournal.id {
+        //need to get section name...
+        let user = self.uniqueUsers[indexPath.section]
+        
+        //...to use as the key for the datasource dictionary to get the array of journals
+        let sectionArray = dataSource[user]
+        let currentJournal = sectionArray?[indexPath.row]
+        
+        
+        print("/n")
+        print("userId: ", userID)
+        print("journalID: ", currentJournal?.id as Any)
+        
+        if userID == currentJournal?.id {
             return true
         } else {
             return false
@@ -233,10 +233,20 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         
         if (editingStyle == .delete) {
             
+            
+            //need to get section name...
+            let user = self.uniqueUsers[indexPath.section]
+            
+            //...to use as the key for the datasource dictionary to get the array of journals
+            let sectionArray = dataSource[user]
+            let currentJournal = sectionArray?[indexPath.row]
+            
             // handle delete (by removing the data from your array and updating the tableview)
-            FBDatabase.DeleteJournalFromDatabase(journalModel: entries[indexPath.row])
-            self.entries.remove(at: indexPath.row)
-            self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
+            FBDatabase.DeleteJournalFromDatabase(journalModel: currentJournal!)
+
+            dataSource[user]?.remove(at: indexPath.row)
+
+            allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
     
         }
     }
@@ -256,12 +266,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             entryDetailsViewController?.entry = entryToPass
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-<<<<<<< HEAD
-    }
-    
+        
     
     @IBAction func doubleTappedSelfie(_ sender: UITapGestureRecognizer) {
         print("double tapped selfie")
@@ -281,8 +286,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
  
         }
     }
-=======
-    }   
-    
->>>>>>> master
+
 }
+
+
