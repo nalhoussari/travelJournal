@@ -14,21 +14,34 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var allEntriesTableViewController: UITableView!
     
     var entries = [JournalModel]()
-    var locations = [String]()
     var users = [String]()
+
     var firebaseDatabase = FBDatabase()
     
     @IBOutlet var heartAnimationView: UIImageView!
+
+    var uniqueUsers = [String]()
+    var dataSource = [String:[JournalModel]]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.fetchData()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        
         self.fetchData()
     }
+    
+    //func emptyVariables() {
+      //  self.entries = [JournalModel]()
+        //self.users = [String]()
+       // self.uniqueUsers = [String]()
+        //self.dataSource = [String:[JournalModel]]()
+    //}
     
     func fetchData(){
         //calling data
@@ -36,7 +49,45 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             
             if let journalArray = journalArray {
                 
+                //emptying the variables before fetching data again to avoid duplicate tableView dublicate dataSource
+                //self.emptyVariables()
+                
+                self.entries = [JournalModel]()
+                self.users = [String]()
+                self.uniqueUsers = [String]()
+                self.dataSource = [String:[JournalModel]]()
+
                 self.entries = journalArray
+                
+                //getting array of user's e-mails
+                for entry in self.entries {
+                    self.users.append(entry.id)
+                }
+                
+                print("*********")
+                print(self.entries.count)
+                print(self.users.count)
+
+                let tempUserSet = NSSet(array: self.users)
+                for user in tempUserSet
+                {
+                    let newString = (user as AnyObject).replacingOccurrences(of: " ", with: "")
+                    self.uniqueUsers.append(newString)
+                }
+                
+                for user in self.uniqueUsers
+                {
+                    var tempEntries = [JournalModel]()
+                    for tempEntry in self.entries
+                    {
+                        if tempEntry.id == user
+                        {
+                            tempEntries.append(tempEntry)
+                        }
+                    }
+                    self.dataSource[user] = tempEntries
+                }
+                
                 self.allEntriesTableViewController.reloadData()
                 
             } else if let error = error {
@@ -48,7 +99,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
                 
                 self.present(alert, animated: true)
             }
-                
         }
     }
     
@@ -61,12 +111,43 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     //MARK: - Database
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.uniqueUsers.count
     }
     
+//    MARK - Adding Sections
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 40
+//    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let user = self.uniqueUsers[section]
+        let userEntries = dataSource[user]
+        guard let entries = userEntries else { return 0 }
         return entries.count
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let emailPart = self.uniqueUsers[section]
+        
+        if emailPart.characters.contains("@"){
+            let email = emailPart.range(of: "@")?.lowerBound
+            let emailString = emailPart.substring(to: email!)
+            return emailString
+        } else {
+            return emailPart
+        }
+    }
+    
+    //getting index of users
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        return self.users
+//    }
+    
+    
+    //cell
     
     //MARK: - Delegation
     
@@ -76,30 +157,35 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             fatalError("The dequeued cell is not an instance of AllEntriesTableViewCell.")
         }
         
-        let entry = entries[indexPath.row]
+        let user = self.uniqueUsers[indexPath.section]
+        let userEntries = dataSource[user]
+        let entry = userEntries?[indexPath.row]
         
         cell.backgroundColor = UIColor.red
         
         print("indexpath: \(indexPath.row)")
-        print("localpathcount: \(entry.localImagePath.count)")
+//        print("localpathcount: \(entry.localImagePath.count)")
         
-//        cell.allEntriesImageView.addSubview(cell.spinner)
         cell.spinner.center = (cell.allEntriesImageView?.center)!
         cell.spinner.color = UIColor.black
         cell.spinner.startAnimating()
         cell.spinner.hidesWhenStopped = true
         
+<<<<<<< HEAD
         
         if entry.localImagePath.count < 1 {
+=======
+        if (entry?.localImagePath.count)! < 1 {
+>>>>>>> master
             
-            if entry.imageLocations.count > 0 {
-                let imageLog = entry.imageLocations[0]
+            if (entry?.imageLocations.count)! > 0 {
+                let imageLog = entry?.imageLocations[0]
                 
-                FBDatabase.GetJournalImages(imageLocation: imageLog) { (image, localImagePath) in
+                FBDatabase.GetJournalImages(imageLocation: imageLog!) { (image, localImagePath) in
                     //stopping the spinner
                     cell.spinner.stopAnimating()
                     cell.allEntriesImageView.image = image
-                    entry.localImagePath.append(localImagePath)
+                    entry?.localImagePath.append(localImagePath)
                 }
             } else {
                 //cell.imageView?.image = UIImage(named: "default.png")
@@ -108,20 +194,18 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             }
         } else {
             //fetch from drive
-            let fp = entry.localImagePath[0]
+            let fp = entry?.localImagePath[0]
             print("fp: \(fp)")
-            let imageURL = URL(fileURLWithPath: fp)
+            let imageURL = URL(fileURLWithPath: fp!)
             cell.spinner.stopAnimating()
             
             //need guard here!!
             let image = UIImage(contentsOfFile: imageURL.path)!
-//            self.spinner.stopAnimating()
             cell.allEntriesImageView.image = image
         }
         
-        cell.allEntriesCellLabel.text = entry.title
-        cell.allEntriesLabelDescription.text = entry.tripDescription
-//        cell.allEntriesImageView.image = entry.images[0]
+        cell.allEntriesCellLabel.text = entry?.title
+        cell.allEntriesLabelDescription.text = entry?.tripDescription
         
         return cell
     }
@@ -155,20 +239,27 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             self.allEntriesTableViewController.deleteRows(at: [indexPath], with: .fade)
     
         }
-
     }
     
+
+    
+    //MARK - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let indexPath = self.allEntriesTableViewController.indexPathForSelectedRow{
-            let selectedRow = indexPath.row
+            
+            let user = self.uniqueUsers[indexPath.section]
+            let userEntries = dataSource[user]
+            let entryToPass = userEntries?[indexPath.row]
+            
             let entryDetailsViewController = segue.destination as? EntryDetailsViewController
-            entryDetailsViewController?.entry = self.entries[selectedRow]
+            entryDetailsViewController?.entry = entryToPass
         }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+<<<<<<< HEAD
     }
     
     
@@ -190,4 +281,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
  
         }
     }
+=======
+    }   
+    
+>>>>>>> master
 }
