@@ -17,8 +17,6 @@ class EntryDetailsViewController: UIViewController {
     @IBOutlet weak var detailDateLabel: UILabel!
     @IBOutlet weak var detailTextView: UITextView!
     @IBOutlet var likeButton: UIButton!
-    
-    @IBOutlet var heartButton: UIButton!
     @IBOutlet var heartAnimationView: UIImageView!
 
     var entry : JournalModel?
@@ -133,8 +131,7 @@ class EntryDetailsViewController: UIViewController {
         detailTextView.text = entry?.tripDescription
         
         if entry?.isLiked == 1 {
-            //self.heartAnimationView.isHidden = false
-            heartButton.isSelected = true
+            likeButton.isSelected = true
         }
         
         for imagePathTemp in (entry?.localImagePath)! {

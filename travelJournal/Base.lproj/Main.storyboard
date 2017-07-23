@@ -349,7 +349,6 @@
                         <outlet property="detailTextView" destination="j4X-wA-T9p" id="BTn-v1-rTf"/>
                         <outlet property="detailTitleLabel" destination="sgn-eB-xoo" id="MJg-0U-H8z"/>
                         <outlet property="heartAnimationView" destination="99G-Id-ON1" id="x0x-X2-Qec"/>
-                        <outlet property="heartButton" destination="urB-ve-MTO" id="yp5-dj-wEE"/>
                         <outlet property="likeButton" destination="urB-ve-MTO" id="myW-E6-7a6"/>
                     </connections>
                 </viewController>
