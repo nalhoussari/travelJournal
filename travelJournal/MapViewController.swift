@@ -17,6 +17,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var entries = [JournalModel]()
     var currEntry = JournalModel()
     
+    var currImg = UIImage()
+    
     @IBOutlet weak var mapView: MKMapView!
     let regionRadius : CLLocationDistance = 1000
     var annotations : [MKPointAnnotation]=[]
@@ -38,7 +40,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func getRecords(){
         FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
             if let error = error {print("Unable to Forward Geocode Address (\(error))")}
-        
+            
             self.entries = journalArray!
             self.pinEntries()
         }
@@ -46,18 +48,34 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     func pinEntries(){
         for entryTemp in (self.entries){
-            let annotation = MKPointAnnotation()
+            //            let annotation = MKPointAnnotation()
+            let annotation = CustomPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(entryTemp.latitude), CLLocationDegrees(entryTemp.longitude))
             annotation.title = entryTemp.title
             annotation.subtitle = entryTemp.tripDescription
+            
+            
+//            let imageURL = URL(fileURLWithPath: entryTemp.imageLocations[0])
+//            let imgimg = UIImage(contentsOfFile: imageURL.path)
+            //            let callOutImg = UIImageView(image: imgimg)
+            //            pinView!.detailCalloutAccessoryView = callOutImg
+            
+            FBDatabase.GetJournalImages(imageLocation: entryTemp.imageLocations[0]) { (image, localImagePath) in
+                
+                self.currImg = image
+            }
+            annotation.imageName = currImg
             currEntry = entryTemp
+            print("************")
             print(currEntry)
             annotations.append(annotation)
         }
         
         mapView.addAnnotations(annotations)
-
+        
     }
+    
+    
     //MARK: - MKMapView Methods
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
@@ -75,32 +93,36 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             let calloutButton = UIButton(type: .detailDisclosure)
             pinView!.rightCalloutAccessoryView = calloutButton
-            pinView!.pinTintColor = UIColor.magenta
-                FBDatabase.GetJournalImages(imageLocation: currEntry.imageLocations[0]) { (image, localImagePath) in
-//                    let imageLog =
-                     pinView?.detailCalloutAccessoryView = UIImageView(image: image)
-                }
+            
+            let cpa = annotation as! CustomPointAnnotation
+            pinView?.image = cpa.imageName
+            //            anView.image = UIImage(named:cpa.imageName)
+            //
+            //
+            //                FBDatabase.GetJournalImages(imageLocation: currEntry.imageLocations[0]) { (image, localImagePath) in
+            //
+            //                     pinView?.detailCalloutAccessoryView = UIImageView(image: image)
+            //                }
             
             
             /////////
-//            let imageURL = URL(fileURLWithPath: currEntry.imageLocations[0])
-//            let imgimg = UIImage(contentsOfFile: imageURL.path)
-//            let callOutImg = UIImageView(image: imgimg)
-//            pinView!.detailCalloutAccessoryView = callOutImg
-            //
+            //            let imageURL = URL(fileURLWithPath: currEntry.imageLocations[0])
+            //            let imgimg = UIImage(contentsOfFile: imageURL.path)
+            //            let callOutImg = UIImageView(image: imgimg)
+            ////            pinView!.detailCalloutAccessoryView = callOutImg
             //////////
-////                        let imageURL = URL(fileURLWithPath: currEntry.l)
-//                        let callOutImg = UIImageView(image: #imageLiteral(resourceName: "default"))
-//                        pinView!.detailCalloutAccessoryView = callOutImg
-//            //////////
-//            let fp = currEntry.imageLocations[0]
-//            let imageURL = URL(string: fp)
-//            let imageData = Data(contentsOf: imageURL!)
-//            let image = UIImage(data: imageData)
-//            pinView?.detailCalloutAccessoryView = UIImageView(image: image)
+            ////                        let imageURL = URL(fileURLWithPath: currEntry.l)
+            //                        let callOutImg = UIImageView(image: #imageLiteral(resourceName: "default"))
+            //                        pinView!.detailCalloutAccessoryView = callOutImg
+            //            //////////
+            //            let fp = currEntry.imageLocations[0]
+            //            let imageURL = URL(string: fp)
+            //            let imageData = Data(contentsOf: imageURL!)
+            //            let image = UIImage(data: imageData)
+            //            pinView?.detailCalloutAccessoryView = UIImageView(image: image)
             //////////
             
-            pinView!.sizeToFit()
+//            pinView!.sizeToFit()
         }
         else {
             pinView!.annotation = annotation
@@ -115,4 +137,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             print("Button taaped ")
         }
     }
+}
+
+class CustomPointAnnotation: MKPointAnnotation {
+    var imageName: UIImage!
 }
