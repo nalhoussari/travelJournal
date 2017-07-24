@@ -9,6 +9,8 @@
 import UIKit
 import FirebaseAuth
 
+
+
 class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
         
     @IBOutlet weak var allEntriesTableViewController: UITableView!
@@ -20,10 +22,10 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     var firebaseDatabase = FBDatabase()
     
     @IBOutlet var heartAnimationView: UIImageView!
-
+    
     var uniqueUsers = [String]()
     var dataSource = [String:[JournalModel]]()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,13 +38,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         self.fetchData()
     }
     
-    //func emptyVariables() {
-      //  self.entries = [JournalModel]()
-        //self.users = [String]()
-       // self.uniqueUsers = [String]()
-        //self.dataSource = [String:[JournalModel]]()
-    //}
-    
+   
     func fetchData(){
         //calling data
         FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
@@ -115,11 +111,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         return self.uniqueUsers.count
     }
     
-//    MARK - Adding Sections
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 40
-//    }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -144,7 +135,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     
     
     //MARK: - Delegation
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "allEntriesCell", for: indexPath) as? AllEntriesTableViewCell else {
@@ -155,7 +145,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         let userEntries = dataSource[user]
         let entry = userEntries?[indexPath.row]
         
-        cell.backgroundColor = UIColor.red
+        //cell.backgroundColor = UIColor.white
         
         print("indexpath: \(indexPath.row)")
 //        print("localpathcount: \(entry.localImagePath.count)")
@@ -165,6 +155,13 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         cell.spinner.startAnimating()
         cell.spinner.hidesWhenStopped = true
         
+        
+        if entry?.isLiked == 1 {
+            cell.likeButton.isSelected = true
+        } else{
+            cell.likeButton.isSelected = false
+        }
+
       
         if (entry?.localImagePath.count)! < 1 {
             if (entry?.imageLocations.count)! > 0 {
@@ -195,6 +192,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         
         cell.allEntriesCellLabel.text = entry?.title
         cell.allEntriesLabelDescription.text = entry?.tripDescription
+        
+        cell.journalObject = entry
         
         return cell
     }
@@ -286,7 +285,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
  
         }
     }
-
 }
 
 

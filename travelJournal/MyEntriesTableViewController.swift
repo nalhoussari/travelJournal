@@ -14,10 +14,9 @@ import FirebaseAuth
 
 
 class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddingEntryDelegate {
-    
+     
     var entries = [JournalModel]()
     var filteredArray = [JournalModel]()
-    //    var journalModel = JournalModel()
     
     var userID : String = ""
     
@@ -105,6 +104,12 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         cell.spinner.color = UIColor.black
         cell.spinner.startAnimating()
         cell.spinner.hidesWhenStopped = true
+//        
+//        if entry.isLiked == 1 {
+//            cell.likebutton.isSelected = true
+//        } else{
+//            cell.likebutton.isSelected = false
+//        }
         
         if entry.localImagePath.count < 1 {
             if entry.imageLocations.count > 0 {
@@ -135,11 +140,12 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
             cell.myEntriesImageView.image = image
         }
         
-        cell.backgroundColor = UIColor.orange
+        //cell.backgroundColor = UIColor.orange
         
         cell.myEntriesLabelTitle.text = entry.title
         cell.myEntriesLabelDescription.text = entry.tripDescription
-        //        cell.myEntriesImageView.image = entry.images[0]
+        
+//        cell.journalObject = entry
         
         return cell
     }
@@ -175,6 +181,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
