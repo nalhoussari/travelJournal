@@ -15,13 +15,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: - Properties
     var entries = [JournalModel]()
-    var currEntry = JournalModel()
+//    var currEntry = JournalModel()
+    var currPin = CustomPointAnnotation()
+
     
     var currImg = UIImage()
     
     @IBOutlet weak var mapView: MKMapView!
     let regionRadius : CLLocationDistance = 1000
-    var annotations : [MKPointAnnotation]=[]
+    var annotations : [CustomPointAnnotation]=[]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +50,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     func pinEntries(){
         for entryTemp in (self.entries){
-            let annotation = MKPointAnnotation()
+            let annotation = CustomPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(entryTemp.latitude), CLLocationDegrees(entryTemp.longitude))
             annotation.title = entryTemp.title
             annotation.subtitle = entryTemp.tripDescription
+            annotation.currEntry = entryTemp
+
             annotations.append(annotation)
         }
         mapView.addAnnotations(annotations)
@@ -88,14 +92,32 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         return pinView
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "mapToDetail")
+        {
+            let mapSegue = segue.destination as! EntryDetailsViewController
+            mapSegue.entry = (sender as! CustomPointAnnotation).currEntry
+            
+        }
+    }
+
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             print("Button taaped ")
+            self.performSegue(withIdentifier: "mapToDetail", sender: self.currPin)
+
+        }
+    }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("Annotation selected")
+        
+        if let annotation = view.annotation as? CustomPointAnnotation {
+            currPin = annotation
+            //            print("Your annotation title: \(annotation.title)");
         }
     }
 }
-
 class CustomPointAnnotation: MKPointAnnotation {
-    var imageName: UIImage!
+    var currEntry = JournalModel()
 }
