@@ -48,31 +48,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     func pinEntries(){
         for entryTemp in (self.entries){
-            //            let annotation = MKPointAnnotation()
-            let annotation = CustomPointAnnotation()
+            let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(entryTemp.latitude), CLLocationDegrees(entryTemp.longitude))
             annotation.title = entryTemp.title
             annotation.subtitle = entryTemp.tripDescription
-            
-            
-//            let imageURL = URL(fileURLWithPath: entryTemp.imageLocations[0])
-//            let imgimg = UIImage(contentsOfFile: imageURL.path)
-            //            let callOutImg = UIImageView(image: imgimg)
-            //            pinView!.detailCalloutAccessoryView = callOutImg
-            
-            FBDatabase.GetJournalImages(imageLocation: entryTemp.imageLocations[0]) { (image, localImagePath) in
-                
-                self.currImg = image
-            }
-            annotation.imageName = currImg
-            currEntry = entryTemp
-            print("************")
-            print(currEntry)
             annotations.append(annotation)
         }
-        
         mapView.addAnnotations(annotations)
-        
     }
     
     
@@ -94,35 +76,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let calloutButton = UIButton(type: .detailDisclosure)
             pinView!.rightCalloutAccessoryView = calloutButton
             
-            let cpa = annotation as! CustomPointAnnotation
-            pinView?.image = cpa.imageName
-            //            anView.image = UIImage(named:cpa.imageName)
-            //
-            //
-            //                FBDatabase.GetJournalImages(imageLocation: currEntry.imageLocations[0]) { (image, localImagePath) in
-            //
-            //                     pinView?.detailCalloutAccessoryView = UIImageView(image: image)
-            //                }
+            let callOutImg = UIImageView(image: #imageLiteral(resourceName: "hearts-on"))
+            pinView!.leftCalloutAccessoryView = callOutImg
             
-            
-            /////////
-            //            let imageURL = URL(fileURLWithPath: currEntry.imageLocations[0])
-            //            let imgimg = UIImage(contentsOfFile: imageURL.path)
-            //            let callOutImg = UIImageView(image: imgimg)
-            ////            pinView!.detailCalloutAccessoryView = callOutImg
-            //////////
-            ////                        let imageURL = URL(fileURLWithPath: currEntry.l)
-            //                        let callOutImg = UIImageView(image: #imageLiteral(resourceName: "default"))
-            //                        pinView!.detailCalloutAccessoryView = callOutImg
-            //            //////////
-            //            let fp = currEntry.imageLocations[0]
-            //            let imageURL = URL(string: fp)
-            //            let imageData = Data(contentsOf: imageURL!)
-            //            let image = UIImage(data: imageData)
-            //            pinView?.detailCalloutAccessoryView = UIImageView(image: image)
-            //////////
-            
-//            pinView!.sizeToFit()
+            pinView!.sizeToFit()
         }
         else {
             pinView!.annotation = annotation
