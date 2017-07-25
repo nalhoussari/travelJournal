@@ -34,13 +34,13 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.navigationItem.setHidesBackButton(true, animated: false)
 
         
-        if  Auth.auth().currentUser == nil {
-            performSegue(withIdentifier: "toLogin", sender: nil)
-        } else {
-            userID = (Auth.auth().currentUser?.email)!
-            self.getRecords()
-        }
-//        self.getRecords()
+//        if  Auth.auth().currentUser == nil {
+//            performSegue(withIdentifier: "toLogin", sender: nil)
+//        } else {
+//            userID = (Auth.auth().currentUser?.email)!
+//            self.getRecords()
+//        }
+        self.getRecords()
 
 
     }
