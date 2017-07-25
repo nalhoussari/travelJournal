@@ -265,7 +265,7 @@
                                                 </constraints>
                                             </imageView>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hearts-on" translatesAutoresizingMaskIntoConstraints="NO" id="99G-Id-ON1">
-                                                <rect key="frame" x="179.5" y="243" width="23" height="20"/>
+                                                <rect key="frame" x="180" y="243" width="23" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="23" id="Gps-ek-vCI"/>
                                                     <constraint firstAttribute="height" constant="20" id="U7e-up-Cbu"/>
@@ -296,7 +296,7 @@
                                                     <action selector="rightButtonTapped:" destination="U8V-rR-HoG" eventType="touchUpInside" id="uE4-kH-EQQ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8U-ja-ery">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8U-ja-ery">
                                                 <rect key="frame" x="23" y="384" width="30" height="30"/>
                                                 <state key="normal" title="&lt;"/>
                                                 <connections>
@@ -334,6 +334,7 @@
                                             <constraint firstItem="urB-ve-MTO" firstAttribute="trailing" secondItem="j4X-wA-T9p" secondAttribute="trailing" id="iDd-gE-Mry"/>
                                             <constraint firstItem="urB-ve-MTO" firstAttribute="centerY" secondItem="hQ8-YM-1LX" secondAttribute="centerY" id="kG9-IR-VDV"/>
                                             <constraint firstAttribute="bottom" secondItem="j4X-wA-T9p" secondAttribute="bottom" constant="224" id="kd2-gE-x9H"/>
+                                            <constraint firstItem="e8U-ja-ery" firstAttribute="leading" secondItem="WPX-vd-jfV" secondAttribute="leading" constant="23" id="ksN-0C-Zee"/>
                                             <constraint firstItem="tUO-Cf-DHC" firstAttribute="leading" secondItem="WPX-vd-jfV" secondAttribute="leading" constant="15" id="p2K-aF-tkt"/>
                                             <constraint firstItem="99G-Id-ON1" firstAttribute="centerX" secondItem="tUO-Cf-DHC" secondAttribute="centerX" constant="4" id="sWL-WS-1s0"/>
                                             <constraint firstItem="99G-Id-ON1" firstAttribute="centerY" secondItem="tUO-Cf-DHC" secondAttribute="centerY" id="tfs-ds-VLz"/>
