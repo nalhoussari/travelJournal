@@ -23,6 +23,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var myEntriesTableView: UITableView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,14 +31,12 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.navigationItem.rightBarButtonItem = addButton
         
-        //check for saved credientials and push for login
-        let defaults = UserDefaults.standard
-        if defaults.string(forKey: "username") == nil {
-            performSegue(withIdentifier: "toLogin", sender: nil)
-        }
-        
-        userID = (Auth.auth().currentUser?.email)!   ///// current user
         self.getRecords()
+
+        //check for saved credientials and push for login
+//        let defaults = UserDefaults.standard
+//        defaults.string(forKey: "username") == nil) ||
+
     }
     
     func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!) {
@@ -84,7 +83,26 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.getRecords()
+        
+        
+        if  Auth.auth().currentUser == nil {
+            performSegue(withIdentifier: "toLogin", sender: nil)
+        } else {
+            userID = (Auth.auth().currentUser?.email)!
+            self.getRecords()
+        }
+        
+//        guard let _ = (Auth.auth().currentUser?.email) else {
+//            performSegue(withIdentifier: "toLogin", sender: nil)
+//            return
+//        }
+//        if userID == "" {
+//            performSegue(withIdentifier: "toLogin", sender: nil)
+//        } else {
+//            userID = (Auth.auth().currentUser?.email)?   ///// current user
+//            self.getRecords()
+//        }
+        
     }
     
     //AddingNewEntry Delegation function
