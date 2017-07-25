@@ -28,8 +28,18 @@ class EntryDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.gettingImages()
-        self.configureView()
+        //self.gettingImages()
+           self.gettingImages { (error) in
+            if let error = error{
+                print("the errors is: \(error)")
+            } else {
+                OperationQueue.main.addOperation {
+                    self.configureView()
+                }
+            }
+        }
+    
+        //self.configureView()
         self.detailTextView.isEditable = false
         
         
@@ -42,12 +52,12 @@ class EntryDetailsViewController: UIViewController {
         self.view.addGestureRecognizer(swipeLeft)
         
     }
+
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        if self.imagesArray.count >= 1 {
-//            detailImageView.image = self.imagesArray[0]
-//        }
-//    }
+    func setJournalItem(_ journalItem: JournalModel){
+        self.entry = journalItem
+    }
+    
     
     func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
@@ -62,15 +72,27 @@ class EntryDetailsViewController: UIViewController {
         }
     }
     
-    func gettingImages() {
-        if (entry?.localImagePath.count)! <= 1 {
-            if (entry?.imageLocations.count)! > 0 {
-                for imageTemp in (entry?.imageLocations)! {
+    //func gettingImages() {
+    func gettingImages(closure: @escaping (_ error: Error?) -> ()) {
+        
+        if (self.entry?.localImagePath.count)! <= 1 {
+            if (self.entry?.imageLocations.count)! > 0 {
+                
+                for imageTemp in (self.entry?.imageLocations)! {
+                    
                     FBDatabase.GetJournalImages(imageLocation:
-                    imageTemp) { (image, localImagePath) in
-                        self.imagesArray.append(image)
-                        self.counter += 1
-                        self.entry?.localImagePath.append(localImagePath)
+                    imageTemp) { (image, localImagePath, error) in
+                        if let error = error{
+                            //uh-oh an error happened
+                            print("the errors is: \(error)")
+                        } else {
+                        OperationQueue.main.addOperation {
+                            self.imagesArray.append(image)
+                            self.counter += 1
+                            self.entry?.localImagePath.append(localImagePath)
+                            }
+                        }
+                        closure(error)
                     }
                     print (counter)
                 }
@@ -79,13 +101,14 @@ class EntryDetailsViewController: UIViewController {
                 self.imagesArray.append(image!)
             }
         } else {
-            for imagePathTemp in (entry?.localImagePath)! {
+            for imagePathTemp in (self.entry?.localImagePath)! {
                 let fp = imagePathTemp
                 let imageURL = URL(fileURLWithPath: fp)
                 let image = UIImage(contentsOfFile: imageURL.path)
                 self.imagesArray.append(image!)
             }
         }
+        //closure(error)
     }
     
     func moveImageLeft(){

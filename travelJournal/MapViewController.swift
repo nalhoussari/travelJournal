@@ -17,6 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var entries = [JournalModel]()
 //    var currEntry = JournalModel()
     var currPin = CustomPointAnnotation()
+    var populatedJournal = JournalModel()
 
     
     var currImg = UIImage()
@@ -106,24 +107,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         return pinView
     }
+    
+    //override func prepare(for segue: UIStoryboardSegue, sender: Any?, journal:JournalModel) {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "mapToDetail")
         {
             let journal = (sender as! CustomPointAnnotation).currEntry
-            
-            if journal.imageLocations.count > 0
-            {
-                
-                FBDatabase.GetJournalImages(imageLocation: journal.imageLocations[0]) { (image, localImagePath) in
-                    DispatchQueue.main.async {
-                        journal.images.append(image)
-                        journal.localImagePath.append(localImagePath)
-                        let mapSegue = segue.destination as! EntryDetailsViewController
-                        mapSegue.entry = journal
-                        //self.performSegue(withIdentifier: "mapToDetail", sender: self.currPin)
-                    }
-                }
-            }
+            let mapSegue = segue.destination as! EntryDetailsViewController
+            mapSegue.setJournalItem(journal)
         }
     }
 
@@ -132,9 +123,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             print("Button taaped ")
             self.performSegue(withIdentifier: "mapToDetail", sender: self.currPin)
-
         }
     }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
         
@@ -144,6 +135,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 }
-class CustomPointAnnotation: MKPointAnnotation {
-    var currEntry = JournalModel()
-}
+        
+    class CustomPointAnnotation: MKPointAnnotation {
+        var currEntry = JournalModel()
+    }

@@ -119,7 +119,7 @@ class FBDatabase {
     }
     
     //MARK - get ALL journal images from database
-    class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage, _ localImagePath:String) -> ()) {
+    class func GetJournalImages(imageLocation:String, closure: @escaping (_ image:UIImage, _ localImagePath:String, _ error: Error?) -> ()) {
     
         
             //storage
@@ -155,11 +155,12 @@ class FBDatabase {
                 if let error = error{
                     //uh-oh an error happened
                     print("the errors is: \(error)")
-                } else {  
+                } else {
                     let imagePath = url?.absoluteURL
                     image = UIImage(contentsOfFile: (imagePath?.path)!)!
-                    closure(image, localImagePath)
+                    //closure(image, localImagePath)
                 }
+                closure(image, localImagePath, error)
             }
 
     }

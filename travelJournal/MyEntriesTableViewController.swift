@@ -148,7 +148,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
             if entry.imageLocations.count > 0 {
                 
                 FBDatabase.GetJournalImages(imageLocation:
-                entry.imageLocations[0]) { (image, localImagePath) in
+                entry.imageLocations[0]) { (image, localImagePath, error) in
                     
                     //stopping the spinner
                     cell.spinner.stopAnimating()

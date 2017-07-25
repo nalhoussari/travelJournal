@@ -177,7 +177,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             if (entry?.imageLocations.count)! > 0 {
                 let imageLog = entry?.imageLocations[0]
                 
-                FBDatabase.GetJournalImages(imageLocation: imageLog!) { (image, localImagePath) in
+                FBDatabase.GetJournalImages(imageLocation: imageLog!) { (image, localImagePath, error) in
                     //stopping the spinner
                     cell.spinner.stopAnimating()
                     cell.allEntriesImageView.image = image
