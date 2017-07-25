@@ -534,7 +534,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="115" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LFE-Uu-nC7">
-                                <rect key="frame" x="0.0" y="-26" width="375" height="644"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="myEntryCell" rowHeight="115" id="d0k-Iz-cUd" customClass="MyEntriesTableViewCell" customModule="travelJournal" customModuleProvider="target">
@@ -599,7 +599,7 @@
                         <constraints>
                             <constraint firstItem="1Bp-wL-Mua" firstAttribute="top" secondItem="LFE-Uu-nC7" secondAttribute="bottom" id="DLf-un-76G"/>
                             <constraint firstItem="LFE-Uu-nC7" firstAttribute="leading" secondItem="yt7-AV-ycP" secondAttribute="leading" id="g2b-7k-51M"/>
-                            <constraint firstItem="LFE-Uu-nC7" firstAttribute="top" secondItem="yt7-AV-ycP" secondAttribute="top" constant="-26" id="kez-5X-lGJ"/>
+                            <constraint firstItem="LFE-Uu-nC7" firstAttribute="top" secondItem="yt7-AV-ycP" secondAttribute="top" id="kez-5X-lGJ"/>
                             <constraint firstAttribute="trailing" secondItem="LFE-Uu-nC7" secondAttribute="trailing" id="rrQ-0Q-R4a"/>
                         </constraints>
                     </view>
