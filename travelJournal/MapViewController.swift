@@ -27,11 +27,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TabBarController.myRightSideBarButtonItemTapped(_:)))
+        
+        self.navigationItem.rightBarButtonItem = addButton
+        
         mapView.delegate = self
         mapView.mapType = MKMapType.hybrid
         let initialLocation = CLLocation(latitude: 49.2819, longitude: -123.1083)
         centerMapOnLocation(initialLocation)
         getRecords()
+    }
+    
+    func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!) {
+        
+        performSegue(withIdentifier: "newEntry", sender: sender)
     }
     
     override func viewDidAppear(_ animated: Bool) {

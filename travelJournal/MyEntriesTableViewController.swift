@@ -26,8 +26,23 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TabBarController.myRightSideBarButtonItemTapped(_:)))
+        
+        self.navigationItem.rightBarButtonItem = addButton
+        
+        //check for saved credientials and push for login
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "username") == nil {
+            performSegue(withIdentifier: "toLogin", sender: nil)
+        }
+        
         userID = (Auth.auth().currentUser?.email)!   ///// current user
         self.getRecords()
+    }
+    
+    func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!) {
+        
+        performSegue(withIdentifier: "newEntry", sender: sender)
     }
     
     func filterEntries()

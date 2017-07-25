@@ -33,6 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print("Ooops! Something went wrong: \(error)")
 //        }
 
+        //setting credentials to nil
+//        let defaults = UserDefaults.standard
+//        defaults.set(nil, forKey: "username")
+//        defaults.set(nil, forKey: "password")
+//        defaults.set(nil, forKey: "token")
+        
         FirebaseApp.configure()
         return true
     }

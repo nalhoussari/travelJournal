@@ -29,9 +29,19 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TabBarController.myRightSideBarButtonItemTapped(_:)))
+        
+        self.navigationItem.rightBarButtonItem = addButton
+        
         self.fetchData()
         
     }
+    
+    func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!) {
+        
+        performSegue(withIdentifier: "newEntry", sender: sender)
+    }
+
 
     override func viewWillAppear(_ animated: Bool) {
         

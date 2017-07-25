@@ -61,6 +61,10 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
 
         //
         
+        //set credentials
+        let defaults = UserDefaults.standard
+        defaults.set(self.usernameTextField.text!, forKey: "username")
+        defaults.set(self.passwordTextField.text!, forKey: "password")
         
         
         ref = Database.database().reference()
