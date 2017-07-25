@@ -100,51 +100,98 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     //MARK: - Action
     //select photo
     @IBAction func selectImageFromPhotoLibrary(_ sender: UIButton) {
-    convertLocationToCoordinates()    
+  
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
         
         // Make sure ViewController is notified when the user picks an image.
         imagePickerController.delegate = self
-        
-        //present(imagePickerController, animated: true, completion: nil)
-//        if TARGET_OS_SIMULATOR == 1 {
-            // 3. We check if we are running on a Simulator
-            //    If so, we pick a photo from the simulator’s Photo Library
-            // We need to do this because the simulator does not have a camera
-            imagePickerController.sourceType = .photoLibrary
-//        } else {
-//            // 4. We check if we are running on an iPhone or iPad (ie: not a simulator)
-//            //    If so, we open up the pickerController's Camera (Front Camera, for selfies!)
-//            imagePickerController.sourceType = .camera
-//            imagePickerController.cameraDevice = .front
-//            imagePickerController.cameraCaptureMode = .photo
-//        }
+        imagePickerController.sourceType = .photoLibrary
         
         // Preset the pickerController on screen
         self.present(imagePickerController, animated: true, completion: nil)
 
-        
     }
+    
     // MARK: - Geocoding
     @IBAction func tapOutsideTextField(_ sender: Any) {
-        convertLocationToCoordinates()
+        //convertLocationToCoordinates()
     }
+    
     lazy var geocoder = CLGeocoder()
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
     func convertLocationToCoordinates()
     {
         guard let userLocation = newEntryLocation.text else { return }
         
         // Geocode Address String
         let address = "\(userLocation)"
-        geocoder.geocodeAddressString(address) { (placemarks, error) in
-            self.processResponse(withPlacemarks: placemarks, error: error)
-        }
         
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            //self.processResponse(withPlacemarks: placemarks, error: error)
+            if let error = error {print("Unable to Forward Geocode Address (\(error))")}
+            else {
+
+                var location: CLLocation?
+                
+                if let placemarks = placemarks, placemarks.count > 0 {
+                    location = placemarks.first?.location
+                }
+                
+                if let location = location {
+                    let coordinate = location.coordinate
+                    
+               DispatchQueue.main.async {
+                    self.lat = coordinate.latitude as NSNumber;()
+                    self.long = coordinate.longitude as NSNumber;()
+                    self.view.addSubview(self.spinner)
+                    self.spinner.center = (self.view.center)
+                    self.spinner.color = UIColor.black
+                    self.spinner.startAnimating()
+                    self.spinner.hidesWhenStopped = true
+                    
+                    // pass the new entries in this initializer
+                    let newEntry = JournalModel(id: self.userID, title: self.newEntryTitle.text!, tripDescription: self.newEntryTextView.text, date: self.newEntryDate.date as Date, location: self.newEntryLocation.text!, latitude: self.lat, longitude: self.long)
+                    
+                    if self.imageData.count > 0 {
+                        newEntry.imageData = self.imageData
+                    } else {
+                        let defaultImage = UIImage(named:"default.png")
+                        let defaultData = UIImagePNGRepresentation(defaultImage!);
+                        newEntry.imageData.append(defaultData!)
+                    }
+                    
+                    
+                    FBDatabase.SaveJournalToDatabase(journalModel: newEntry) { (error) in
+                        if let error = error {
+                            let alert = UIAlertController(title: "Error Saving", message: "\(error)", preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                                print("OK")
+                            })
+                            
+                            self.present(alert, animated: true)
+                        }
+                        
+                        self.delegate?.newEntryDetails(self.entry!)
+                        
+                        //update UI on mainthread. need to pop in main thread, therefor need to use OperationQueue.main.addOperation
+                        OperationQueue.main.addOperation {
+                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        self.spinner.stopAnimating()
+                    }
+
+                  }
+                } else {}
+            }
+        }
     }
+    
     private func processResponse(withPlacemarks placemarks: [CLPlacemark]?, error: Error?) {
         
         if let error = error {print("Unable to Forward Geocode Address (\(error))")}
@@ -159,7 +206,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
                 let coordinate = location.coordinate
                 self.lat = coordinate.latitude as NSNumber;()
                 self.long = coordinate.longitude as NSNumber;()
-                
             } else {}
         }
     }
@@ -167,40 +213,46 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     //save button
     func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!){
         print("myRightSideBarButtonItemTapped")
+        convertLocationToCoordinates()
     
-        self.view.addSubview(self.spinner)
-        self.spinner.center = (self.view.center)
-        self.spinner.color = UIColor.black
-        self.spinner.startAnimating()
-        self.spinner.hidesWhenStopped = true
-        
-        // pass the new entries in this initializer
-        let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: newEntryLocation.text!, latitude: self.lat, longitude: self.long)
-        
-        //newEntry.images = self.newEntryPhotos
-        newEntry.imageData = self.imageData
-        
-        
-        FBDatabase.SaveJournalToDatabase(journalModel: newEntry) { (error) in
-            if let error = error {
-                let alert = UIAlertController(title: "Error Saving", message: "\(error)", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                    print("OK")
-                })
-                
-                self.present(alert, animated: true)
-            }
-  
-            self.delegate?.newEntryDetails(self.entry!)
-            
-            //update UI on mainthread. need to pop in main thread, therefor need to use OperationQueue.main.addOperation
-            OperationQueue.main.addOperation {
-                self.navigationController?.popViewController(animated: true)
-                self.dismiss(animated: true, completion: nil)
-            }
-            self.spinner.stopAnimating()
-        }
+//        self.view.addSubview(self.spinner)
+//        self.spinner.center = (self.view.center)
+//        self.spinner.color = UIColor.black
+//        self.spinner.startAnimating()
+//        self.spinner.hidesWhenStopped = true
+//        
+//        // pass the new entries in this initializer
+//        let newEntry = JournalModel(id: userID, title: newEntryTitle.text!, tripDescription: newEntryTextView.text, date: newEntryDate.date as Date, location: newEntryLocation.text!, latitude: self.lat, longitude: self.long)
+//        
+//        if self.imageData.count > 0 {
+//            newEntry.imageData = self.imageData
+//        } else {
+//            let defaultImage = UIImage(named:"default.png")
+//            let defaultData = UIImagePNGRepresentation(defaultImage!);
+//            newEntry.imageData.append(defaultData!)
+//        }
+//        
+//        
+//        FBDatabase.SaveJournalToDatabase(journalModel: newEntry) { (error) in
+//            if let error = error {
+//                let alert = UIAlertController(title: "Error Saving", message: "\(error)", preferredStyle: .alert)
+//                
+//                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+//                    print("OK")
+//                })
+//                
+//                self.present(alert, animated: true)
+//            }
+//  
+//            self.delegate?.newEntryDetails(self.entry!)
+//            
+//            //update UI on mainthread. need to pop in main thread, therefor need to use OperationQueue.main.addOperation
+//            OperationQueue.main.addOperation {
+//                self.navigationController?.popViewController(animated: true)
+//                self.dismiss(animated: true, completion: nil)
+//            }
+//            self.spinner.stopAnimating()
+//        }
     }
     
     //MARK: - Database of Photos TableView
