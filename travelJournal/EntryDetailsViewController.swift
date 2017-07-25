@@ -43,11 +43,11 @@ class EntryDetailsViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if self.imagesArray.count >= 1 {
-            detailImageView.image = self.imagesArray[0]
-        }
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        if self.imagesArray.count >= 1 {
+//            detailImageView.image = self.imagesArray[0]
+//        }
+//    }
     
     func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {

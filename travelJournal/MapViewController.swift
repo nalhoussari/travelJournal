@@ -109,9 +109,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "mapToDetail")
         {
-            let mapSegue = segue.destination as! EntryDetailsViewController
-            mapSegue.entry = (sender as! CustomPointAnnotation).currEntry
+            let journal = (sender as! CustomPointAnnotation).currEntry
             
+            if journal.imageLocations.count > 0
+            {
+                
+                FBDatabase.GetJournalImages(imageLocation: journal.imageLocations[0]) { (image, localImagePath) in
+                    DispatchQueue.main.async {
+                        journal.images.append(image)
+                        journal.localImagePath.append(localImagePath)
+                        let mapSegue = segue.destination as! EntryDetailsViewController
+                        mapSegue.entry = journal
+                        //self.performSegue(withIdentifier: "mapToDetail", sender: self.currPin)
+                    }
+                }
+            }
         }
     }
 
