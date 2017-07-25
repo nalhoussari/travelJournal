@@ -129,7 +129,53 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             //self.processResponse(withPlacemarks: placemarks, error: error)
-            if let error = error {print("Unable to Forward Geocode Address (\(error))")}
+            if let error = error {
+                
+                print("Unable to Forward Geocode Address (\(error))")
+                
+                DispatchQueue.main.async {
+                    self.view.addSubview(self.spinner)
+                    self.spinner.center = (self.view.center)
+                    self.spinner.color = UIColor.black
+                    self.spinner.startAnimating()
+                    self.spinner.hidesWhenStopped = true
+                    
+                    // pass the new entries in this initializer
+                    let newEntry = JournalModel(id: self.userID, title: self.newEntryTitle.text!, tripDescription: self.newEntryTextView.text, date: self.newEntryDate.date as Date, location: self.newEntryLocation.text!, latitude: self.lat, longitude: self.long)
+                    
+                    if self.imageData.count > 0 {
+                        newEntry.imageData = self.imageData
+                    } else {
+                        let defaultImage = UIImage(named:"default.png")
+                        let defaultData = UIImagePNGRepresentation(defaultImage!);
+                        newEntry.imageData.append(defaultData!)
+                    }
+                    
+                    
+                    FBDatabase.SaveJournalToDatabase(journalModel: newEntry) { (error) in
+                        if let error = error {
+                            let alert = UIAlertController(title: "Error Saving", message: "\(error)", preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                                print("OK")
+                            })
+                            
+                            self.present(alert, animated: true)
+                        }
+                        
+                        self.delegate?.newEntryDetails(self.entry!)
+                        
+                        //update UI on mainthread. need to pop in main thread, therefor need to use OperationQueue.main.addOperation
+                        OperationQueue.main.addOperation {
+                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        self.spinner.stopAnimating()
+                    }
+                    
+                }
+            
+            }
             else {
 
                 var location: CLLocation?
@@ -213,7 +259,8 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let imageString = imagesStringArray[indexPath.row]
         cell.textLabel?.text = imageString
-        cell.backgroundColor = UIColor.red
+        //cell.backgroundColor = UIColor.red
+        cell.backgroundColor = UIColor.lightGray
         
         return cell
     }
