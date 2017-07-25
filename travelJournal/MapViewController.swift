@@ -94,7 +94,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let calloutButton = UIButton(type: .detailDisclosure)
             pinView!.rightCalloutAccessoryView = calloutButton
             
-            let callOutImg = UIImageView(image: #imageLiteral(resourceName: "hearts-on"))
+            let callOutImg = UIImageView(image: #imageLiteral(resourceName: "Icon"))
             pinView!.leftCalloutAccessoryView = callOutImg
             
             pinView!.sizeToFit()
