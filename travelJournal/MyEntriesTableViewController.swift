@@ -31,11 +31,17 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.navigationItem.rightBarButtonItem = addButton
         
-        self.getRecords()
+        self.navigationItem.setHidesBackButton(true, animated: false)
 
-        //check for saved credientials and push for login
-//        let defaults = UserDefaults.standard
-//        defaults.string(forKey: "username") == nil) ||
+        
+        if  Auth.auth().currentUser == nil {
+            performSegue(withIdentifier: "toLogin", sender: nil)
+        } else {
+            userID = (Auth.auth().currentUser?.email)!
+            self.getRecords()
+        }
+//        self.getRecords()
+
 
     }
     
@@ -212,6 +218,13 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
             let entryDetailsViewController = segue.destination as? EntryDetailsViewController
             entryDetailsViewController?.entry = self.filteredArray[selectedRow]
         }
+        
+        else if let loginScreen = segue.destination as? LoginViewController {
+            
+            loginScreen.hidesBottomBarWhenPushed = true
+            loginScreen.navigationItem.setHidesBackButton(true, animated: false)
+        }
+      
         
     }
     
