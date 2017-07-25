@@ -201,7 +201,7 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         }
         
         cell.allEntriesCellLabel.text = entry?.title
-        cell.allEntriesLabelDescription.text = entry?.tripDescription
+        cell.allEntriesLabelDescription.text = "   " + (entry?.location)!
         
         cell.journalObject = entry
         
