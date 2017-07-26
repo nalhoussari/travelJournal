@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -114,11 +115,12 @@
                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lyK-ad-6cD">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lyK-ad-6cD">
                                                     <rect key="frame" x="33" y="49" width="309" height="191"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="191" id="NTX-fE-DJf"/>
                                                         <constraint firstAttribute="width" constant="309" id="OaF-tg-6I0"/>
+                                                        <constraint firstAttribute="width" secondItem="lyK-ad-6cD" secondAttribute="height" multiplier="309:191" id="QxB-3k-Yxz"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="309" id="RC7-U4-qtF"/>
                                                     </constraints>
                                                 </imageView>
@@ -167,6 +169,7 @@
                                                 <constraint firstItem="Uy4-ZL-78d" firstAttribute="width" secondItem="lyK-ad-6cD" secondAttribute="width" id="G1q-jk-gNg"/>
                                                 <constraint firstItem="lyK-ad-6cD" firstAttribute="top" secondItem="X4Q-w0-bVN" secondAttribute="top" constant="49" id="Jsa-Rw-nhi"/>
                                                 <constraint firstAttribute="trailing" secondItem="lyK-ad-6cD" secondAttribute="trailing" id="OMO-a8-fZH"/>
+                                                <constraint firstItem="Uy4-ZL-78d" firstAttribute="trailing" secondItem="lyK-ad-6cD" secondAttribute="trailing" id="PjV-kr-VTT"/>
                                                 <constraint firstItem="bOB-0x-Unu" firstAttribute="leading" secondItem="X4Q-w0-bVN" secondAttribute="leadingMargin" constant="25" id="YjQ-f6-woE"/>
                                                 <constraint firstItem="Uy4-ZL-78d" firstAttribute="bottom" secondItem="lyK-ad-6cD" secondAttribute="bottom" id="YtM-7y-KJL"/>
                                                 <constraint firstItem="Uy4-ZL-78d" firstAttribute="top" secondItem="d8T-m6-dyy" secondAttribute="bottom" constant="161.5" id="ZNv-D7-cCt"/>
@@ -438,7 +441,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="321" height="20"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1ir-tV-vCF" id="ns2-gC-KHi">
-                                                            <rect key="frame" x="0.0" y="0.0" width="282" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="282" height="20"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
