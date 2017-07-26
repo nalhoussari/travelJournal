@@ -20,7 +20,8 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     var ref: DatabaseReference!
-    
+    var userID : String = ""
+
     
     //splash
     var mask: CALayer?
@@ -62,16 +63,18 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
         //
         
         //set credentials
-        let defaults = UserDefaults.standard
-        defaults.set(self.usernameTextField.text!, forKey: "username")
-        defaults.set(self.passwordTextField.text!, forKey: "password")
-        
+//        let defaults = UserDefaults.standard
+//        defaults.set(self.usernameTextField.text!, forKey: "username")
+//        defaults.set(self.passwordTextField.text!, forKey: "password")
+//        
         
         ref = Database.database().reference()
         Auth.auth().addStateDidChangeListener(){ auth, user in
-            if user != nil{
-                // self.performSegue(withIdentifier: self.loginToList, sender: nil)
-            }
+            
+
+//            if user != nil{
+//                // self.performSegue(withIdentifier: self.loginToList, sender: nil)
+//            }
             
         }
     }
@@ -116,7 +119,18 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
     
     @IBAction func loginButtonTapped(_ sender: Any) {
         Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!)
+        
+        if Auth.auth().currentUser != nil {
+            // successful
+            userID = (Auth.auth().currentUser?.email)!
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        else {
+        // We can add: alert to user
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
+    
     @IBAction func signupButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: "Register",
                                       message: "Register",
