@@ -156,8 +156,13 @@ class FBDatabase {
                     //uh-oh an error happened
                     print("the errors is: \(error)")
                 } else {
-                    let imagePath = url?.absoluteURL
-                    image = UIImage(contentsOfFile: (imagePath?.path)!)!
+                    
+                    if url?.absoluteURL != nil {
+                        let imagePath = url?.absoluteURL
+                         if imagePath?.path != nil {
+                            image = UIImage(contentsOfFile: (imagePath?.path)!)!
+                        }
+                    }
                     //closure(image, localImagePath)
                 }
                 closure(image, localImagePath, error)
