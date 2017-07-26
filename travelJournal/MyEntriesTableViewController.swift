@@ -105,7 +105,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
 //            performSegue(withIdentifier: "toLogin", sender: nil)
 //        } else {
 //            userID = (Auth.auth().currentUser?.email)?   ///// current user
-//            self.getRecords()
+            self.getRecords()
 //        }
         
     }
