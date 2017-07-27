@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     var ref: DatabaseReference!
     var userID : String = ""
-
+    let spinner = UIActivityIndicatorView()
     
     //splash
     var mask: CALayer?
@@ -42,40 +42,12 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
         self.view.layer.mask = mask
         
     
-        
-//        init(red: CGFloat,
-//        green: CGFloat,
-//        blue: CGFloat,
-//        alpha: CGFloat)
-        //let maskColor = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1)
-        //let maskColor = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1)
-        //self.mask?.backgroundColor = maskColor.cgColor
-        
-        //let maskColor = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1)
-        //self.mask?.backgroundColor = UIColor.red.cgColor
-        
-        
-            //UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1) as! CGColor
-        //self.view.backgroundColor = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1)
-        
         animate()
 
-        //
-        
-        //set credentials
-//        let defaults = UserDefaults.standard
-//        defaults.set(self.usernameTextField.text!, forKey: "username")
-//        defaults.set(self.passwordTextField.text!, forKey: "password")
-//        
         
         ref = Database.database().reference()
         Auth.auth().addStateDidChangeListener(){ auth, user in
-            
-
-//            if user != nil{
-//                // self.performSegue(withIdentifier: self.loginToList, sender: nil)
-//            }
-            
+             
         }
     }
     
@@ -118,18 +90,48 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func loginButtonTapped(_ sender: Any) {
-        Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!)
         
-        if Auth.auth().currentUser != nil {
-            // successful
-            userID = (Auth.auth().currentUser?.email)!
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        else {
-        // We can add: alert to user
-            self.navigationController?.popToRootViewController(animated: true)
+        self.view.addSubview(self.spinner)
+        self.spinner.center = (self.view.center)
+        self.spinner.color = UIColor.black
+        self.spinner.startAnimating()
+        self.spinner.hidesWhenStopped = true
+
+
+        logIn(username: usernameTextField.text!, password: passwordTextField.text!)
+        
+    }
+    
+    
+    func logIn(username: String, password: String){
+        
+        
+        Auth.auth().signIn(withEmail: username, password: password) { (user, error) in
+            
+            if let error = error {
+                
+                let alert = UIAlertController(title: "Invalid Credentials", message: "\(error)", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                    print("OK")
+                })
+                self.spinner.stopAnimating()
+                self.present(alert, animated: true)
+                
+            } else if Auth.auth().currentUser != nil {
+                // successful
+                self.userID = (Auth.auth().currentUser?.email)!
+                self.spinner.stopAnimating()
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+            else {
+                // We can add: alert to user
+                self.spinner.stopAnimating()
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }
     }
+    
     
     @IBAction func signupButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: "Register",
@@ -141,11 +143,19 @@ class LoginViewController: UIViewController, CAAnimationDelegate {
                                         let emailField = alert.textFields![0]
                                         let passwordField = alert.textFields![1]
                                         
+                                        self.view.addSubview(self.spinner)
+                                        self.spinner.center = (self.view.center)
+                                        self.spinner.color = UIColor.black
+                                        self.spinner.startAnimating()
+                                        self.spinner.hidesWhenStopped = true
+
+                                        
                                         Auth.auth().createUser(withEmail: emailField.text!,
                                                                password: passwordField.text!) { user, error in
                                                                 if error == nil {
-                                                                    Auth.auth().signIn(withEmail: self.usernameTextField.text!,
-                                                                                       password: self.passwordTextField.text!)
+                                                                    
+                                                                    self.logIn(username: emailField.text!, password: passwordField.text!)
+                                                                    
                                                                 }
                                         }
         }

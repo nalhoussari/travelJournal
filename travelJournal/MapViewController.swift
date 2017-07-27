@@ -45,26 +45,41 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         performSegue(withIdentifier: "newEntry", sender: sender)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         getRecords()
     }
     
     func centerMapOnLocation(_ location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 3.0, regionRadius * 3.0)
         mapView.setRegion(coordinateRegion, animated: true)
+        
     }
     
     func getRecords(){
-        FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
-            if let error = error {print("Unable to Forward Geocode Address (\(error))")}
-            
-            self.entries = journalArray!
-            self.pinEntries()
-        }
         
+        FBDatabase.GetJournalsFromDatabase { (journalArray, error) in
+            if let error = error {
+                print("Unable to Forward Geocode Address (\(error))")
+            } else {
+            
+                OperationQueue.main.addOperation {
+                    print("journaarray count: ", journalArray?.count ?? "")
+                    self.entries = journalArray!
+                    
+                    self.annotations.removeAll()
+                    self.mapView.removeAnnotations(self.annotations)
+                    print("afater REMOVE annotation count: ", self.annotations.count)
+                    
+                    self.pinEntries()
+                }
+            }
+        }
     }
+    
     func pinEntries(){
+        
         for entryTemp in (self.entries){
+
             let annotation = CustomPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(entryTemp.latitude), CLLocationDegrees(entryTemp.longitude))
             annotation.title = entryTemp.title
@@ -73,12 +88,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
             annotations.append(annotation)
         }
-        mapView.addAnnotations(annotations)
+        
+        DispatchQueue.main.async() {
+            self.mapView.setNeedsDisplay() // SetNeedsDisplay();
+            self.mapView.addAnnotations(self.annotations)
+            print("annotation count pint entries: ", self.annotations.count)
+        }
     }
     
     
     //MARK: - MKMapView Methods
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
     {
         if annotation is MKUserLocation {return nil}
@@ -103,8 +122,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         else {
             pinView!.annotation = annotation
         }
-        
-        
         return pinView
     }
     
@@ -121,7 +138,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
-            print("Button taaped ")
+            print("Button taped ")
             self.performSegue(withIdentifier: "mapToDetail", sender: self.currPin)
         }
     }
@@ -131,7 +148,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         if let annotation = view.annotation as? CustomPointAnnotation {
             currPin = annotation
-            //            print("Your annotation title: \(annotation.title)");
         }
     }
 }

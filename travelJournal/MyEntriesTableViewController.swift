@@ -96,17 +96,8 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             userID = (Auth.auth().currentUser?.email)!
         }
-        
-//        guard let _ = (Auth.auth().currentUser?.email) else {
-//            performSegue(withIdentifier: "toLogin", sender: nil)
-//            return
-//        }
-//        if userID == "" {
-//            performSegue(withIdentifier: "toLogin", sender: nil)
-//        } else {
-//            userID = (Auth.auth().currentUser?.email)?   ///// current user
-//            self.getRecords()
-//        }
+
+        self.getRecords()
         
     }
     
@@ -142,12 +133,7 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         cell.spinner.color = UIColor.black
         cell.spinner.startAnimating()
         cell.spinner.hidesWhenStopped = true
-//        
-//        if entry.isLiked == 1 {
-//            cell.likebutton.isSelected = true
-//        } else{
-//            cell.likebutton.isSelected = false
-//        }
+
         
         if entry.localImagePath.count < 1 {
             if entry.imageLocations.count > 0 {
@@ -178,12 +164,10 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
             cell.myEntriesImageView.image = image
         }
         
-        //cell.backgroundColor = UIColor.orange
         
         cell.myEntriesLabelTitle.text = entry.title
         cell.myEntriesLabelDescription.text = entry.tripDescription
         
-//        cell.journalObject = entry
         
         return cell
     }
