@@ -81,7 +81,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let annotation = CustomPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2DMake(CLLocationDegrees(entryTemp.latitude), CLLocationDegrees(entryTemp.longitude))
             annotation.title = entryTemp.title
-            annotation.subtitle = entryTemp.tripDescription
+            annotation.subtitle = entryTemp.location
             annotation.currEntry = entryTemp
 
             annotations.append(annotation)
