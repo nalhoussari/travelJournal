@@ -66,8 +66,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     print("journaarray count: ", journalArray?.count ?? "")
                     self.entries = journalArray!
                     
+                     self.mapView.removeAnnotations(self.annotations)
                     self.annotations.removeAll()
-                    self.mapView.removeAnnotations(self.annotations)
+                   
                     print("afater REMOVE annotation count: ", self.annotations.count)
                     
                     self.pinEntries()
@@ -90,7 +91,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         DispatchQueue.main.async() {
-            self.mapView.setNeedsDisplay() // SetNeedsDisplay();
+            //self.mapView.setNeedsDisplay() // SetNeedsDisplay();
             self.mapView.addAnnotations(self.annotations)
             print("annotation count pint entries: ", self.annotations.count)
         }
