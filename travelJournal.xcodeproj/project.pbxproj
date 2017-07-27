@@ -20,6 +20,7 @@
 		7CDB9D881F197413002ED703 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CDB9D871F197413002ED703 /* MapKit.framework */; };
 		D7203C3D1F18125D00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D7203C411F18129A00DD6DF4 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		D73A064E1F297102008204D7 /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A064D1F297102008204D7 /* apiKeys.swift */; };
 		D744E6021F1D44AC004ABA3F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E6011F1D44AC004ABA3F /* User.swift */; };
 		D78DF2521F1853E600683421 /* AddEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2511F1853E600683421 /* AddEntryViewController.swift */; };
 		D78DF2541F1853EC00683421 /* AllEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */; };
@@ -30,7 +31,6 @@
 		D78DF25E1F18540700683421 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF25D1F18540700683421 /* MapViewController.swift */; };
 		D78DF2601F18540B00683421 /* MyEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */; };
 		D78DF2621F18540E00683421 /* MyEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78DF2611F18540E00683421 /* MyEntriesTableViewController.swift */; };
-		D7D9DE291F291C92003E422C /* apiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D9DE281F291C92003E422C /* apiKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +49,7 @@
 		7CDB9D871F197413002ED703 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A673A75DA28A7ECA19F67437 /* Pods-travelJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		D39053E9CDA29D30D381B2F3 /* Pods-travelJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-travelJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-travelJournal/Pods-travelJournal.release.xcconfig"; sourceTree = "<group>"; };
+		D73A064D1F297102008204D7 /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
 		D744E6011F1D44AC004ABA3F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D78DF2511F1853E600683421 /* AddEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEntryViewController.swift; sourceTree = "<group>"; };
 		D78DF2531F1853EC00683421 /* AllEntriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllEntriesTableViewCell.swift; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		D78DF25D1F18540700683421 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D78DF25F1F18540B00683421 /* MyEntriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEntriesTableViewCell.swift; sourceTree = "<group>"; };
 		D78DF2611F18540E00683421 /* MyEntriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEntriesTableViewController.swift; sourceTree = "<group>"; };
-		D7D9DE281F291C92003E422C /* apiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apiKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,7 @@
 		7CD7AFF51F16A60C007351EE /* travelJournal */ = {
 			isa = PBXGroup;
 			children = (
-				D7D9DE281F291C92003E422C /* apiKeys.swift */,
+				D73A064D1F297102008204D7 /* apiKeys.swift */,
 				73E2A4151F183DAE00FA15F9 /* GoogleService-Info.plist */,
 				7CDB9D831F194FDF002ED703 /* TabBarController.swift */,
 				D78DF2511F1853E600683421 /* AddEntryViewController.swift */,
@@ -274,8 +274,8 @@
 				D78DF2581F1853F900683421 /* Entry.swift in Sources */,
 				D78DF2561F1853F000683421 /* AllEntriesTableViewController.swift in Sources */,
 				D78DF2621F18540E00683421 /* MyEntriesTableViewController.swift in Sources */,
+				D73A064E1F297102008204D7 /* apiKeys.swift in Sources */,
 				7CD7AFF71F16A60C007351EE /* AppDelegate.swift in Sources */,
-				D7D9DE291F291C92003E422C /* apiKeys.swift in Sources */,
 				D7203C411F18129A00DD6DF4 /* (null) in Sources */,
 				D744E6021F1D44AC004ABA3F /* User.swift in Sources */,
 				73FEFF801F1AA58E0029F198 /* FBDatabase.swift in Sources */,
