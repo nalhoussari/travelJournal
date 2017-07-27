@@ -28,7 +28,6 @@ class EntryDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.gettingImages()
            self.gettingImages { (error) in
             if let error = error{
                 print("the errors is: \(error)")
@@ -39,7 +38,6 @@ class EntryDetailsViewController: UIViewController {
             }
         }
     
-        //self.configureView()
         self.detailTextView.isEditable = false
         
         
@@ -72,7 +70,6 @@ class EntryDetailsViewController: UIViewController {
         }
     }
     
-    //func gettingImages() {
     func gettingImages(closure: @escaping (_ error: Error?) -> ()) {
         
         if (self.entry?.localImagePath.count)! <= 1 {
@@ -108,7 +105,6 @@ class EntryDetailsViewController: UIViewController {
                 self.imagesArray.append(image!)
             }
         }
-        //closure(error)
     }
     
     func moveImageLeft(){

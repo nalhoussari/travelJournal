@@ -26,7 +26,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var imagesStringArray = [String] ()
 
-    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var newEntryLocation: UITextField!
     @IBOutlet weak var newEntryTitle: UITextField!
     @IBOutlet weak var newEntryDate: UIDatePicker!
@@ -69,7 +68,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
-            //let urlString: String = imageURL.absoluteString!
             imagesStringArray.append(imageURL.lastPathComponent!)
             
         }else {
@@ -224,7 +222,6 @@ class AddEntryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let imageString = imagesStringArray[indexPath.row]
         cell.textLabel?.text = imageString
-        //cell.backgroundColor = UIColor.red
         cell.backgroundColor = UIColor.lightGray
         
         return cell

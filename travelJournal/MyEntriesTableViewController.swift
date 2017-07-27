@@ -122,7 +122,6 @@ class MyEntriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         let entry = filteredArray[indexPath.row]
         
-        //        cell.allEntriesImageView.addSubview(cell.spinner)
         cell.spinner.center = (cell.myEntriesImageView?.center)!
         cell.spinner.color = UIColor.black
         cell.spinner.startAnimating()

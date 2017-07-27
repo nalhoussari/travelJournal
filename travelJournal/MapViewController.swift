@@ -15,7 +15,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     //MARK: - Properties
     var entries = [JournalModel]()
-//    var currEntry = JournalModel()
     var currPin = CustomPointAnnotation()
     var populatedJournal = JournalModel()
 
@@ -66,11 +65,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     print("journaarray count: ", journalArray?.count ?? "")
                     self.entries = journalArray!
                     
-                     self.mapView.removeAnnotations(self.annotations)
+                    self.mapView.removeAnnotations(self.annotations)
                     self.annotations.removeAll()
-                   
-                    print("afater REMOVE annotation count: ", self.annotations.count)
-                    
+                
                     self.pinEntries()
                 }
             }
@@ -90,11 +87,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotations.append(annotation)
         }
         
-        DispatchQueue.main.async() {
-            //self.mapView.setNeedsDisplay() // SetNeedsDisplay();
             self.mapView.addAnnotations(self.annotations)
-            print("annotation count pint entries: ", self.annotations.count)
-        }
     }
     
     

@@ -163,7 +163,6 @@ class FBDatabase {
                             image = UIImage(contentsOfFile: (imagePath?.path)!)!
                         }
                     }
-                    //closure(image, localImagePath)
                 }
                 closure(image, localImagePath, error)
             }

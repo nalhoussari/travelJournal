@@ -55,9 +55,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
             
             if let journalArray = journalArray {
                 
-                //emptying the variables before fetching data again to avoid duplicate tableView dublicate dataSource
-                //self.emptyVariables()
-                
                 self.entries = [JournalModel]()
                 self.users = [String]()
                 self.uniqueUsers = [String]()
@@ -155,10 +152,8 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
         let userEntries = dataSource[user]
         let entry = userEntries?[indexPath.row]
         
-        //cell.backgroundColor = UIColor.white
         
         print("indexpath: \(indexPath.row)")
-//        print("localpathcount: \(entry.localImagePath.count)")
         
         cell.spinner.center = (cell.allEntriesImageView?.center)!
         cell.spinner.color = UIColor.black
@@ -184,7 +179,6 @@ class AllEntriesTableViewController: UIViewController, UITableViewDataSource, UI
                     entry?.localImagePath.append(localImagePath)
                 }
             } else {
-                //cell.imageView?.image = UIImage(named: "default.png")
                 cell.spinner.stopAnimating()
                 cell.allEntriesImageView.image = UIImage(named: "default.png")
             }
