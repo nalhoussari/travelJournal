@@ -10,8 +10,8 @@ MapOfAllJournal will let you check all the pins of journals according to their p
 
 Additional Features:
 -   AllSharedJournals are grouped by users
-people can sign up for a new user, log in if they already have a user or the app will take them directly to the first screen.
-data are saved and retracted using Firebase
-a spinner was added to the tableViewCell pictures, log-in and detailedView pictures.
+-  people can sign up for a new user, log in if they already have a user or the app will take them directly to the first screen.
+-  data are saved and retracted using Firebase
+-  a spinner was added to the tableViewCell pictures, log-in and detailedView pictures.
 
 Worth checking a demo-video? please open the link above this document.
